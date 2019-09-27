@@ -366,7 +366,7 @@ classif = raster(&quot;rasters/class_resunet.tif&quot;)</code></pre>
 <p>Visualisar as imagens:</p>
 <pre class="r"><code>cols = colorRampPalette(c(&#39;black&#39;,&#39;white&#39;))
 plot(ground_truth, main = &quot;Ground Truth&quot;, col = cols(2), legend = FALSE)
-plot(classif, main = &quot;Classificação&quot;, col = cols(255))</code></pre>
+plot(classif, main = &quot;Classificação&quot;, col = cols(255), zlim=c(0,1))</code></pre>
 <p><img src="auc_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /><img src="auc_files/figure-html/unnamed-chunk-4-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Conversão dos objetos de raster para vetor:</p>
 <pre class="r"><code>ground_truth = as.vector(ground_truth)
