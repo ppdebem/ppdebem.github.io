@@ -1,0 +1,26 @@
+.col2 {
+  -webkit-columns: 2; /* chrome, safari */
+  -moz-columns: 2;    /* firefox */
+  columns: 2;         /* number of columns and width in pixels*/
+
+}
+.col3 {
+  -webkit-columns: 3;
+  -moz-columns: 3;
+  columns: 3;
+
+}
+
+.col-left{
+  float: left;
+  width: 50%;
+  text-align: left;
+  padding-right: 5px;
+}
+
+.col-right{
+  float: right;
+  width: 50%;
+  text-align: left;
+  padding-left: 5px;
+}
