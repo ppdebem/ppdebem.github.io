@@ -300,13 +300,111 @@ Valor Real = Valor \times Scale + Offset
 </section>
 <section id="exibição-de-imagens" class="level2">
 <h2 class="anchored" data-anchor-id="exibição-de-imagens">Exibição de imagens</h2>
-<p>Por questão de exemplo, vamos selecionar somente as bandas RGB da coleção filtrada utilizando a função <code>select</code>:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> landsat <span class="op">=</span> ee<span class="op">.</span><span class="fu">ImageCollection</span>(<span class="st">'LANDSAT/LC08/C02/T1_L2'</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>              <span class="op">.</span><span class="fu">filterBounds</span>(area)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>              <span class="op">.</span><span class="fu">filterDate</span>(<span class="st">"2021-07-01"</span><span class="op">,</span> <span class="st">"2021-07-31"</span>)<span class="op">;</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>              </span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> landsatRGB <span class="op">=</span> landsat<span class="op">.</span><span class="fu">select</span>([<span class="st">'SR_B2'</span><span class="op">,</span> <span class="st">'SR_B3'</span><span class="op">,</span> <span class="st">'SR_B4'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Agora que sabemos como lidar com os valores das imagens nas coleções, podemos ajusta-los através do código:</p>
+<p>Por questão de exemplo, vamos selecionar somente as bandas RGB da coleção filtrada utilizando a função <code>select</code> que aceita um nome de banda ou uma lista de nomes:</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Listas
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Em javascript listas são denotadas por nomes ou objetos entre colchetes (<code>[ ]</code>), por exemplo:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> bandas_rgb <span class="op">=</span> [<span class="st">'SR_B2'</span><span class="op">,</span> <span class="st">'SR_B3'</span><span class="op">,</span> <span class="st">'SR_B4'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> landsat <span class="op">=</span> ee<span class="op">.</span><span class="fu">ImageCollection</span>(<span class="st">'LANDSAT/LC08/C02/T1_L2'</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>              <span class="op">.</span><span class="fu">filterBounds</span>(area)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>              <span class="op">.</span><span class="fu">filterDate</span>(<span class="st">"2021-07-01"</span><span class="op">,</span> <span class="st">"2021-07-31"</span>)<span class="op">;</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>              </span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> landsatRGB <span class="op">=</span> landsat<span class="op">.</span><span class="fu">select</span>([<span class="st">'SR_B2'</span><span class="op">,</span> <span class="st">'SR_B3'</span><span class="op">,</span> <span class="st">'SR_B4'</span>])<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Não precisamos das duas imagens do mês, então podemos selecionar a primeira delas usando a função <code>first</code> sem nenhum parâmetro:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> landsat <span class="op">=</span> ee<span class="op">.</span><span class="fu">ImageCollection</span>(<span class="st">'LANDSAT/LC08/C02/T1_L2'</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>              <span class="op">.</span><span class="fu">filterBounds</span>(area)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>              <span class="op">.</span><span class="fu">filterDate</span>(<span class="st">"2021-07-01"</span><span class="op">,</span> <span class="st">"2021-07-31"</span>)<span class="op">;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>              </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> landsatRGB <span class="op">=</span> landsat<span class="op">.</span><span class="fu">select</span>([<span class="st">'SR_B2'</span><span class="op">,</span> <span class="st">'SR_B3'</span><span class="op">,</span> <span class="st">'SR_B4'</span>])<span class="op">;</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> landsat_primeira_julho <span class="op">=</span> landsatRGB<span class="op">.</span><span class="fu">first</span>()<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>E agora que sabemos como lidar com os valores das imagens nas coleções, podemos ajusta-los através das funções de multiplicação e adição <code>multiply</code> e <code>add</code>:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> landsat <span class="op">=</span> ee<span class="op">.</span><span class="fu">ImageCollection</span>(<span class="st">'LANDSAT/LC08/C02/T1_L2'</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>              <span class="op">.</span><span class="fu">filterBounds</span>(area)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>              <span class="op">.</span><span class="fu">filterDate</span>(<span class="st">"2021-07-01"</span><span class="op">,</span> <span class="st">"2021-07-31"</span>)<span class="op">;</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>              </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> landsatRGB <span class="op">=</span> landsat<span class="op">.</span><span class="fu">select</span>([<span class="st">'SR_B2'</span><span class="op">,</span> <span class="st">'SR_B3'</span><span class="op">,</span> <span class="st">'SR_B4'</span>])<span class="op">;</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> landsat_primeira_julho <span class="op">=</span> landsatRGB<span class="op">.</span><span class="fu">first</span>()<span class="op">.</span><span class="fu">multiply</span>(<span class="fl">0.0000275</span>)<span class="op">.</span><span class="fu">add</span>(<span class="op">-</span><span class="fl">0.2</span>)<span class="op">;</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co">// Observação: notações cientificas podem ser usadas, isto é, 0.0000275 = 2.75e-05 </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Operações matemáticas em imagens
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>É importante mencionar que sempre que for necessário realizar operações matemáticas a imagens isto deve ser feito utilizando as funções especificas da plataforma Earth Engine tais como <code>multiply</code>, <code>add</code> e <code>divide</code>:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Errado, não funciona</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> imagem_multiplicada <span class="op">=</span> imagem <span class="op">*</span> <span class="dv">2</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co">// Correto</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> imagem_multiplicada <span class="op">=</span> imagem<span class="op">.</span><span class="fu">multiply</span>(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Os meios tradicionais de realização de operações são reservados para objetos simples como números.</p>
+</div>
+</div>
+<p>Antes de exibir a imagem, precisamos definir os parâmetros de visualização tais como as bandas a serem usadas na composição RGB e seus valores mínimos e máximos:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> visualizacao <span class="op">=</span> {</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">bands</span><span class="op">:</span> [<span class="st">'SR_B4'</span><span class="op">,</span> <span class="st">'SR_B3'</span><span class="op">,</span> <span class="st">'SR_B2'</span>]<span class="op">,</span> <span class="co">// Sequencia de bandas RGB</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">min</span><span class="op">:</span> <span class="fl">0.01</span><span class="op">,</span> <span class="co">// Valores mínimo e máximo associados à intensidade das cores  </span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">max</span><span class="op">:</span> <span class="fl">0.2</span><span class="op">,</span> <span class="co">//</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Dicionários
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Em javascript listas são denotadas por pares <code>variável: valor</code> separados por vírgula e inseridos entre chaves (<code>{ }</code>), como observado na variável <code>visualizacao</code> no bloco anterior.</p>
+<p>Dicionários podem ser utilizados para definição de parâmetros dentro de funções</p>
+</div>
+</div>
+</div>
+<p>Finalmente, podemos centralizar o mapa na região de interesse usando a função <code>Map.centerObject</code> e adicionar a imagem usando a função <code>Map.Addlayer</code> que tem como parâmetros a imagem a ser exibida, os parâmetros de visualização e um nome para exibição na legenda. Juntando tudo até agora, temos o código a seguir:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> landsat <span class="op">=</span> ee<span class="op">.</span><span class="fu">ImageCollection</span>(<span class="st">'LANDSAT/LC08/C02/T1_L2'</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>              <span class="op">.</span><span class="fu">filterBounds</span>(area)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>              <span class="op">.</span><span class="fu">filterDate</span>(<span class="st">"2021-07-01"</span><span class="op">,</span> <span class="st">"2021-07-31"</span>)<span class="op">;</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>              </span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> landsatRGB <span class="op">=</span> landsat<span class="op">.</span><span class="fu">select</span>([<span class="st">'SR_B2'</span><span class="op">,</span> <span class="st">'SR_B3'</span><span class="op">,</span> <span class="st">'SR_B4'</span>])<span class="op">;</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> landsat_primeira_julho <span class="op">=</span> landsatRGB<span class="op">.</span><span class="fu">first</span>()<span class="op">.</span><span class="fu">multiply</span>(<span class="fl">0.0000275</span>)<span class="op">.</span><span class="fu">add</span>(<span class="op">-</span><span class="fl">0.2</span>)<span class="op">;</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> visualizacao <span class="op">=</span> {</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">bands</span><span class="op">:</span> [<span class="st">'SR_B4'</span><span class="op">,</span> <span class="st">'SR_B3'</span><span class="op">,</span> <span class="st">'SR_B2'</span>]<span class="op">,</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">min</span><span class="op">:</span> <span class="fl">0.01</span><span class="op">,</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">max</span><span class="op">:</span> <span class="fl">0.2</span><span class="op">,</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">centerObject</span>(area)</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">addLayer</span>(landsat_primeira_julho<span class="op">,</span> visualizacao<span class="op">,</span> <span class="st">'Composição RGB Verdadeira'</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figs/imagem_visu.jpg" class="img-fluid figure-img"></p>
+</figure>
+</div>
 
 
 </section>
