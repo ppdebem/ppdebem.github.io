@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Tutorial Google Earth Engine - Exibição de imagens</title>
+<title>Tutorial GEE LSIE - Exibição de imagens</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -125,7 +125,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="../">Tutorial Google Earth Engine</a> 
+      <a href="../">Tutorial GEE LSIE</a> 
         <div class="sidebar-tools-main">
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
@@ -162,7 +162,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../basicos/basicos_2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Definição da coleção de interesse e filtros básicos</span></a>
+ <span class="menu-text">Definição da coleção e filtros básicos</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -175,6 +175,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../basicos/basicos_4.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Operações entre bandas</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Conceitos intermediarios</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intermediarios/inter_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Criando funções</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intermediarios/inter_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">A função map</span></a>
   </div>
 </li>
       </ul>
@@ -220,7 +243,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="seleção-de-bandas" class="level2">
 <h2 class="anchored" data-anchor-id="seleção-de-bandas">Seleção de bandas</h2>
 <p>Para fim de exemplo, vamos selecionar somente as bandas RGB da coleção filtrada utilizando a função <code>select</code> que aceita um nome de banda ou uma lista de nomes:</p>
-<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -293,7 +316,7 @@ Operações matemáticas em imagens
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">min</span><span class="op">:</span> <span class="fl">0.01</span><span class="op">,</span> <span class="co">// Valores mínimo e máximo associados à intensidade das cores  </span></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">max</span><span class="op">:</span> <span class="fl">0.2</span><span class="op">,</span> <span class="co">//</span></span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -306,7 +329,7 @@ Dicionários
 <div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Em javascript listas são denotadas por pares <code>variável: valor</code> separados por vírgula e inseridos entre chaves (<code>{ }</code>), como observado na variável <code>visualizacao</code> no bloco anterior.</p>
-<p>Dicionários podem ser utilizados para definição de parâmetros dentro de funções</p>
+<p>Dicionários podem ser utilizados para definição de parâmetros dentro de funções.</p>
 </div>
 </div>
 </div>
@@ -335,6 +358,25 @@ Dicionários
 <figure class="figure">
 <p><img src="figs/imagem_visu.jpg" class="img-fluid figure-img"></p>
 </figure>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Dica
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Se não tiver certeza de bons valores para os parâmetros <code>min</code> e <code>max</code> de visualização, clique nas opções da camada no painel do mapa e selecione uma das opções valor automático, por exemplo a opção <code>Stretch: 98%</code>:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figs/img_stretch.jpg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+<p>Insira os valores calculados automaticamente nas variáveis para mante-los na próxima vez que executar o código.</p>
+</div>
 </div>
 
 
@@ -692,7 +734,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../basicos/basicos_2.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Definição da coleção de interesse e filtros básicos</span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Definição da coleção e filtros básicos</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

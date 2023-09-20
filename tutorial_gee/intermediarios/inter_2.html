@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Tutorial GEE LSIE - Definição da coleção e filtros básicos</title>
+<title>Tutorial Google Earth Engine - A função map</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,40 +20,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -64,8 +30,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../basicos/basicos_3.html" rel="next">
-<link href="../basicos/basicos_1.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -97,8 +61,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -112,7 +74,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../basicos/basicos_1.html">Conceitos basicos</a></li><li class="breadcrumb-item"><a href="../basicos/basicos_2.html">Definição da coleção e filtros básicos</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">
+      Tutorial Google Earth Engine
+      </li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -127,7 +91,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="../">Tutorial GEE LSIE</a> 
+      <a href="../">Tutorial Google Earth Engine</a> 
         <div class="sidebar-tools-main">
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
@@ -163,8 +127,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../basicos/basicos_2.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Definição da coleção e filtros básicos</span></a>
+  <a href="../basicos/basicos_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Definição da coleção de interesse e filtros básicos</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -181,52 +145,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
       </ul>
   </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
- <span class="menu-text">Conceitos intermediarios</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../intermediarios/inter_1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Criando funções</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../intermediarios/inter_2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">A função map</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
     </ul>
     </div>
 </nav>
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Nesta página</h2>
-   
-  <ul>
-  <li><a href="#consultando-o-catálogo-de-imagens" id="toc-consultando-o-catálogo-de-imagens" class="nav-link active" data-scroll-target="#consultando-o-catálogo-de-imagens">Consultando o catálogo de imagens</a></li>
-  <li><a href="#definindo-a-coleção-no-código" id="toc-definindo-a-coleção-no-código" class="nav-link" data-scroll-target="#definindo-a-coleção-no-código">Definindo a coleção no código</a></li>
-  <li><a href="#filtro-temporal-e-espacial" id="toc-filtro-temporal-e-espacial" class="nav-link" data-scroll-target="#filtro-temporal-e-espacial">Filtro temporal e espacial</a></li>
-  <li><a href="#consultando-detalhes-das-coleções" id="toc-consultando-detalhes-das-coleções" class="nav-link" data-scroll-target="#consultando-detalhes-das-coleções">Consultando detalhes das coleções</a></li>
-  </ul>
-</nav>
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Definição da coleção e filtros básicos</h1>
+<h1 class="title">A função map</h1>
 </div>
 
 
@@ -241,134 +173,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="consultando-o-catálogo-de-imagens" class="level2">
-<h2 class="anchored" data-anchor-id="consultando-o-catálogo-de-imagens">Consultando o catálogo de imagens</h2>
-<p>O primeiro passo para trabalhar com a plataforma Earth Engine é a definição de uma (ou mais) coleção de interesse. Uma lista completa de todas as coleções disponíveis na plataforma Earth Engine está disponível no link <a href="https://developers.google.com/earth-engine/datasets/catalog" class="uri">https://developers.google.com/earth-engine/datasets/catalog</a>. Também estão disponíveis catálogos específicos para imagens <a href="https://developers.google.com/earth-engine/datasets/catalog/landsat">Landsat</a>, <a href="https://developers.google.com/earth-engine/datasets/catalog/modis">MODIS</a> e <a href="https://developers.google.com/earth-engine/datasets/catalog/sentinel">Sentinel</a>. Você também pode utilizar a barra de busca acima do editor de código para buscar coleções de interesse:</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="figs/busca.jpg" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</section>
-<section id="definindo-a-coleção-no-código" class="level2">
-<h2 class="anchored" data-anchor-id="definindo-a-coleção-no-código">Definindo a coleção no código</h2>
-<p>Podemos então definir nossa coleção através da função <code>ee.ImageCollection</code> que aceita como argumento o código referente à coleção de interesse. O exemplo a seguir mostra a definição da coleção utilizando imagens Landsat 8 corrigidas com valores de reflectância da superfície terrestre, referenciada pelo código <code>'LANDSAT/LC08/C02/T2_L2'</code>. <a href="https://developers.google.com/earth-engine/datasets/catalog/LANDSAT_LC08_C02_T1_L2">Link para a coleção</a>.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> landsat <span class="op">=</span> ee<span class="op">.</span><span class="fu">ImageCollection</span>(<span class="st">'LANDSAT/LC08/C02/T1_L2'</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Definição de variáveis e objetos
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>Por utilizar a linguagem de programação javascript, a definição de novas variáveis ou objetos na plataforma Earth Engine sempre se precederá do comando <code>var</code>:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Exemplo</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> a <span class="op">=</span> <span class="dv">2</span><span class="op">;</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> b <span class="op">=</span> <span class="dv">3</span><span class="op">;</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> c <span class="op">=</span> a <span class="op">+</span> b<span class="op">;</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(c)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="filtro-temporal-e-espacial" class="level2">
-<h2 class="anchored" data-anchor-id="filtro-temporal-e-espacial">Filtro temporal e espacial</h2>
-<p>Certamente não há necessidade de utilizar todas as imagens na coleção, portanto é importante definir uma faixa temporal e uma região de interesse. Utilize a ferramenta de retângulo no painel do mapa e escolha uma área de interesse. Neste caso delimitou-se a região do Parque Nacional de Brasília:</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="figs/parque.jpg" class="img-fluid figure-img"></p>
-</figure>
-</div>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Dica
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Você pode esconder a geometria no painel do mapa e ela continuará funcionando nas funções.</p>
-</div>
-</div>
-<p>Note que isto criou uma geometria nova no painel de edição de código chamada “geometry”. Você pode renomear esta geometria clicando no seu nome:</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="figs/renom.jpg" class="img-fluid figure-img"></p>
-</figure>
-</div>
-<p>Agora podemos filtrar a coleção com base na região definida utilizando a função <code>filterBounds</code> que tem como argumento a área limite:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> landsat <span class="op">=</span> ee<span class="op">.</span><span class="fu">ImageCollection</span>(<span class="st">'LANDSAT/LC08/C02/T1_L2'</span>)<span class="op">.</span><span class="fu">filterBounds</span>(area)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Aplicando funções a objetos
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>Note que funções são aplicadas de maneira subsequente utilizando o ponto (<code>.</code>), que é o modo como as funções são concatenadas uma atrás da outra (se o objeto gerado permitir a aplicação da função). Por exemplo, o código:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>ee<span class="op">.</span><span class="fu">ImageCollection</span>(<span class="st">'LANDSAT/LC08/C02/T1_L2'</span>)<span class="op">.</span><span class="fu">filterBounds</span>(area)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>pode ser lido como “acesse o objeto <code>ee</code> (a base Earth Engine), aplique a função <code>ImageCollection</code> com o argumento <code>'LANDSAT/LC08/C02/T1_L2'</code> e em seguida aplique a função <code>FilterBounds</code> com o argumento <code>area</code>”.</p>
-</div>
-</div>
-</div>
-<p>Em seguida, podemos filtrar a coleção por faixa temporal usando a função <code>filterDate</code> que tem como argumentos a data inicial e a data final. Como exemplo, vamos escolher imagens apenas no mês de julho de 2023.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> landsat <span class="op">=</span> ee<span class="op">.</span><span class="fu">ImageCollection</span>(<span class="st">'LANDSAT/LC08/C02/T1_L2'</span>)<span class="op">.</span><span class="fu">filterBounds</span>(area)<span class="op">.</span><span class="fu">filterDate</span>(<span class="st">"2021-07-01"</span><span class="op">,</span> <span class="st">"2021-07-31"</span>)<span class="op">;</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(landsat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Se você precionar o botão <em>Run</em> utilizando o código anterior, você poderá ver os detalhes da coleção no console. Observe que a coleção agora contem somente 2 imagens:</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="figs/console.jpg" class="img-fluid figure-img"></p>
-</figure>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Observação
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Muitas vezes você verá o código distribuído verticalmente:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> landsat <span class="op">=</span> ee<span class="op">.</span><span class="fu">ImageCollection</span>(<span class="st">'LANDSAT/LC08/C02/T1_L2'</span>)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>              <span class="op">.</span><span class="fu">filterBounds</span>(area)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>              <span class="op">.</span><span class="fu">filterDate</span>(<span class="st">"2021-07-01"</span><span class="op">,</span> <span class="st">"2021-07-31"</span>)<span class="op">;</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(landsat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>O código é essencialmente o mesmo, porém muitos optam pela distribuição vertical por questão de legibilidade.</p>
-</div>
-</div>
-</section>
-<section id="consultando-detalhes-das-coleções" class="level2">
-<h2 class="anchored" data-anchor-id="consultando-detalhes-das-coleções">Consultando detalhes das coleções</h2>
-<p>Antes de continuar, é importante demonstrar como lidar com os detalhes específicos das coleções disponíveis na plataforma. Continuando com imagens Landsat 8 como exemplo, acesse o <a href="https://developers.google.com/earth-engine/datasets/catalog/LANDSAT_LC08_C02_T1_L2">link da coleção</a> e observe o painel logo abaixo do cabeçalho. Este painel contém informações importantes sobre a aquisição, pré-processamento e detalhes sobre o formato das imagens. A aba <strong>Description</strong>, por exemplo, contém as informações gerais sobre a coleção.</p>
-<p>A aba <strong>Bands</strong> descreve as bandas em detalhes, incluindo seus nomes (importante para selecionar bandas específicas). Esta aba é extremamente importante para a visualização e o processamento das imagens. Para economizar espaço de armazenamento, as imagens na plataforma geralmente são salvas em formatos contendo somente números inteiros (Int) e portanto passam por um pré-processamento para ajustar os valores. As bandas 1 a 7 das imagens Landsat 8, por exemplo, tem seus valores entre 1 e 65455 (Int16).</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="figs/bands.jpg" class="img-fluid figure-img"></p>
-</figure>
-</div>
-<p>Para transformar estes valores para valores reais de reflectância, precisamos multiplicar as imagens pelo valor da coluna <strong>Scale</strong> e adicionar o valor da coluna <strong>Offset</strong>. Neste caso, portanto:</p>
-<p><span class="math display">\[
-Valor Real = Valor \times Scale + Offset
-\]</span> Note que no caso das bandas termais estes valores são diferentes e que nem sempre o valor de Offset existe. É importante consultar esta aba antes de processar a coleção de interesse.</p>
-<p>A aba <strong>Image Properties</strong> deste painel contem propriedades importantes especificas para cada imagem em uma coleção tal como valores de Path e Row, nível de processamento, etc. A propriedade <code>CLOUD_COVER</code>, por exemplo, descreve a porcentagem de cobertura de nuvens observada em cada imagem, permitindo filtrar uma coleção para conter somente imagens com baixa presença de nuvens. Veremos como fazer isto em tópicos intermediários.</p>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -719,18 +525,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
-      <a href="../basicos/basicos_1.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">A interface web da plataforma Earth Engine</span>
-      </a>          
-  </div>
-  <div class="nav-page nav-page-next">
-      <a href="../basicos/basicos_3.html" class="pagination-link">
-        <span class="nav-page-text">Exibição de imagens</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
-  </div>
-</nav>
 </div> <!-- /content -->
 
 
