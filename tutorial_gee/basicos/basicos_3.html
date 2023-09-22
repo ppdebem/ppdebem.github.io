@@ -177,6 +177,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Operações entre bandas</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basicos/basicos_5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Criando suas próprias funções</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basicos/basicos_6.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">A função map</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basicos/basicos_7.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reduções</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basicos/basicos_8.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exportando imagens e vetores</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -191,13 +215,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../intermediarios/inter_1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Criando suas próprias funções</span></a>
+ <span class="menu-text">Filtrando propriedades</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../intermediarios/inter_2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">A função map</span></a>
+ <span class="menu-text">Máscaras</span></a>
   </div>
 </li>
       </ul>
@@ -214,9 +238,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#seleção-de-bandas" id="toc-seleção-de-bandas" class="nav-link active" data-scroll-target="#seleção-de-bandas">Seleção de bandas</a></li>
   <li><a href="#extraindo-a-primeira-imagem-da-coleção" id="toc-extraindo-a-primeira-imagem-da-coleção" class="nav-link" data-scroll-target="#extraindo-a-primeira-imagem-da-coleção">Extraindo a primeira imagem da coleção</a></li>
-  <li><a href="#ajuste-de-valores-das-imagens" id="toc-ajuste-de-valores-das-imagens" class="nav-link" data-scroll-target="#ajuste-de-valores-das-imagens">Ajuste de valores das imagens</a></li>
+  <li><a href="#ajustando-os-valores-das-imagens" id="toc-ajustando-os-valores-das-imagens" class="nav-link" data-scroll-target="#ajustando-os-valores-das-imagens">Ajustando os valores das imagens</a></li>
   <li><a href="#definição-dos-parâmetros-de-visualização" id="toc-definição-dos-parâmetros-de-visualização" class="nav-link" data-scroll-target="#definição-dos-parâmetros-de-visualização">Definição dos parâmetros de visualização</a></li>
-  <li><a href="#funções-de-mapa" id="toc-funções-de-mapa" class="nav-link" data-scroll-target="#funções-de-mapa">Funções de mapa</a></li>
+  <li><a href="#funções-de-plotagem" id="toc-funções-de-plotagem" class="nav-link" data-scroll-target="#funções-de-plotagem">Funções de plotagem</a></li>
   </ul>
 </nav>
     </div>
@@ -277,8 +301,8 @@ Listas
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> landsat_primeira_julho <span class="op">=</span> landsatRGB<span class="op">.</span><span class="fu">first</span>()<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="ajuste-de-valores-das-imagens" class="level2">
-<h2 class="anchored" data-anchor-id="ajuste-de-valores-das-imagens">Ajuste de valores das imagens</h2>
+<section id="ajustando-os-valores-das-imagens" class="level2">
+<h2 class="anchored" data-anchor-id="ajustando-os-valores-das-imagens">Ajustando os valores das imagens</h2>
 <p>Como visto na seção anterior, as imagens não apresentam seus valores reais. Sabemos que para as imagens Landsat 8, as bandas 1 a 7 tem um valor de scale igual a 2.75 * 10<sup>-5</sup> e um offset de -0.2, então Podemos então ajustar os valores através das funções de multiplicação e adição <code>multiply</code> e <code>add</code>:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> landsat <span class="op">=</span> ee<span class="op">.</span><span class="fu">ImageCollection</span>(<span class="st">'LANDSAT/LC08/C02/T1_L2'</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>              <span class="op">.</span><span class="fu">filterBounds</span>(area)</span>
@@ -299,7 +323,7 @@ Operações matemáticas em imagens
 </div>
 <div class="callout-body-container callout-body">
 <p>É importante mencionar que sempre que for necessário realizar operações matemáticas a imagens isto deve ser feito utilizando as funções especificas da plataforma Earth Engine tais como <code>multiply</code>, <code>add</code> e <code>divide</code>:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Errado, não funciona</span></span>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Errado</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> imagem_multiplicada <span class="op">=</span> imagem <span class="op">*</span> <span class="dv">2</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">// Correto</span></span>
@@ -334,8 +358,8 @@ Dicionários
 </div>
 </div>
 </section>
-<section id="funções-de-mapa" class="level2">
-<h2 class="anchored" data-anchor-id="funções-de-mapa">Funções de mapa</h2>
+<section id="funções-de-plotagem" class="level2">
+<h2 class="anchored" data-anchor-id="funções-de-plotagem">Funções de plotagem</h2>
 <p>Finalmente, podemos centralizar o mapa na região de interesse usando a função <code>Map.centerObject</code> e adicionar a imagem usando a função <code>Map.Addlayer</code> que tem como parâmetros a imagem a ser exibida, os parâmetros de visualização e um nome para exibição na legenda. Juntando tudo até agora, temos o código a seguir:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> landsat <span class="op">=</span> ee<span class="op">.</span><span class="fu">ImageCollection</span>(<span class="st">'LANDSAT/LC08/C02/T1_L2'</span>)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>              <span class="op">.</span><span class="fu">filterBounds</span>(area)</span>
