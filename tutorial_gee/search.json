@@ -4,7 +4,28 @@
     "href": "basicos/0101interface.html",
     "title": "A interface web da plataforma Earth Engine",
     "section": "",
-    "text": "Ao acessar o link https://code.earthengine.google.com/ o usuário terá acesso ao ambiente web da plataforma Earth Engine.\n\n\n\n\n\n\nBarra de busca: aqui você poderá buscar coleções de imagens, funções e localizações no mapa.\nPainel de navegação: é aqui onde o usuário organiza suas pastas e arquivos (aba Scripts). A aba Docs disponibiliza acesso rápido à documentação de funções da plataforma. Na aba Assets o usuário pode fazer o upload de imagens e outros dados de produção própria como shapefiles.\nEditor de código: é neste painel onde é escrito o código que deverá ser executado, e isto pode ser feito pressionando o botão Run.\nConsole: a aba Console mostra resultados ao utilizar a função print. A aba Inspector mostra valores inspecionados ao clicar nas camadas disponíveis no mapa. A aba Task mostra tarefas executadas tais como exportações de imagens, tabelas e shapefiles.\nVisualizador de mapa: aqui são produzidas as imagens ao utilizar as funções relacionadas à plotagem de imagens e mapas. É neste painel também onde o usuario pode produzir vetores utilizando as ferramentas disponiveis no canto superior esquerdo."
+    "text": "Ao acessar o link https://code.earthengine.google.com/ o usuário terá acesso ao ambiente web da plataforma Earth Engine. A interface é composta de 4 painéis principais e um campo de busca:\n\n\n\n\n\n\nCampo de busca: aqui você poderá buscar coleções de imagens, funções e localizações no mapa.\nPainel de navegação: é aqui onde o usuário organiza suas pastas e arquivos (aba Scripts). A aba Docs disponibiliza acesso rápido à documentação de funções da plataforma. Na aba Assets o usuário pode fazer o upload de imagens e outros dados de produção própria como shapefiles.\nEditor de código: é neste painel onde é escrito o código que deverá ser executado, e isto pode ser feito pressionando o botão Run.\nConsole: a aba Console mostra resultados ao utilizar a função print. A aba Inspector mostra valores inspecionados ao clicar nas camadas disponíveis no mapa. A aba Task mostra tarefas executadas tais como exportações de imagens, tabelas e shapefiles.\nVisualizador de mapa: aqui são produzidas as imagens ao utilizar as funções relacionadas à plotagem de imagens e mapas. É neste painel também onde o usuário pode produzir vetores utilizando as ferramentas disponíveis no canto superior esquerdo."
+  },
+  {
+    "objectID": "basicos/0101interface.html#a-interface",
+    "href": "basicos/0101interface.html#a-interface",
+    "title": "A interface web da plataforma Earth Engine",
+    "section": "",
+    "text": "Ao acessar o link https://code.earthengine.google.com/ o usuário terá acesso ao ambiente web da plataforma Earth Engine. A interface é composta de 4 painéis principais e um campo de busca:\n\n\n\n\n\n\nCampo de busca: aqui você poderá buscar coleções de imagens, funções e localizações no mapa.\nPainel de navegação: é aqui onde o usuário organiza suas pastas e arquivos (aba Scripts). A aba Docs disponibiliza acesso rápido à documentação de funções da plataforma. Na aba Assets o usuário pode fazer o upload de imagens e outros dados de produção própria como shapefiles.\nEditor de código: é neste painel onde é escrito o código que deverá ser executado, e isto pode ser feito pressionando o botão Run.\nConsole: a aba Console mostra resultados ao utilizar a função print. A aba Inspector mostra valores inspecionados ao clicar nas camadas disponíveis no mapa. A aba Task mostra tarefas executadas tais como exportações de imagens, tabelas e shapefiles.\nVisualizador de mapa: aqui são produzidas as imagens ao utilizar as funções relacionadas à plotagem de imagens e mapas. É neste painel também onde o usuário pode produzir vetores utilizando as ferramentas disponíveis no canto superior esquerdo."
+  },
+  {
+    "objectID": "basicos/0101interface.html#criando-pastas-e-scripts",
+    "href": "basicos/0101interface.html#criando-pastas-e-scripts",
+    "title": "A interface web da plataforma Earth Engine",
+    "section": "Criando pastas e scripts",
+    "text": "Criando pastas e scripts\nA interface web normalmente se inicia com um novo script em branco. Após preencher este arquivo de qualquer maneira você poderá salva-lo pressionando o botão Save na parte superior direita do editor de código. O menu que irá aparecer permite a escolha do repositório e pasta na qual o arquivo deverá ser salvo.\nAmbientes de trabalho no ambiente web da plataforma Earth Engine são divididos em repositórios, que por sua vez podem ou não ser subdivididos em pastas:\n\n\n\n\n\nPara criar novos repositórios, pastas ou arquivos, pressione o botão NEW na parte superior direita do painel de navegação:"
+  },
+  {
+    "objectID": "basicos/0101interface.html#executando-seus-scripts",
+    "href": "basicos/0101interface.html#executando-seus-scripts",
+    "title": "A interface web da plataforma Earth Engine",
+    "section": "Executando seus scripts",
+    "text": "Executando seus scripts\nPara que qualquer código escrito no editor de código tome efeito e seja executado, você deverá pressionar o botão Run na parte superior direita do painel do editor de código:"
   },
   {
     "objectID": "basicos/0102coleção.html",
