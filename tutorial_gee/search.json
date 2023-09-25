@@ -1,168 +1,168 @@
 [
   {
-    "objectID": "basicos/basicos_1.html",
-    "href": "basicos/basicos_1.html",
+    "objectID": "basicos/0101interface.html",
+    "href": "basicos/0101interface.html",
     "title": "A interface web da plataforma Earth Engine",
     "section": "",
     "text": "Ao acessar o link https://code.earthengine.google.com/ o usuário terá acesso ao ambiente web da plataforma Earth Engine.\n\n\n\n\n\n\nBarra de busca: aqui você poderá buscar coleções de imagens, funções e localizações no mapa.\nPainel de navegação: é aqui onde o usuário organiza suas pastas e arquivos (aba Scripts). A aba Docs disponibiliza acesso rápido à documentação de funções da plataforma. Na aba Assets o usuário pode fazer o upload de imagens e outros dados de produção própria como shapefiles.\nEditor de código: é neste painel onde é escrito o código que deverá ser executado, e isto pode ser feito pressionando o botão Run.\nConsole: a aba Console mostra resultados ao utilizar a função print. A aba Inspector mostra valores inspecionados ao clicar nas camadas disponíveis no mapa. A aba Task mostra tarefas executadas tais como exportações de imagens, tabelas e shapefiles.\nVisualizador de mapa: aqui são produzidas as imagens ao utilizar as funções relacionadas à plotagem de imagens e mapas. É neste painel também onde o usuario pode produzir vetores utilizando as ferramentas disponiveis no canto superior esquerdo."
   },
   {
-    "objectID": "basicos/basicos_2.html",
-    "href": "basicos/basicos_2.html",
+    "objectID": "basicos/0102coleção.html",
+    "href": "basicos/0102coleção.html",
     "title": "Definição da coleção e filtros básicos",
     "section": "",
     "text": "O primeiro passo para trabalhar com a plataforma Earth Engine é a definição de uma (ou mais) coleção de interesse. Uma lista completa de todas as coleções disponíveis na plataforma Earth Engine está disponível no link https://developers.google.com/earth-engine/datasets/catalog. Também estão disponíveis catálogos específicos para imagens Landsat, MODIS e Sentinel. Você também pode utilizar a barra de busca acima do editor de código para buscar coleções de interesse:"
   },
   {
-    "objectID": "basicos/basicos_2.html#consultando-o-catálogo-de-imagens",
-    "href": "basicos/basicos_2.html#consultando-o-catálogo-de-imagens",
+    "objectID": "basicos/0102coleção.html#consultando-o-catálogo-de-imagens",
+    "href": "basicos/0102coleção.html#consultando-o-catálogo-de-imagens",
     "title": "Definição da coleção e filtros básicos",
     "section": "",
     "text": "O primeiro passo para trabalhar com a plataforma Earth Engine é a definição de uma (ou mais) coleção de interesse. Uma lista completa de todas as coleções disponíveis na plataforma Earth Engine está disponível no link https://developers.google.com/earth-engine/datasets/catalog. Também estão disponíveis catálogos específicos para imagens Landsat, MODIS e Sentinel. Você também pode utilizar a barra de busca acima do editor de código para buscar coleções de interesse:"
   },
   {
-    "objectID": "basicos/basicos_2.html#definindo-a-coleção-no-código",
-    "href": "basicos/basicos_2.html#definindo-a-coleção-no-código",
+    "objectID": "basicos/0102coleção.html#definindo-a-coleção-no-código",
+    "href": "basicos/0102coleção.html#definindo-a-coleção-no-código",
     "title": "Definição da coleção e filtros básicos",
     "section": "Definindo a coleção no código",
     "text": "Definindo a coleção no código\nPodemos então definir nossa coleção através da função ee.ImageCollection que aceita como argumento o código referente à coleção de interesse. O exemplo a seguir mostra a definição da coleção utilizando imagens Landsat 8 corrigidas com valores de reflectância da superfície terrestre, referenciada pelo código 'LANDSAT/LC08/C02/T2_L2'. Link para a coleção.\nvar landsat = ee.ImageCollection('LANDSAT/LC08/C02/T1_L2');\n\n\n\n\n\n\nDefinição de variáveis e objetos\n\n\n\n\n\nPor utilizar a linguagem de programação javascript, a definição de novas variáveis ou objetos na plataforma Earth Engine sempre se precederá do comando var:\n// Exemplo\nvar a = 2;\nvar b = 3;\nvar c = a + b;\nprint(c)"
   },
   {
-    "objectID": "basicos/basicos_2.html#filtro-temporal-e-espacial",
-    "href": "basicos/basicos_2.html#filtro-temporal-e-espacial",
+    "objectID": "basicos/0102coleção.html#filtro-temporal-e-espacial",
+    "href": "basicos/0102coleção.html#filtro-temporal-e-espacial",
     "title": "Definição da coleção e filtros básicos",
     "section": "Filtro temporal e espacial",
     "text": "Filtro temporal e espacial\nCertamente não há necessidade de utilizar todas as imagens na coleção, portanto é importante definir uma faixa temporal e uma região de interesse. Utilize a ferramenta de retângulo no painel do mapa e escolha uma área de interesse. Neste caso delimitou-se a região do Parque Nacional de Brasília:\n\n\n\n\n\n\n\n\n\n\n\nDica\n\n\n\nVocê pode esconder a geometria no painel do mapa e ela continuará funcionando nas funções.\n\n\nNote que isto criou uma geometria nova no painel de edição de código chamada “geometry”. Você pode renomear esta geometria clicando no seu nome:\n\n\n\n\n\nAgora podemos filtrar a coleção com base na região definida utilizando a função filterBounds que tem como argumento a área limite:\nvar landsat = ee.ImageCollection('LANDSAT/LC08/C02/T1_L2').filterBounds(area)\n\n\n\n\n\n\nAplicando funções a objetos\n\n\n\n\n\nNote que funções são aplicadas de maneira subsequente utilizando o ponto (.), que é o modo como as funções são concatenadas uma atrás da outra (se o objeto gerado permitir a aplicação da função). Por exemplo, o código:\nee.ImageCollection('LANDSAT/LC08/C02/T1_L2').filterBounds(area)\npode ser lido como “acesse o objeto ee (a base Earth Engine), aplique a função ImageCollection com o argumento 'LANDSAT/LC08/C02/T1_L2' e em seguida aplique a função FilterBounds com o argumento area”.\n\n\n\nEm seguida, podemos filtrar a coleção por faixa temporal usando a função filterDate que tem como argumentos a data inicial e a data final. Como exemplo, vamos escolher imagens apenas no mês de julho de 2023.\nvar landsat = ee.ImageCollection('LANDSAT/LC08/C02/T1_L2').filterBounds(area).filterDate(\"2021-07-01\", \"2021-07-31\");\nprint(landsat)\nSe você precionar o botão Run utilizando o código anterior, você poderá ver os detalhes da coleção no console. Observe que a coleção agora contem somente 2 imagens:\n\n\n\n\n\n\n\n\n\n\n\nObservação\n\n\n\nMuitas vezes você verá o código distribuído verticalmente:\nvar landsat = ee.ImageCollection('LANDSAT/LC08/C02/T1_L2')\n              .filterBounds(area)\n              .filterDate(\"2021-07-01\", \"2021-07-31\");\n\nprint(landsat)\nO código é essencialmente o mesmo, porém muitos optam pela distribuição vertical por questão de legibilidade."
   },
   {
-    "objectID": "basicos/basicos_2.html#consultando-detalhes-das-coleções",
-    "href": "basicos/basicos_2.html#consultando-detalhes-das-coleções",
+    "objectID": "basicos/0102coleção.html#consultando-detalhes-das-coleções",
+    "href": "basicos/0102coleção.html#consultando-detalhes-das-coleções",
     "title": "Definição da coleção e filtros básicos",
     "section": "Consultando detalhes das coleções",
     "text": "Consultando detalhes das coleções\nAntes de continuar, é importante demonstrar como lidar com os detalhes específicos das coleções disponíveis na plataforma. Continuando com imagens Landsat 8 como exemplo, acesse o link da coleção e observe o painel logo abaixo do cabeçalho. Este painel contém informações importantes sobre a aquisição, pré-processamento e detalhes sobre o formato das imagens. A aba Description, por exemplo, contém as informações gerais sobre a coleção.\nA aba Bands descreve as bandas em detalhes, incluindo seus nomes (importante para selecionar bandas específicas). Esta aba é extremamente importante para a visualização e o processamento das imagens. Para economizar espaço de armazenamento, as imagens na plataforma geralmente são salvas em formatos contendo somente números inteiros (Int) e portanto passam por um pré-processamento para ajustar os valores. As bandas 1 a 7 das imagens Landsat 8, por exemplo, tem seus valores entre 1 e 65455 (Int16).\n\n\n\n\n\nPara transformar estes valores para valores reais de reflectância, precisamos multiplicar as imagens pelo valor da coluna Scale e adicionar o valor da coluna Offset. Neste caso, portanto:\n\\[\nValor Real = Valor \\times Scale + Offset\n\\] Note que no caso das bandas termais estes valores são diferentes e que nem sempre o valor de Offset existe. É importante consultar esta aba antes de processar a coleção de interesse.\nA aba Image Properties deste painel contem propriedades importantes especificas para cada imagem em uma coleção tal como valores de Path e Row, nível de processamento, etc. A propriedade CLOUD_COVER, por exemplo, descreve a porcentagem de cobertura de nuvens observada em cada imagem, permitindo filtrar uma coleção para conter somente imagens com baixa presença de nuvens. Veremos como fazer isto em tópicos intermediários."
   },
   {
-    "objectID": "basicos/basicos_3.html",
-    "href": "basicos/basicos_3.html",
+    "objectID": "basicos/0103exibição.html",
+    "href": "basicos/0103exibição.html",
     "title": "Exibição de imagens",
     "section": "",
     "text": "Para fim de exemplo, vamos selecionar somente as bandas RGB da coleção filtrada utilizando a função select que aceita um nome de banda ou uma lista de nomes:\n\n\n\n\n\n\nListas\n\n\n\n\n\nEm javascript listas são denotadas por nomes ou objetos entre colchetes ([ ]), por exemplo:\nvar bandas_rgb = ['SR_B2', 'SR_B3', 'SR_B4']\n\n\n\nvar landsat = ee.ImageCollection('LANDSAT/LC08/C02/T1_L2')\n              .filterBounds(area)\n              .filterDate(\"2021-07-01\", \"2021-07-31\");\n              \nvar landsatRGB = landsat.select(['SR_B2', 'SR_B3', 'SR_B4']);"
   },
   {
-    "objectID": "basicos/basicos_3.html#seleção-de-bandas",
-    "href": "basicos/basicos_3.html#seleção-de-bandas",
+    "objectID": "basicos/0103exibição.html#seleção-de-bandas",
+    "href": "basicos/0103exibição.html#seleção-de-bandas",
     "title": "Exibição de imagens",
     "section": "",
     "text": "Para fim de exemplo, vamos selecionar somente as bandas RGB da coleção filtrada utilizando a função select que aceita um nome de banda ou uma lista de nomes:\n\n\n\n\n\n\nListas\n\n\n\n\n\nEm javascript listas são denotadas por nomes ou objetos entre colchetes ([ ]), por exemplo:\nvar bandas_rgb = ['SR_B2', 'SR_B3', 'SR_B4']\n\n\n\nvar landsat = ee.ImageCollection('LANDSAT/LC08/C02/T1_L2')\n              .filterBounds(area)\n              .filterDate(\"2021-07-01\", \"2021-07-31\");\n              \nvar landsatRGB = landsat.select(['SR_B2', 'SR_B3', 'SR_B4']);"
   },
   {
-    "objectID": "basicos/basicos_3.html#extraindo-a-primeira-imagem-da-coleção",
-    "href": "basicos/basicos_3.html#extraindo-a-primeira-imagem-da-coleção",
+    "objectID": "basicos/0103exibição.html#extraindo-a-primeira-imagem-da-coleção",
+    "href": "basicos/0103exibição.html#extraindo-a-primeira-imagem-da-coleção",
     "title": "Exibição de imagens",
     "section": "Extraindo a primeira imagem da coleção",
     "text": "Extraindo a primeira imagem da coleção\nNão precisamos das duas imagens do mês, então podemos selecionar a primeira delas usando a função first sem nenhum parâmetro:\nvar landsat = ee.ImageCollection('LANDSAT/LC08/C02/T1_L2')\n              .filterBounds(area)\n              .filterDate(\"2021-07-01\", \"2021-07-31\");\n              \nvar landsatRGB = landsat.select(['SR_B2', 'SR_B3', 'SR_B4']);\n\nvar landsat_primeira_julho = landsatRGB.first();"
   },
   {
-    "objectID": "basicos/basicos_3.html#ajustando-os-valores-das-imagens",
-    "href": "basicos/basicos_3.html#ajustando-os-valores-das-imagens",
+    "objectID": "basicos/0103exibição.html#ajustando-os-valores-das-imagens",
+    "href": "basicos/0103exibição.html#ajustando-os-valores-das-imagens",
     "title": "Exibição de imagens",
     "section": "Ajustando os valores das imagens",
     "text": "Ajustando os valores das imagens\nComo visto na seção anterior, as imagens não apresentam seus valores reais. Sabemos que para as imagens Landsat 8, as bandas 1 a 7 tem um valor de scale igual a 2.75 * 10-5 e um offset de -0.2, então Podemos então ajustar os valores através das funções de multiplicação e adição multiply e add:\nvar landsat = ee.ImageCollection('LANDSAT/LC08/C02/T1_L2')\n              .filterBounds(area)\n              .filterDate(\"2021-07-01\", \"2021-07-31\");\n              \nvar landsatRGB = landsat.select(['SR_B2', 'SR_B3', 'SR_B4']);\n\nvar landsat_primeira_julho = landsatRGB.first().multiply(0.0000275).add(-0.2);\n// Observação: notações cientificas podem ser usadas, isto é, 0.0000275 = 2.75e-05 \n\n\n\n\n\n\nOperações matemáticas em imagens\n\n\n\nÉ importante mencionar que sempre que for necessário realizar operações matemáticas a imagens isto deve ser feito utilizando as funções especificas da plataforma Earth Engine tais como multiply, add e divide:\n// Errado\nvar imagem_multiplicada = imagem * 2\n\n// Correto\nvar imagem_multiplicada = imagem.multiply(2)\nOs meios tradicionais de realização de operações são reservados para objetos simples como números."
   },
   {
-    "objectID": "basicos/basicos_3.html#definição-dos-parâmetros-de-visualização",
-    "href": "basicos/basicos_3.html#definição-dos-parâmetros-de-visualização",
+    "objectID": "basicos/0103exibição.html#definição-dos-parâmetros-de-visualização",
+    "href": "basicos/0103exibição.html#definição-dos-parâmetros-de-visualização",
     "title": "Exibição de imagens",
     "section": "Definição dos parâmetros de visualização",
     "text": "Definição dos parâmetros de visualização\nAntes de exibir a imagem, precisamos definir os parâmetros de visualização tais como as bandas a serem usadas na composição RGB e seus valores mínimos e máximos:\nvar visualizacao = {\n  bands: ['SR_B4', 'SR_B3', 'SR_B2'], // Sequencia de bandas RGB\n  min: 0.01, // Valores mínimo e máximo associados à intensidade das cores  \n  max: 0.2, //\n};\n\n\n\n\n\n\nDicionários\n\n\n\n\n\nEm javascript listas são denotadas por pares variável: valor separados por vírgula e inseridos entre chaves ({ }), como observado na variável visualizacao no bloco anterior.\nDicionários podem ser utilizados para definição de parâmetros dentro de funções."
   },
   {
-    "objectID": "basicos/basicos_3.html#funções-de-plotagem",
-    "href": "basicos/basicos_3.html#funções-de-plotagem",
+    "objectID": "basicos/0103exibição.html#funções-de-plotagem",
+    "href": "basicos/0103exibição.html#funções-de-plotagem",
     "title": "Exibição de imagens",
     "section": "Funções de plotagem",
     "text": "Funções de plotagem\nFinalmente, podemos centralizar o mapa na região de interesse usando a função Map.centerObject e adicionar a imagem usando a função Map.Addlayer que tem como parâmetros a imagem a ser exibida, os parâmetros de visualização e um nome para exibição na legenda. Juntando tudo até agora, temos o código a seguir:\nvar landsat = ee.ImageCollection('LANDSAT/LC08/C02/T1_L2')\n              .filterBounds(area)\n              .filterDate(\"2021-07-01\", \"2021-07-31\");\n              \nvar landsatRGB = landsat.select(['SR_B2', 'SR_B3', 'SR_B4']);\n\nvar landsat_primeira_julho = landsatRGB.first().multiply(0.0000275).add(-0.2);\n\nvar visualizacao = {\n  bands: ['SR_B4', 'SR_B3', 'SR_B2'],\n  min: 0.01,\n  max: 0.2,\n};\n\nMap.centerObject(area)\n\nMap.addLayer(landsat_primeira_julho, visualizacao, 'Composição RGB Verdadeira');\n\n\n\n\n\n\n\n\n\n\n\nDica\n\n\n\nSe não tiver certeza de valores para os parâmetros min e max de visualização, clique nas opções da camada no painel do mapa e selecione uma das opções valor automático, por exemplo a opção Stretch: 98%:\n\n\n\n\n\nInsira os valores calculados automaticamente nas variáveis para mante-los na próxima vez que executar o código."
   },
   {
-    "objectID": "basicos/basicos_4.html",
-    "href": "basicos/basicos_4.html",
+    "objectID": "basicos/0104operações.html",
+    "href": "basicos/0104operações.html",
     "title": "Operações entre bandas",
     "section": "",
     "text": "Já sabemos como filtrar as bandas em uma coleção de imagens. Para isola-las o processo é similar:\nvar landsat = ee.ImageCollection('LANDSAT/LC08/C02/T1_L2')\n              .filterBounds(area)\n              .filterDate(\"2021-07-01\", \"2021-07-31\");\n              \nvar img = landsat.first(); // Escolhendo somente a primeira imagem da coleção\n\nvar red = img.select('SR_B4');\nvar nir = img.select('SR_B5');\nNote que desta vez usamos a função select depois de selecionar a primeira imagem da coleção. Essa função funciona tanto em coleções quanto imagens isoladas."
   },
   {
-    "objectID": "basicos/basicos_4.html#isolando-bandas",
-    "href": "basicos/basicos_4.html#isolando-bandas",
+    "objectID": "basicos/0104operações.html#isolando-bandas",
+    "href": "basicos/0104operações.html#isolando-bandas",
     "title": "Operações entre bandas",
     "section": "",
     "text": "Já sabemos como filtrar as bandas em uma coleção de imagens. Para isola-las o processo é similar:\nvar landsat = ee.ImageCollection('LANDSAT/LC08/C02/T1_L2')\n              .filterBounds(area)\n              .filterDate(\"2021-07-01\", \"2021-07-31\");\n              \nvar img = landsat.first(); // Escolhendo somente a primeira imagem da coleção\n\nvar red = img.select('SR_B4');\nvar nir = img.select('SR_B5');\nNote que desta vez usamos a função select depois de selecionar a primeira imagem da coleção. Essa função funciona tanto em coleções quanto imagens isoladas."
   },
   {
-    "objectID": "basicos/basicos_4.html#matemática-de-imagens",
-    "href": "basicos/basicos_4.html#matemática-de-imagens",
+    "objectID": "basicos/0104operações.html#matemática-de-imagens",
+    "href": "basicos/0104operações.html#matemática-de-imagens",
     "title": "Operações entre bandas",
     "section": "Matemática de imagens",
     "text": "Matemática de imagens\nJá usamos as funções multiply e add para multiplicar e somar valores fixos às imagens. Estas funções matemáticas também podem ser usadas para multiplicar e somar bandas inteiras. Tomemos a função de cálculo do NDVI como exemplo:\n\\[\nNDVI = \\frac{(NIR - RED)}{(NIR + RED)}\n\\]\nTraduzindo a função para javascript com as variáveis criadas anteriormente, temos o seguinte:\nvar landsat = ee.ImageCollection('LANDSAT/LC08/C02/T1_L2')\n              .filterBounds(area)\n              .filterDate(\"2021-07-01\", \"2021-07-31\");\n              \nvar img = landsat.first(); // Escolhendo somente a primeira imagem da coleção\n\nvar red = img.select('SR_B4');\nvar nir = img.select('SR_B5');\n\nvar ndvi = nir.subtract(red).divide(nir.add(red))\n\n\n\n\n\n\nAtenção\n\n\n\nObserve que desta vez não convertemos os valores das imagens para seus valores reais pois não há necessidade conforme a fórmula do NDVI. Verifique se a fórmula que se deseja aplicar é sensível ao tipo de valor encontrado nas imagens."
   },
   {
-    "objectID": "basicos/basicos_4.html#adicionando-a-imagem-ao-mapa",
-    "href": "basicos/basicos_4.html#adicionando-a-imagem-ao-mapa",
+    "objectID": "basicos/0104operações.html#adicionando-a-imagem-ao-mapa",
+    "href": "basicos/0104operações.html#adicionando-a-imagem-ao-mapa",
     "title": "Operações entre bandas",
     "section": "Adicionando a imagem ao mapa",
     "text": "Adicionando a imagem ao mapa\nJuntando o que aprendemos nos passos anteriores podemos agora adicionar tanto a imagem RGB quanto a imagem NDVI calculada. Varias imagens podem ser adicionadas ao mesmo mapa usando a função Map.addLayer que já é conhecida. Observe que por ser uma imagem de apenas uma banda a imagem NDVI requer o parâmetro palette entre seus parâmetros de visualização. Neste caso usamos uma lista com os valores de “vermelho”, “amarelo” e “verde” que correspondem a valores baixos, medianos e altos respectivamente.\nvar landsat = ee.ImageCollection('LANDSAT/LC08/C02/T1_L2')\n              .filterBounds(area)\n              .filterDate(\"2021-07-01\", \"2021-07-31\");\n              \nvar img = landsat.first(); // Escolhendo somente a primeira imagem da coleção\n\nvar red = img.select('SR_B4');\nvar nir = img.select('SR_B5');\n\nvar ndvi = nir.subtract(red).divide(nir.add(red))\n\nvar visRGB = {\n  bands: ['SR_B4', 'SR_B3', 'SR_B2'],\n  min: 0.01,\n  max: 0.2,\n};\n\nvar visNDVI = {\n  min: 0,\n  max: 0.5,\n  palette: ['red', 'yellow', 'green']\n};\n\nMap.centerObject(area);\nMap.addLayer(img.multiply(2.75e-05).add(-0.2), visRGB, 'Imagem RGB');\nMap.addLayer(ndvi, visNDVI, 'NDVI');\nPodemos escolher quais imagens queremos visualizar usando as opções de Layer no canto superior direito do painel com o mapa."
   },
   {
-    "objectID": "basicos/basicos_5.html",
-    "href": "basicos/basicos_5.html",
+    "objectID": "basicos/0105funções.html",
+    "href": "basicos/0105funções.html",
     "title": "Criando suas próprias funções",
     "section": "",
     "text": "Vimos como calcular o NDVI de uma imagem Landsat 8 na seção anterior:\nvar red = img.select('SR_B4');\nvar nir = img.select('SR_B5');\n\nvar ndvi = nir.subtract(red).divide(nir.add(red))\nPorém, se fossemos calcular o NDVI para varias imagens, acumularíamos mais e mais linhas de código similares, possivelmente levando a confusões:\nvar red = img.select('SR_B4');\nvar nir = img.select('SR_B5');\n\nvar ndvi = nir.subtract(red).divide(nir.add(red));\n\nvar red2 = img2.select('SR_B4');\nvar nir2 = img2.select('SR_B5');\n\nvar ndvi2 = nir2.subtract(red2).divide(nir2.add(red2));\n\nvar red3 = img3.select('SR_B4');\nvar nir3 = img3.select('SR_B5');\n\nvar ndvi3 = nir3.subtract(red3).divide(nir3.add(red3));\n\n//Etc..."
   },
   {
-    "objectID": "basicos/basicos_5.html#o-problema",
-    "href": "basicos/basicos_5.html#o-problema",
+    "objectID": "basicos/0105funções.html#o-problema",
+    "href": "basicos/0105funções.html#o-problema",
     "title": "Criando suas próprias funções",
     "section": "",
     "text": "Vimos como calcular o NDVI de uma imagem Landsat 8 na seção anterior:\nvar red = img.select('SR_B4');\nvar nir = img.select('SR_B5');\n\nvar ndvi = nir.subtract(red).divide(nir.add(red))\nPorém, se fossemos calcular o NDVI para varias imagens, acumularíamos mais e mais linhas de código similares, possivelmente levando a confusões:\nvar red = img.select('SR_B4');\nvar nir = img.select('SR_B5');\n\nvar ndvi = nir.subtract(red).divide(nir.add(red));\n\nvar red2 = img2.select('SR_B4');\nvar nir2 = img2.select('SR_B5');\n\nvar ndvi2 = nir2.subtract(red2).divide(nir2.add(red2));\n\nvar red3 = img3.select('SR_B4');\nvar nir3 = img3.select('SR_B5');\n\nvar ndvi3 = nir3.subtract(red3).divide(nir3.add(red3));\n\n//Etc..."
   },
   {
-    "objectID": "basicos/basicos_5.html#a-solução",
-    "href": "basicos/basicos_5.html#a-solução",
+    "objectID": "basicos/0105funções.html#a-solução",
+    "href": "basicos/0105funções.html#a-solução",
     "title": "Criando suas próprias funções",
     "section": "A solução",
     "text": "A solução\nPodemos resolver o problema e manter o código mais conciso criando nossa própria função de cálculo do NDVI. Funções são como máquinas que recebem um objeto, realizam um processamento e retornam outro objeto de interesse. Funções são bastante uteis quando se pretende aplicar um mesmo processo a diversas imagens. Traduzindo o processo de cálculo do NDVI para uma função, temos o seguinte:\nfunction calcular_ndvi(imagem){\n  var red = imagem.select('SR_B4');\n  var nir = imagem.select('SR_B5');\n\n  var ndvi = nir.subtract(red).divide(nir.add(red));\n  \n  return ndvi;\n}\nNote que neste caso não precisamos usar o comando var. O código acima cria uma função chamada calcular_ndvi que recebe uma imagem, extrai as bandas vermelho e NIR e por fim calcula e retorna a imagem NDVI. Usando ela no bloco de código anterior, teríamos o seguinte:\nfunction calcular_ndvi(imagem){\n  var red = imagem.select('SR_B4');\n  var nir = imagem.select('SR_B5');\n\n  var ndvi = nir.subtract(red).divide(nir.add(red));\n  \n  return ndvi;\n}\n\nvar ndvi1 = calcular_ndvi(img1);\nvar ndvi2 = calcular_ndvi(img2);\nvar ndvi3 = calcular_ndvi(img3);\nTambém podemos criar uma função para corrigir os valores das imagens Landsat para os valores reais como visto anteriormente:\nfunction corrigir_valores(imagem){\n  return imagem.multiply(2.75e-5).add(-0.2)\n}\n\nvar corrigida = corrigir_valores(img)\nFunções são extremamente uteis no contexto da plataforma Earth Engine e podem ser aplicadas a coleções inteiras, como se verá na seção seguinte."
   },
   {
-    "objectID": "basicos/basicos_6.html",
-    "href": "basicos/basicos_6.html",
+    "objectID": "basicos/0106map.html",
+    "href": "basicos/0106map.html",
     "title": "A função map",
     "section": "",
     "text": "Suponha que existe a necessidade de aplicar uma função não só a uma ou duas imagens mas a toda uma coleção. Neste caso, temos como opção o uso da função map. Esta função pode ser aplicada somente a coleções ou listas de imagens, podendo ser aplicada em uma sequência de funções utilizando o ponto (.).\nUtilizando os exemplos das seções anteriores, suponha que precisamos de imagens NDVI em um mês inteiro. Começamos definindo a função calcular_ndvi e nossa coleção:\nfunction calcular_ndvi(imagem){\n  var red = imagem.select('SR_B4');\n  var nir = imagem.select('SR_B5');\n\n  var ndvi = nir.subtract(red).divide(nir.add(red));\n  \n  return ndvi;\n}\n\nvar landsat = ee.ImageCollection('LANDSAT/LC08/C02/T1_L2')\n              .filterBounds(area)\n              .filterDate(\"2021-07-01\", \"2021-07-31\");\nprint(landsat)\n\n\n\n\n\nEm seguida podemos utilizar a função map para aplicar a função de cálculo do NDVI a todas as imagens da coleção:\nfunction calcular_ndvi(imagem){\n  var red = imagem.select('SR_B4');\n  var nir = imagem.select('SR_B5');\n\n  var ndvi = nir.subtract(red).divide(nir.add(red));\n  \n  return ndvi;\n}\n\nvar landsat = ee.ImageCollection('LANDSAT/LC08/C02/T1_L2')\n              .filterBounds(area)\n              .filterDate(\"2021-07-01\", \"2021-07-31\");\n\nvar ndvi_julho = landsat.map(calcular_ndvi)\nprint(ndvi_julho)\nObserve que isto retornou uma nova coleção com o mesmo número de imagens, porém com imagens NDVI de apenas uma banda:\n\n\n\n\n\nA função map será uma ferramenta essencial para diversos tipos de análises utilizando a plataforma Earth Engine.\n\n\n\n\n\n\nAtenção\n\n\n\nNão confunda a função map com funções responsáveis pela plotagem de objetos no mapa (Map.addLayer, etc)."
   },
   {
-    "objectID": "basicos/basicos_7.html",
-    "href": "basicos/basicos_7.html",
+    "objectID": "basicos/0107reduções.html",
+    "href": "basicos/0107reduções.html",
     "title": "Reduções",
     "section": "",
     "text": "Suponha agora que precisamos calcular alguma estatística entre diversas imagens. Para isto, podemos utilizar as funções da plataforma Earth Engine conhecidas como reducers, ou seja, funções que “reduzem” um grupo de imagens a uma (ou mais) imagem representando um tipo de dado desejado. Uma destas funções é a função mean, que extrai a média de um grupo de imagens. Como exemplo, vejamos como extrair o NDVI médio em um mês:\nfunction calcular_ndvi(imagem){\n  var red = imagem.select('SR_B4');\n  var nir = imagem.select('SR_B5');\n\n  var ndvi = nir.subtract(red).divide(nir.add(red));\n  \n  return ndvi;\n}\n\nvar landsat = ee.ImageCollection('LANDSAT/LC08/C02/T1_L2')\n              .filterBounds(area)\n              .filterDate(\"2021-07-01\", \"2021-07-31\");\n\nvar ndvi_julho = landsat.map(calcular_ndvi)\nprint(ndvi_julho)\nEste é o mesmo código utilizado na seção anterior. Para calcular a média dos valores de NDVI entre as duas imagens disponíveis basta aplicar a função mean sem nenhum parâmetro:\nvar ndvi_julho_media = ndvi_julho.mean()\nprint(ndvi_julho_media)\nObserve como a coleção foi transformada em uma única imagem:\n\n\n\n\n\nE para adiciona-la ao mapa o processo é o mesmo já visto:\nfunction calcular_ndvi(imagem){\n  var red = imagem.select('SR_B4');\n  var nir = imagem.select('SR_B5');\n\n  var ndvi = nir.subtract(red).divide(nir.add(red));\n  \n  return ndvi;\n}\n\nvar landsat = ee.ImageCollection('LANDSAT/LC08/C02/T1_L2')\n              .filterBounds(area)\n              .filterDate(\"2021-07-01\", \"2021-07-31\");\n\nvar ndvi_julho = landsat.map(calcular_ndvi)\nprint(ndvi_julho)\n\nvar ndvi_julho_media = ndvi_julho.mean()\nprint(ndvi_julho_media)\n\nvar visNDVI = {\n  min: 0,\n  max: 0.5,\n  palette: ['red', 'yellow', 'green']\n};\n\nMap.centerObject(area);\nMap.addLayer(ndvi_julho_media, visNDVI, 'NDVI Médio em Julho');\nA tabela a seguir mostra alguns exemplos de funções de redução mais simples que devem cobrir grande parte dos casos de uso:\n\n\n\nFunção\nResultado\n\n\n\n\nmean\nValor médio entre imagens\n\n\nmax\nValor máximo dentre as imagens\n\n\nmin\nValor mínimo dentre as imagens\n\n\nmedian\nValor mediano entre as imagens\n\n\nmode\nValor mais comum (moda) dentre as imagens\n\n\n\nAlém destas funções, a plataforma conta com outros tipos de funções de redução mais específicos que podem ser acessados através do objeto ee.Reducer e aplicados usando a função geral reduce. Por exemplo, para extrair o desvio padrão dos valores de NDVI em julho, o código seria o seguinte:\nfunction calcular_ndvi(imagem){\n  var red = imagem.select('SR_B4');\n  var nir = imagem.select('SR_B5');\n\n  var ndvi = nir.subtract(red).divide(nir.add(red));\n  \n  return ndvi;\n}\n\nvar landsat = ee.ImageCollection('LANDSAT/LC08/C02/T1_L2')\n              .filterBounds(area)\n              .filterDate(\"2021-07-01\", \"2021-07-31\");\n\nvar ndvi_julho = landsat.map(calcular_ndvi)\nprint(ndvi_julho)\n\nvar ndvi_julho_media = ndvi_julho.mean()\nprint(ndvi_julho_media)\n\nvar ndvi_julho_desvpad = ndvi_julho.reduce(ee.Reducer.stdDev())\nUma lista completa das funções de redução disponíveis dentro do objeto ee.Reducer pode ser consultada neste link sob a seção ee.Reducer em Client Libraries."
   },
   {
-    "objectID": "basicos/basicos_8.html",
-    "href": "basicos/basicos_8.html",
+    "objectID": "basicos/0108export.html",
+    "href": "basicos/0108export.html",
     "title": "Exportando imagens e vetores",
     "section": "",
     "text": "Agora que cobrimos a maior parte dos conceitos básicos da plataforma Earth Engine, resta aprender como exportar as imagens processadas. Apesar de ser uma ferramenta útil para exportar imagens base, é importante lembrar que a filosofia de uso da plataforma é a de que deve se buscar utiliza-la para todo ou a maior parte do processamento e exportar somente o produto final.\nNesta seção veremos como exportar as imagens para o seu Google Drive, porém também é possível exporta-las para a plataforma Google Cloud ou então como um item na sua própria biblioteca do Earth Engine (aba Assets no painel de navegação).\nRetornando à seção anterior onde fizemos o cálculo do NDVI do mês de julho, temos o seguinte código:\nfunction calcular_ndvi(imagem){\n  var red = imagem.select('SR_B4');\n  var nir = imagem.select('SR_B5');\n\n  var ndvi = nir.subtract(red).divide(nir.add(red));\n  \n  return ndvi;\n}\n\nvar landsat = ee.ImageCollection('LANDSAT/LC08/C02/T1_L2')\n              .filterBounds(area)\n              .filterDate(\"2021-07-01\", \"2021-07-31\");\n\nvar ndvi_julho = landsat.map(calcular_ndvi)\nprint(ndvi_julho)\n\nvar ndvi_julho_media = ndvi_julho.mean()\nprint(ndvi_julho_media)\n\nvar visNDVI = {\n  min: 0,\n  max: 0.5,\n  palette: ['red', 'yellow', 'green']\n};\n\nMap.centerObject(area);\nMap.addLayer(ndvi_julho_media, visNDVI, 'NDVI Médio em Julho');\nSuponha que desejamos exportar esta imagem com o NDVI médio. Para isto, usamos a função Export.image.toDrive, que precisa de alguns parâmetros específicos. O código a seguir mostra os parâmetros mais importantes, mas não todos (os demais parâmetros podem ser consultados neste link).\nExport.image.toDrive({\n  image: , // Qual objeto exportar\n  description: , // Identificador da tarefa de exportação\n  folder: , // Em qual pasta do drive exportar (se desejar uma pasta específica)\n  crs: , // Código CRS do sistema de coordenadas desejado para a imagem exportada\n  region: , // Área de recorte da imagem (se existir)\n  scale: // Resolução da imagem\n});\n\n\n\n\n\n\nConsultando o código CRS\n\n\n\n\n\nO código identificador do sistema de coordenadas desejado pode ser consultado em sites como https://epsg.io/. Programas como o ArcGIS e QGIS também podem ser consultados.\n\n\n\nAplicando isto ao nosso código anterior, temos então o seguinte exemplo:\nfunction calcular_ndvi(imagem){\n  var red = imagem.select('SR_B4');\n  var nir = imagem.select('SR_B5');\n\n  var ndvi = nir.subtract(red).divide(nir.add(red));\n  \n  return ndvi;\n}\n\nvar landsat = ee.ImageCollection('LANDSAT/LC08/C02/T1_L2')\n              .filterBounds(area)\n              .filterDate(\"2021-07-01\", \"2021-07-31\");\n\nvar ndvi_julho = landsat.map(calcular_ndvi)\nprint(ndvi_julho)\n\nvar ndvi_julho_media = ndvi_julho.mean()\nprint(ndvi_julho_media)\n\nvar visNDVI = {\n  min: 0,\n  max: 0.5,\n  palette: ['red', 'yellow', 'green']\n};\n\nMap.centerObject(area);\nMap.addLayer(ndvi_julho_media, visNDVI, 'NDVI Médio em Julho');\n\nExport.image.toDrive({\n  image: ndvi_julho_media,\n  description: 'ndvi_medio_julho_2021',\n  folder: 'Earth Engine',\n  crs: 'EPSG:5880', // Projeção SIRGAS policônica\n  region: area, \n  scale: 30\n});\nApós pressionar o botão Run, o código será executado e você poderá observar que a tarefa de exportação foi adicionada à aba Tasks no painel do console:\n\n\n\n\n\nAo pressionar o botão azul RUN à direita da tarefa, você poderá confirmar os parâmetros e finalmente confirmar a exportação:"
   },
   {
-    "objectID": "basicos/basicos_8.html#exportando-imagens",
-    "href": "basicos/basicos_8.html#exportando-imagens",
+    "objectID": "basicos/0108export.html#exportando-imagens",
+    "href": "basicos/0108export.html#exportando-imagens",
     "title": "Exportando imagens e vetores",
     "section": "",
     "text": "Agora que cobrimos a maior parte dos conceitos básicos da plataforma Earth Engine, resta aprender como exportar as imagens processadas. Apesar de ser uma ferramenta útil para exportar imagens base, é importante lembrar que a filosofia de uso da plataforma é a de que deve se buscar utiliza-la para todo ou a maior parte do processamento e exportar somente o produto final.\nNesta seção veremos como exportar as imagens para o seu Google Drive, porém também é possível exporta-las para a plataforma Google Cloud ou então como um item na sua própria biblioteca do Earth Engine (aba Assets no painel de navegação).\nRetornando à seção anterior onde fizemos o cálculo do NDVI do mês de julho, temos o seguinte código:\nfunction calcular_ndvi(imagem){\n  var red = imagem.select('SR_B4');\n  var nir = imagem.select('SR_B5');\n\n  var ndvi = nir.subtract(red).divide(nir.add(red));\n  \n  return ndvi;\n}\n\nvar landsat = ee.ImageCollection('LANDSAT/LC08/C02/T1_L2')\n              .filterBounds(area)\n              .filterDate(\"2021-07-01\", \"2021-07-31\");\n\nvar ndvi_julho = landsat.map(calcular_ndvi)\nprint(ndvi_julho)\n\nvar ndvi_julho_media = ndvi_julho.mean()\nprint(ndvi_julho_media)\n\nvar visNDVI = {\n  min: 0,\n  max: 0.5,\n  palette: ['red', 'yellow', 'green']\n};\n\nMap.centerObject(area);\nMap.addLayer(ndvi_julho_media, visNDVI, 'NDVI Médio em Julho');\nSuponha que desejamos exportar esta imagem com o NDVI médio. Para isto, usamos a função Export.image.toDrive, que precisa de alguns parâmetros específicos. O código a seguir mostra os parâmetros mais importantes, mas não todos (os demais parâmetros podem ser consultados neste link).\nExport.image.toDrive({\n  image: , // Qual objeto exportar\n  description: , // Identificador da tarefa de exportação\n  folder: , // Em qual pasta do drive exportar (se desejar uma pasta específica)\n  crs: , // Código CRS do sistema de coordenadas desejado para a imagem exportada\n  region: , // Área de recorte da imagem (se existir)\n  scale: // Resolução da imagem\n});\n\n\n\n\n\n\nConsultando o código CRS\n\n\n\n\n\nO código identificador do sistema de coordenadas desejado pode ser consultado em sites como https://epsg.io/. Programas como o ArcGIS e QGIS também podem ser consultados.\n\n\n\nAplicando isto ao nosso código anterior, temos então o seguinte exemplo:\nfunction calcular_ndvi(imagem){\n  var red = imagem.select('SR_B4');\n  var nir = imagem.select('SR_B5');\n\n  var ndvi = nir.subtract(red).divide(nir.add(red));\n  \n  return ndvi;\n}\n\nvar landsat = ee.ImageCollection('LANDSAT/LC08/C02/T1_L2')\n              .filterBounds(area)\n              .filterDate(\"2021-07-01\", \"2021-07-31\");\n\nvar ndvi_julho = landsat.map(calcular_ndvi)\nprint(ndvi_julho)\n\nvar ndvi_julho_media = ndvi_julho.mean()\nprint(ndvi_julho_media)\n\nvar visNDVI = {\n  min: 0,\n  max: 0.5,\n  palette: ['red', 'yellow', 'green']\n};\n\nMap.centerObject(area);\nMap.addLayer(ndvi_julho_media, visNDVI, 'NDVI Médio em Julho');\n\nExport.image.toDrive({\n  image: ndvi_julho_media,\n  description: 'ndvi_medio_julho_2021',\n  folder: 'Earth Engine',\n  crs: 'EPSG:5880', // Projeção SIRGAS policônica\n  region: area, \n  scale: 30\n});\nApós pressionar o botão Run, o código será executado e você poderá observar que a tarefa de exportação foi adicionada à aba Tasks no painel do console:\n\n\n\n\n\nAo pressionar o botão azul RUN à direita da tarefa, você poderá confirmar os parâmetros e finalmente confirmar a exportação:"
   },
   {
-    "objectID": "basicos/basicos_8.html#exportando-vetores",
-    "href": "basicos/basicos_8.html#exportando-vetores",
+    "objectID": "basicos/0108export.html#exportando-vetores",
+    "href": "basicos/0108export.html#exportando-vetores",
     "title": "Exportando imagens e vetores",
     "section": "Exportando vetores",
     "text": "Exportando vetores\nO processo para exportação de vetores é similar e pode ser feito utilizando a função Export.table.toDrive. Supondo que desejamos exportar a nossa área limite definida no inicio deste tutorial, o código é o seguinte:\nExport.table.toDrive({\n  collection: area,\n  description: 'parque_nacional_brasilia',\n  folder: 'Earth Engine'\n});\nAo confirmar a tarefa, você poderá definir o tipo de arquivo para qual exportar seus vetores tais como SHP, CSV e KMZ:"
@@ -172,14 +172,14 @@
     "href": "index.html",
     "title": "Introdução",
     "section": "",
-    "text": "Esta página foi criada com a intenção de fornecer um guia de utilização da plataforma Google Earth Engine (GEE) para auxiliar as pesquisas realizadas no Laboratório de Sistemas de Informação Espacial (LSIE) da Universidade de Brasília.\nOs tutoriais estão divididos em diferentes níveis de utilização e podem ser acessados através da barra de navegação no topo da página.\nOs guias são apresentados utilizando o ambiente web da plataforma como base e portanto a linguagem de programação utilizada é Javascript. A plataforma também pode ser utilizada através da linguagem Python, porém isto não faz parte do escopo desta página.\nVale lembrar ainda que este guia é mais específico e cobrirá uma fração das funcionalidades da plataforma Earth Engine. Uma variedade maior de guias em inglês elaborados pela própria Google se encontra disponível neste link."
+    "text": "Esta página foi criada com a intenção de fornecer um guia de utilização da plataforma Google Earth Engine (GEE) para auxiliar as pesquisas realizadas no Laboratório de Sistemas de Informação Espacial (LSIE) da Universidade de Brasília.\nOs tutoriais estão divididos em diferentes níveis de utilização e podem ser acessados através da barra de navegação no lado esquerdo da página.\nOs guias são apresentados utilizando o ambiente web da plataforma como base e portanto a linguagem de programação utilizada é Javascript. A plataforma também pode ser utilizada através da linguagem Python, porém isto não faz parte do escopo desta página.\nVale lembrar ainda que este guia é mais específico e cobrirá uma fração das funcionalidades da plataforma Earth Engine. Uma variedade maior de guias em inglês elaborados pela própria Google se encontra disponível neste link."
   },
   {
     "objectID": "index.html#sobre-esta-página",
     "href": "index.html#sobre-esta-página",
     "title": "Introdução",
     "section": "",
-    "text": "Esta página foi criada com a intenção de fornecer um guia de utilização da plataforma Google Earth Engine (GEE) para auxiliar as pesquisas realizadas no Laboratório de Sistemas de Informação Espacial (LSIE) da Universidade de Brasília.\nOs tutoriais estão divididos em diferentes níveis de utilização e podem ser acessados através da barra de navegação no topo da página.\nOs guias são apresentados utilizando o ambiente web da plataforma como base e portanto a linguagem de programação utilizada é Javascript. A plataforma também pode ser utilizada através da linguagem Python, porém isto não faz parte do escopo desta página.\nVale lembrar ainda que este guia é mais específico e cobrirá uma fração das funcionalidades da plataforma Earth Engine. Uma variedade maior de guias em inglês elaborados pela própria Google se encontra disponível neste link."
+    "text": "Esta página foi criada com a intenção de fornecer um guia de utilização da plataforma Google Earth Engine (GEE) para auxiliar as pesquisas realizadas no Laboratório de Sistemas de Informação Espacial (LSIE) da Universidade de Brasília.\nOs tutoriais estão divididos em diferentes níveis de utilização e podem ser acessados através da barra de navegação no lado esquerdo da página.\nOs guias são apresentados utilizando o ambiente web da plataforma como base e portanto a linguagem de programação utilizada é Javascript. A plataforma também pode ser utilizada através da linguagem Python, porém isto não faz parte do escopo desta página.\nVale lembrar ainda que este guia é mais específico e cobrirá uma fração das funcionalidades da plataforma Earth Engine. Uma variedade maior de guias em inglês elaborados pela própria Google se encontra disponível neste link."
   },
   {
     "objectID": "index.html#sobre-a-plataforma-google-earth-engine",
@@ -203,15 +203,15 @@
     "text": "Pré-requisitos\nFamiliaridade básica com qualquer linguagem de programação é recomendada porém não estritamente necessária.\nPara utilizar a plataforma você precisará primeiramente de uma conta Google. Imagens produzidas na plataforma poderão ser exportadas para o Google Drive associado a esta conta.\nEm seguida, é necessário se registrar na plataforma através deste link.\nApós o registro, você poderá então começar a utilizar a plataforma através do link https://code.earthengine.google.com/."
   },
   {
-    "objectID": "intermediarios/inter_1.html",
-    "href": "intermediarios/inter_1.html",
+    "objectID": "intermediarios/0201filtros.html",
+    "href": "intermediarios/0201filtros.html",
     "title": "Filtrando propriedades",
     "section": "",
     "text": "Em construção."
   },
   {
-    "objectID": "intermediarios/inter_2.html",
-    "href": "intermediarios/inter_2.html",
+    "objectID": "intermediarios/0202mascaras.html",
+    "href": "intermediarios/0202mascaras.html",
     "title": "Máscaras",
     "section": "",
     "text": "Em construção."

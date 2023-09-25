@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Tutorial GEE LSIE - Operações entre bandas</title>
+<title>Tutorial GEE LSIE - Exportando imagens e vetores</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,8 +64,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../basicos/basicos_5.html" rel="next">
-<link href="../basicos/basicos_3.html" rel="prev">
+<link href="../intermediarios/0201filtros.html" rel="next">
+<link href="../basicos/0107reduções.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -97,8 +97,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -112,7 +110,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../basicos/basicos_1.html">Conceitos basicos</a></li><li class="breadcrumb-item"><a href="../basicos/basicos_4.html">Operações entre bandas</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../basicos/0101interface.html">Conceitos basicos</a></li><li class="breadcrumb-item"><a href="../basicos/0108export.html">Exportando imagens e vetores</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -157,49 +155,49 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../basicos/basicos_1.html" class="sidebar-item-text sidebar-link">
+  <a href="../basicos/0101interface.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">A interface web da plataforma Earth Engine</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../basicos/basicos_2.html" class="sidebar-item-text sidebar-link">
+  <a href="../basicos/0102coleção.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Definição da coleção e filtros básicos</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../basicos/basicos_3.html" class="sidebar-item-text sidebar-link">
+  <a href="../basicos/0103exibição.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Exibição de imagens</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../basicos/basicos_4.html" class="sidebar-item-text sidebar-link active">
+  <a href="../basicos/0104operações.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Operações entre bandas</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../basicos/basicos_5.html" class="sidebar-item-text sidebar-link">
+  <a href="../basicos/0105funções.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Criando suas próprias funções</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../basicos/basicos_6.html" class="sidebar-item-text sidebar-link">
+  <a href="../basicos/0106map.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">A função map</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../basicos/basicos_7.html" class="sidebar-item-text sidebar-link">
+  <a href="../basicos/0107reduções.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Reduções</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../basicos/basicos_8.html" class="sidebar-item-text sidebar-link">
+  <a href="../basicos/0108export.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Exportando imagens e vetores</span></a>
   </div>
 </li>
@@ -216,13 +214,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intermediarios/inter_1.html" class="sidebar-item-text sidebar-link">
+  <a href="../intermediarios/0201filtros.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Filtrando propriedades</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intermediarios/inter_2.html" class="sidebar-item-text sidebar-link">
+  <a href="../intermediarios/0202mascaras.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Máscaras</span></a>
   </div>
 </li>
@@ -238,9 +236,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Nesta página</h2>
    
   <ul>
-  <li><a href="#isolando-bandas" id="toc-isolando-bandas" class="nav-link active" data-scroll-target="#isolando-bandas">Isolando bandas</a></li>
-  <li><a href="#matemática-de-imagens" id="toc-matemática-de-imagens" class="nav-link" data-scroll-target="#matemática-de-imagens">Matemática de imagens</a></li>
-  <li><a href="#adicionando-a-imagem-ao-mapa" id="toc-adicionando-a-imagem-ao-mapa" class="nav-link" data-scroll-target="#adicionando-a-imagem-ao-mapa">Adicionando a imagem ao mapa</a></li>
+  <li><a href="#exportando-imagens" id="toc-exportando-imagens" class="nav-link active" data-scroll-target="#exportando-imagens">Exportando imagens</a></li>
+  <li><a href="#exportando-vetores" id="toc-exportando-vetores" class="nav-link" data-scroll-target="#exportando-vetores">Exportando vetores</a></li>
   </ul>
 </nav>
     </div>
@@ -249,7 +246,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Operações entre bandas</h1>
+<h1 class="title">Exportando imagens e vetores</h1>
 </div>
 
 
@@ -264,83 +261,125 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="isolando-bandas" class="level2">
-<h2 class="anchored" data-anchor-id="isolando-bandas">Isolando bandas</h2>
-<p>Já sabemos como filtrar as bandas em uma coleção de imagens. Para isola-las o processo é similar:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> landsat <span class="op">=</span> ee<span class="op">.</span><span class="fu">ImageCollection</span>(<span class="st">'LANDSAT/LC08/C02/T1_L2'</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>              <span class="op">.</span><span class="fu">filterBounds</span>(area)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>              <span class="op">.</span><span class="fu">filterDate</span>(<span class="st">"2021-07-01"</span><span class="op">,</span> <span class="st">"2021-07-31"</span>)<span class="op">;</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>              </span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> img <span class="op">=</span> landsat<span class="op">.</span><span class="fu">first</span>()<span class="op">;</span> <span class="co">// Escolhendo somente a primeira imagem da coleção</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> red <span class="op">=</span> img<span class="op">.</span><span class="fu">select</span>(<span class="st">'SR_B4'</span>)<span class="op">;</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> nir <span class="op">=</span> img<span class="op">.</span><span class="fu">select</span>(<span class="st">'SR_B5'</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Note que desta vez usamos a função <code>select</code> <em>depois</em> de selecionar a primeira imagem da coleção. Essa função funciona tanto em coleções quanto imagens isoladas.</p>
-</section>
-<section id="matemática-de-imagens" class="level2">
-<h2 class="anchored" data-anchor-id="matemática-de-imagens">Matemática de imagens</h2>
-<p>Já usamos as funções <code>multiply</code> e <code>add</code> para multiplicar e somar valores fixos às imagens. Estas funções matemáticas também podem ser usadas para multiplicar e somar bandas inteiras. Tomemos a função de cálculo do NDVI como exemplo:</p>
-<p><span class="math display">\[
-NDVI = \frac{(NIR - RED)}{(NIR + RED)}
-\]</span></p>
-<p>Traduzindo a função para javascript com as variáveis criadas anteriormente, temos o seguinte:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> landsat <span class="op">=</span> ee<span class="op">.</span><span class="fu">ImageCollection</span>(<span class="st">'LANDSAT/LC08/C02/T1_L2'</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>              <span class="op">.</span><span class="fu">filterBounds</span>(area)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>              <span class="op">.</span><span class="fu">filterDate</span>(<span class="st">"2021-07-01"</span><span class="op">,</span> <span class="st">"2021-07-31"</span>)<span class="op">;</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>              </span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> img <span class="op">=</span> landsat<span class="op">.</span><span class="fu">first</span>()<span class="op">;</span> <span class="co">// Escolhendo somente a primeira imagem da coleção</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> red <span class="op">=</span> img<span class="op">.</span><span class="fu">select</span>(<span class="st">'SR_B4'</span>)<span class="op">;</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> nir <span class="op">=</span> img<span class="op">.</span><span class="fu">select</span>(<span class="st">'SR_B5'</span>)<span class="op">;</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> ndvi <span class="op">=</span> nir<span class="op">.</span><span class="fu">subtract</span>(red)<span class="op">.</span><span class="fu">divide</span>(nir<span class="op">.</span><span class="fu">add</span>(red))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
+<section id="exportando-imagens" class="level2">
+<h2 class="anchored" data-anchor-id="exportando-imagens">Exportando imagens</h2>
+<p>Agora que cobrimos a maior parte dos conceitos básicos da plataforma Earth Engine, resta aprender como exportar as imagens processadas. Apesar de ser uma ferramenta útil para exportar imagens base, é importante lembrar que a filosofia de uso da plataforma é a de que deve se buscar utiliza-la para todo ou a maior parte do processamento e exportar somente o produto final.</p>
+<p>Nesta seção veremos como exportar as imagens para o seu Google Drive, porém também é possível exporta-las para a plataforma Google Cloud ou então como um item na sua própria biblioteca do Earth Engine (aba <em>Assets</em> no painel de navegação).</p>
+<p>Retornando à seção anterior onde fizemos o cálculo do NDVI do mês de julho, temos o seguinte código:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">calcular_ndvi</span>(imagem){</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> red <span class="op">=</span> imagem<span class="op">.</span><span class="fu">select</span>(<span class="st">'SR_B4'</span>)<span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> nir <span class="op">=</span> imagem<span class="op">.</span><span class="fu">select</span>(<span class="st">'SR_B5'</span>)<span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> ndvi <span class="op">=</span> nir<span class="op">.</span><span class="fu">subtract</span>(red)<span class="op">.</span><span class="fu">divide</span>(nir<span class="op">.</span><span class="fu">add</span>(red))<span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> ndvi<span class="op">;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> landsat <span class="op">=</span> ee<span class="op">.</span><span class="fu">ImageCollection</span>(<span class="st">'LANDSAT/LC08/C02/T1_L2'</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>              <span class="op">.</span><span class="fu">filterBounds</span>(area)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>              <span class="op">.</span><span class="fu">filterDate</span>(<span class="st">"2021-07-01"</span><span class="op">,</span> <span class="st">"2021-07-31"</span>)<span class="op">;</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> ndvi_julho <span class="op">=</span> landsat<span class="op">.</span><span class="fu">map</span>(calcular_ndvi)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(ndvi_julho)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> ndvi_julho_media <span class="op">=</span> ndvi_julho<span class="op">.</span><span class="fu">mean</span>()</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(ndvi_julho_media)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> visNDVI <span class="op">=</span> {</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="dt">min</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  <span class="dt">max</span><span class="op">:</span> <span class="fl">0.5</span><span class="op">,</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  <span class="dt">palette</span><span class="op">:</span> [<span class="st">'red'</span><span class="op">,</span> <span class="st">'yellow'</span><span class="op">,</span> <span class="st">'green'</span>]</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">centerObject</span>(area)<span class="op">;</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">addLayer</span>(ndvi_julho_media<span class="op">,</span> visNDVI<span class="op">,</span> <span class="st">'NDVI Médio em Julho'</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Suponha que desejamos exportar esta imagem com o NDVI médio. Para isto, usamos a função <code>Export.image.toDrive</code>, que precisa de alguns parâmetros específicos. O código a seguir mostra os parâmetros mais importantes, mas não todos (os demais parâmetros podem ser consultados <a href="https://developers.google.com/earth-engine/apidocs/export-image-todrive">neste link</a>).</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Export<span class="op">.</span><span class="at">image</span><span class="op">.</span><span class="fu">toDrive</span>({</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">image</span><span class="op">:</span> <span class="op">,</span> <span class="co">// Qual objeto exportar</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">description</span><span class="op">:</span> <span class="op">,</span> <span class="co">// Identificador da tarefa de exportação</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">folder</span><span class="op">:</span> <span class="op">,</span> <span class="co">// Em qual pasta do drive exportar (se desejar uma pasta específica)</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">crs</span><span class="op">:</span> <span class="op">,</span> <span class="co">// Código CRS do sistema de coordenadas desejado para a imagem exportada</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">region</span><span class="op">:</span> <span class="op">,</span> <span class="co">// Área de recorte da imagem (se existir)</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">scale</span><span class="op">:</span> <span class="co">// Resolução da imagem</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Atenção
+Consultando o código CRS
 </div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Observe que desta vez não convertemos os valores das imagens para seus valores reais pois não há necessidade conforme a fórmula do NDVI. Verifique se a fórmula que se deseja aplicar é sensível ao tipo de valor encontrado nas imagens.</p>
+<p>O código identificador do sistema de coordenadas desejado pode ser consultado em sites como <a href="https://epsg.io/" class="uri">https://epsg.io/</a>. Programas como o ArcGIS e QGIS também podem ser consultados.</p>
 </div>
 </div>
-</section>
-<section id="adicionando-a-imagem-ao-mapa" class="level2">
-<h2 class="anchored" data-anchor-id="adicionando-a-imagem-ao-mapa">Adicionando a imagem ao mapa</h2>
-<p>Juntando o que aprendemos nos passos anteriores podemos agora adicionar tanto a imagem RGB quanto a imagem NDVI calculada. Varias imagens podem ser adicionadas ao mesmo mapa usando a função <code>Map.addLayer</code> que já é conhecida. Observe que por ser uma imagem de apenas uma banda a imagem NDVI requer o parâmetro <code>palette</code> entre seus parâmetros de visualização. Neste caso usamos uma lista com os valores de “vermelho”, “amarelo” e “verde” que correspondem a valores baixos, medianos e altos respectivamente.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> landsat <span class="op">=</span> ee<span class="op">.</span><span class="fu">ImageCollection</span>(<span class="st">'LANDSAT/LC08/C02/T1_L2'</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>              <span class="op">.</span><span class="fu">filterBounds</span>(area)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>              <span class="op">.</span><span class="fu">filterDate</span>(<span class="st">"2021-07-01"</span><span class="op">,</span> <span class="st">"2021-07-31"</span>)<span class="op">;</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>              </span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> img <span class="op">=</span> landsat<span class="op">.</span><span class="fu">first</span>()<span class="op">;</span> <span class="co">// Escolhendo somente a primeira imagem da coleção</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> red <span class="op">=</span> img<span class="op">.</span><span class="fu">select</span>(<span class="st">'SR_B4'</span>)<span class="op">;</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> nir <span class="op">=</span> img<span class="op">.</span><span class="fu">select</span>(<span class="st">'SR_B5'</span>)<span class="op">;</span></span>
+</div>
+<p>Aplicando isto ao nosso código anterior, temos então o seguinte exemplo:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">calcular_ndvi</span>(imagem){</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> red <span class="op">=</span> imagem<span class="op">.</span><span class="fu">select</span>(<span class="st">'SR_B4'</span>)<span class="op">;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> nir <span class="op">=</span> imagem<span class="op">.</span><span class="fu">select</span>(<span class="st">'SR_B5'</span>)<span class="op">;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> ndvi <span class="op">=</span> nir<span class="op">.</span><span class="fu">subtract</span>(red)<span class="op">.</span><span class="fu">divide</span>(nir<span class="op">.</span><span class="fu">add</span>(red))<span class="op">;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> ndvi<span class="op">;</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> ndvi <span class="op">=</span> nir<span class="op">.</span><span class="fu">subtract</span>(red)<span class="op">.</span><span class="fu">divide</span>(nir<span class="op">.</span><span class="fu">add</span>(red))</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> visRGB <span class="op">=</span> {</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">bands</span><span class="op">:</span> [<span class="st">'SR_B4'</span><span class="op">,</span> <span class="st">'SR_B3'</span><span class="op">,</span> <span class="st">'SR_B2'</span>]<span class="op">,</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">min</span><span class="op">:</span> <span class="fl">0.01</span><span class="op">,</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="dt">max</span><span class="op">:</span> <span class="fl">0.2</span><span class="op">,</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> visNDVI <span class="op">=</span> {</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  <span class="dt">min</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>  <span class="dt">max</span><span class="op">:</span> <span class="fl">0.5</span><span class="op">,</span></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  <span class="dt">palette</span><span class="op">:</span> [<span class="st">'red'</span><span class="op">,</span> <span class="st">'yellow'</span><span class="op">,</span> <span class="st">'green'</span>]</span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">centerObject</span>(area)<span class="op">;</span></span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">addLayer</span>(img<span class="op">.</span><span class="fu">multiply</span>(<span class="fl">2.75e-05</span>)<span class="op">.</span><span class="fu">add</span>(<span class="op">-</span><span class="fl">0.2</span>)<span class="op">,</span> visRGB<span class="op">,</span> <span class="st">'Imagem RGB'</span>)<span class="op">;</span></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">addLayer</span>(ndvi<span class="op">,</span> visNDVI<span class="op">,</span> <span class="st">'NDVI'</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Podemos escolher quais imagens queremos visualizar usando as opções de <em>Layer</em> no canto superior direito do painel com o mapa.</p>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> landsat <span class="op">=</span> ee<span class="op">.</span><span class="fu">ImageCollection</span>(<span class="st">'LANDSAT/LC08/C02/T1_L2'</span>)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>              <span class="op">.</span><span class="fu">filterBounds</span>(area)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>              <span class="op">.</span><span class="fu">filterDate</span>(<span class="st">"2021-07-01"</span><span class="op">,</span> <span class="st">"2021-07-31"</span>)<span class="op">;</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> ndvi_julho <span class="op">=</span> landsat<span class="op">.</span><span class="fu">map</span>(calcular_ndvi)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(ndvi_julho)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> ndvi_julho_media <span class="op">=</span> ndvi_julho<span class="op">.</span><span class="fu">mean</span>()</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(ndvi_julho_media)</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> visNDVI <span class="op">=</span> {</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  <span class="dt">min</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>  <span class="dt">max</span><span class="op">:</span> <span class="fl">0.5</span><span class="op">,</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>  <span class="dt">palette</span><span class="op">:</span> [<span class="st">'red'</span><span class="op">,</span> <span class="st">'yellow'</span><span class="op">,</span> <span class="st">'green'</span>]</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">centerObject</span>(area)<span class="op">;</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">addLayer</span>(ndvi_julho_media<span class="op">,</span> visNDVI<span class="op">,</span> <span class="st">'NDVI Médio em Julho'</span>)<span class="op">;</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>Export<span class="op">.</span><span class="at">image</span><span class="op">.</span><span class="fu">toDrive</span>({</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>  <span class="dt">image</span><span class="op">:</span> ndvi_julho_media<span class="op">,</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>  <span class="dt">description</span><span class="op">:</span> <span class="st">'ndvi_medio_julho_2021'</span><span class="op">,</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>  <span class="dt">folder</span><span class="op">:</span> <span class="st">'Earth Engine'</span><span class="op">,</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>  <span class="dt">crs</span><span class="op">:</span> <span class="st">'EPSG:5880'</span><span class="op">,</span> <span class="co">// Projeção SIRGAS policônica</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>  <span class="dt">region</span><span class="op">:</span> area<span class="op">,</span> </span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>  <span class="dt">scale</span><span class="op">:</span> <span class="dv">30</span></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Após pressionar o botão <strong>Run</strong>, o código será executado e você poderá observar que a tarefa de exportação foi adicionada à aba <strong>Tasks</strong> no painel do console:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figs/ndvi_rgb.jpg" class="img-fluid figure-img"></p>
+<p><img src="figs/unsubmited_task.jpg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+<p>Ao pressionar o botão azul <strong>RUN</strong> à direita da tarefa, você poderá confirmar os parâmetros e finalmente confirmar a exportação:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figs/confirm_task.jpg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</section>
+<section id="exportando-vetores" class="level2">
+<h2 class="anchored" data-anchor-id="exportando-vetores">Exportando vetores</h2>
+<p>O processo para exportação de vetores é similar e pode ser feito utilizando a função <code>Export.table.toDrive</code>. Supondo que desejamos exportar a nossa área limite definida no inicio deste tutorial, o código é o seguinte:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>Export<span class="op">.</span><span class="at">table</span><span class="op">.</span><span class="fu">toDrive</span>({</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">collection</span><span class="op">:</span> area<span class="op">,</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">description</span><span class="op">:</span> <span class="st">'parque_nacional_brasilia'</span><span class="op">,</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">folder</span><span class="op">:</span> <span class="st">'Earth Engine'</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Ao confirmar a tarefa, você poderá definir o tipo de arquivo para qual exportar seus vetores tais como SHP, CSV e KMZ:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figs/shape_export.jpg" class="img-fluid figure-img"></p>
 </figure>
 </div>
 
@@ -698,13 +737,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../basicos/basicos_3.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Exibição de imagens</span>
+      <a href="../basicos/0107reduções.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Reduções</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../basicos/basicos_5.html" class="pagination-link">
-        <span class="nav-page-text">Criando suas próprias funções</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../intermediarios/0201filtros.html" class="pagination-link">
+        <span class="nav-page-text">Filtrando propriedades</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

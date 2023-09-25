@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Tutorial GEE LSIE - A interface web da plataforma Earth Engine</title>
+<title>Tutorial GEE LSIE - A função map</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -30,8 +64,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../basicos/basicos_2.html" rel="next">
-<link href="../index.html" rel="prev">
+<link href="../basicos/0107reduções.html" rel="next">
+<link href="../basicos/0105funções.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -76,7 +110,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../basicos/basicos_1.html">Conceitos basicos</a></li><li class="breadcrumb-item"><a href="../basicos/basicos_1.html">A interface web da plataforma Earth Engine</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../basicos/0101interface.html">Conceitos basicos</a></li><li class="breadcrumb-item"><a href="../basicos/0106map.html">A função map</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -121,49 +155,49 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../basicos/basicos_1.html" class="sidebar-item-text sidebar-link active">
+  <a href="../basicos/0101interface.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">A interface web da plataforma Earth Engine</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../basicos/basicos_2.html" class="sidebar-item-text sidebar-link">
+  <a href="../basicos/0102coleção.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Definição da coleção e filtros básicos</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../basicos/basicos_3.html" class="sidebar-item-text sidebar-link">
+  <a href="../basicos/0103exibição.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Exibição de imagens</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../basicos/basicos_4.html" class="sidebar-item-text sidebar-link">
+  <a href="../basicos/0104operações.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Operações entre bandas</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../basicos/basicos_5.html" class="sidebar-item-text sidebar-link">
+  <a href="../basicos/0105funções.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Criando suas próprias funções</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../basicos/basicos_6.html" class="sidebar-item-text sidebar-link">
+  <a href="../basicos/0106map.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">A função map</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../basicos/basicos_7.html" class="sidebar-item-text sidebar-link">
+  <a href="../basicos/0107reduções.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Reduções</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../basicos/basicos_8.html" class="sidebar-item-text sidebar-link">
+  <a href="../basicos/0108export.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Exportando imagens e vetores</span></a>
   </div>
 </li>
@@ -180,13 +214,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intermediarios/inter_1.html" class="sidebar-item-text sidebar-link">
+  <a href="../intermediarios/0201filtros.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Filtrando propriedades</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intermediarios/inter_2.html" class="sidebar-item-text sidebar-link">
+  <a href="../intermediarios/0202mascaras.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Máscaras</span></a>
   </div>
 </li>
@@ -205,7 +239,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">A interface web da plataforma Earth Engine</h1>
+<h1 class="title">A função map</h1>
 </div>
 
 
@@ -220,19 +254,62 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>Ao acessar o link <a href="https://code.earthengine.google.com/" class="uri">https://code.earthengine.google.com/</a> o usuário terá acesso ao ambiente web da plataforma Earth Engine.</p>
+<p>Suponha que existe a necessidade de aplicar uma função não só a uma ou duas imagens mas a toda uma coleção. Neste caso, temos como opção o uso da função <code>map</code>. Esta função pode ser aplicada somente a coleções ou listas de imagens, podendo ser aplicada em uma sequência de funções utilizando o ponto (<code>.</code>).</p>
+<p>Utilizando os exemplos das seções anteriores, suponha que precisamos de imagens NDVI em um mês inteiro. Começamos definindo a função <code>calcular_ndvi</code> e nossa coleção:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">calcular_ndvi</span>(imagem){</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> red <span class="op">=</span> imagem<span class="op">.</span><span class="fu">select</span>(<span class="st">'SR_B4'</span>)<span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> nir <span class="op">=</span> imagem<span class="op">.</span><span class="fu">select</span>(<span class="st">'SR_B5'</span>)<span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> ndvi <span class="op">=</span> nir<span class="op">.</span><span class="fu">subtract</span>(red)<span class="op">.</span><span class="fu">divide</span>(nir<span class="op">.</span><span class="fu">add</span>(red))<span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> ndvi<span class="op">;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> landsat <span class="op">=</span> ee<span class="op">.</span><span class="fu">ImageCollection</span>(<span class="st">'LANDSAT/LC08/C02/T1_L2'</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>              <span class="op">.</span><span class="fu">filterBounds</span>(area)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>              <span class="op">.</span><span class="fu">filterDate</span>(<span class="st">"2021-07-01"</span><span class="op">,</span> <span class="st">"2021-07-31"</span>)<span class="op">;</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(landsat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figs/interface.jpg" class="img-fluid figure-img"></p>
+<p><img src="figs/console.jpg" class="img-fluid figure-img"></p>
 </figure>
 </div>
-<ol type="1">
-<li><strong>Barra de busca</strong>: aqui você poderá buscar coleções de imagens, funções e localizações no mapa.</li>
-<li><strong>Painel de navegação</strong>: é aqui onde o usuário organiza suas pastas e arquivos (aba <em>Scripts</em>). A aba <em>Docs</em> disponibiliza acesso rápido à documentação de funções da plataforma. Na aba <em>Assets</em> o usuário pode fazer o upload de imagens e outros dados de produção própria como shapefiles.</li>
-<li><strong>Editor de código</strong>: é neste painel onde é escrito o código que deverá ser executado, e isto pode ser feito pressionando o botão <em>Run</em>.</li>
-<li><strong>Console</strong>: a aba <em>Console</em> mostra resultados ao utilizar a função <code>print</code>. A aba <em>Inspector</em> mostra valores inspecionados ao clicar nas camadas disponíveis no mapa. A aba <em>Task</em> mostra tarefas executadas tais como exportações de imagens, tabelas e shapefiles.</li>
-<li><strong>Visualizador de mapa</strong>: aqui são produzidas as imagens ao utilizar as funções relacionadas à plotagem de imagens e mapas. É neste painel também onde o usuario pode produzir vetores utilizando as ferramentas disponiveis no canto superior esquerdo.</li>
-</ol>
+<p>Em seguida podemos utilizar a função <code>map</code> para aplicar a função de cálculo do NDVI a todas as imagens da coleção:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">calcular_ndvi</span>(imagem){</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> red <span class="op">=</span> imagem<span class="op">.</span><span class="fu">select</span>(<span class="st">'SR_B4'</span>)<span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> nir <span class="op">=</span> imagem<span class="op">.</span><span class="fu">select</span>(<span class="st">'SR_B5'</span>)<span class="op">;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> ndvi <span class="op">=</span> nir<span class="op">.</span><span class="fu">subtract</span>(red)<span class="op">.</span><span class="fu">divide</span>(nir<span class="op">.</span><span class="fu">add</span>(red))<span class="op">;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> ndvi<span class="op">;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> landsat <span class="op">=</span> ee<span class="op">.</span><span class="fu">ImageCollection</span>(<span class="st">'LANDSAT/LC08/C02/T1_L2'</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>              <span class="op">.</span><span class="fu">filterBounds</span>(area)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>              <span class="op">.</span><span class="fu">filterDate</span>(<span class="st">"2021-07-01"</span><span class="op">,</span> <span class="st">"2021-07-31"</span>)<span class="op">;</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> ndvi_julho <span class="op">=</span> landsat<span class="op">.</span><span class="fu">map</span>(calcular_ndvi)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(ndvi_julho)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Observe que isto retornou uma nova coleção com o mesmo número de imagens, porém com imagens NDVI de apenas uma banda:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figs/ndvi_col.jpg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+<p>A função <code>map</code> será uma ferramenta essencial para diversos tipos de análises utilizando a plataforma Earth Engine.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Atenção
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Não confunda a função <code>map</code> com funções responsáveis pela plotagem de objetos no mapa (<code>Map.addLayer</code>, etc).</p>
+</div>
+</div>
 
 
 
@@ -587,13 +664,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../index.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Introdução</span>
+      <a href="../basicos/0105funções.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Criando suas próprias funções</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../basicos/basicos_2.html" class="pagination-link">
-        <span class="nav-page-text">Definição da coleção e filtros básicos</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../basicos/0107reduções.html" class="pagination-link">
+        <span class="nav-page-text">Reduções</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
