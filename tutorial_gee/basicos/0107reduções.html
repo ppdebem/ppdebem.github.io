@@ -308,7 +308,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">centerObject</span>(area)<span class="op">;</span></span>
 <span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">addLayer</span>(ndvi_julho_media<span class="op">,</span> visNDVI<span class="op">,</span> <span class="st">'NDVI Médio em Julho'</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>A tabela a seguir mostra alguns exemplos de funções de redução mais simples que devem cobrir grande parte dos casos de uso:</p>
-<table class="table">
+<div class="center-table">
+<table class="table-hover table">
+<caption></caption>
 <thead>
 <tr class="header">
 <th>Função</th>
@@ -338,6 +340,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
+</div>
 <p>Além destas funções, a plataforma conta com outros tipos de funções de redução mais específicos que podem ser acessados através do objeto <code>ee.Reducer</code> e aplicados usando a função geral <code>reduce</code>. Por exemplo, para extrair o desvio padrão dos valores de NDVI em julho, o código seria o seguinte:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">calcular_ndvi</span>(imagem){</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> red <span class="op">=</span> imagem<span class="op">.</span><span class="fu">select</span>(<span class="st">'SR_B4'</span>)<span class="op">;</span></span>
