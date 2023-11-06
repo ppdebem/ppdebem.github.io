@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.353">
+<meta name="generator" content="quarto-1.3.433">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -19,6 +19,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -59,7 +93,8 @@ ul.task-list li input[type="checkbox"] {
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 
@@ -79,7 +114,7 @@ ul.task-list li input[type="checkbox"] {
       <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../intermediarios/0201filtros.html">Conceitos intermediarios</a></li><li class="breadcrumb-item"><a href="../intermediarios/0201filtros.html">Filtrando propriedades</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -192,6 +227,23 @@ ul.task-list li input[type="checkbox"] {
 </li>
       </ul>
   </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">Tópicos Especiais</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../topicos_especiais/frequencia_agua.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Análise de frequência fluvial na Amazônia</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -220,7 +272,116 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>Em construção.</p>
+<p>Já sabemos como filtrar imagens de maneira básica definindo limites temporais e espaciais, mas e nos casos em que se deseja filtrá-las em função de parâmetros específicos como a porcentagem de cobertura de nuvens, número de órbitas e/ou número de linhas?</p>
+<p>Para isso, podemos empregar as funções da família <code>ee.Filter</code>. Essas funções permitem que argumentos lógicos sejam utilizados para filtrar imagens dentro de uma coleção. A tabela a seguir mostra alguns exemplos comuns dentre essas funções:</p>
+<!-- Tabela -->
+<table class="table-hover table">
+<caption></caption>
+<colgroup>
+<col style="width: 28%">
+<col style="width: 71%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Função</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>ee.Filter.eq</code></td>
+<td>Retorna somente imagens com atributo <strong>igual</strong> ao especificado</td>
+</tr>
+<tr class="even">
+<td><code>ee.Filter.neq</code></td>
+<td>Retorna somente imagens com atributo <strong>diferente</strong> do especificado</td>
+</tr>
+<tr class="odd">
+<td><code>ee.Filter.lt</code></td>
+<td>Retorna somente imagens com atributo de valor <strong>inferior</strong> ao especificado</td>
+</tr>
+<tr class="even">
+<td><code>ee.Filter.gt</code></td>
+<td>Retorna somente imagens com atributo de valor <strong>superior</strong> ao especificado</td>
+</tr>
+<tr class="odd">
+<td><code>ee.Filter.listContains</code></td>
+<td>Retorna imagens que <strong>contenham</strong> o valor especificado dentro do atributo de interesse</td>
+</tr>
+<tr class="even">
+<td><code>ee.Filter.date</code></td>
+<td>Similar à função <code>filterDate</code>, porém permite que você crie um filtro reutilizável</td>
+</tr>
+</tbody>
+</table>
+<p>A lista completa de funções para filtragem pode ser consultada <a href="https://developers.google.com/earth-engine/apidocs/ee-filter">neste link</a>, mas as funções acima cobrem a maior parte dos usos.</p>
+<p>Se, por exemplo, desejássemos filtrar nossa coleção Landsat dos exemplos anteriores para conter somente imagens com baixa porcentagem de nuvens, poderíamos faze-lo aplicando a função <code>ee.Filter.lt</code> ao parâmetro interno <code>CLOUD_COVER</code>:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> landsat <span class="op">=</span> ee<span class="op">.</span><span class="fu">ImageCollection</span>(<span class="st">'LANDSAT/LC08/C02/T1_L2'</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>              <span class="op">.</span><span class="fu">filterBounds</span>(area)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>              <span class="op">.</span><span class="fu">filterDate</span>(<span class="st">"2021-01-01"</span><span class="op">,</span> <span class="st">"2021-12-31"</span>)<span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> landsatFiltrada <span class="op">=</span> landsat<span class="op">.</span><span class="fu">filter</span>(ee<span class="op">.</span><span class="at">Filter</span><span class="op">.</span><span class="fu">lt</span>(<span class="st">'CLOUD_COVER'</span><span class="op">,</span> <span class="dv">20</span>))</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>              </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"Número de imagens na coleção:"</span><span class="op">,</span> landsat<span class="op">.</span><span class="fu">size</span>())</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"Número de imagens na coleção filtrada:"</span><span class="op">,</span> landsatFiltrada<span class="op">.</span><span class="fu">size</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Nesse exemplo, permitimos somente imagens com valores de cobertura de nuvens inferiores a 20%. Observe a diferença entre o número de imagens na coleção original e na coleção filtrada:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figs/filter.jpg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+<p>Pergunta: o que aconteceria se utilizássemos a função <code>ee.Filter.eq</code> no lugar da função <code>ee.Filter.lt</code>?</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Resposta
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Nesse caso só seriam permitidas imagens com valor de porcentagem de cobertura <u><strong>igual</strong></u> a 20%.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> landsat <span class="op">=</span> ee<span class="op">.</span><span class="fu">ImageCollection</span>(<span class="st">'LANDSAT/LC08/C02/T1_L2'</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>              <span class="op">.</span><span class="fu">filterBounds</span>(area)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>              <span class="op">.</span><span class="fu">filterDate</span>(<span class="st">"2021-01-01"</span><span class="op">,</span> <span class="st">"2021-12-31"</span>)<span class="op">;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> landsatFiltrada <span class="op">=</span> landsat<span class="op">.</span><span class="fu">filter</span>(ee<span class="op">.</span><span class="at">Filter</span><span class="op">.</span><span class="fu">eq</span>(<span class="st">'CLOUD_COVER'</span><span class="op">,</span> <span class="dv">20</span>))</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>              </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"Número de imagens na coleção:"</span><span class="op">,</span> landsat<span class="op">.</span><span class="fu">size</span>())</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"Número de imagens na coleção filtrada:"</span><span class="op">,</span> landsatFiltrada<span class="op">.</span><span class="fu">size</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>No caso da nossa coleção, nenhuma das imagens é compatível com o critério:</p>
+<blockquote class="blockquote">
+<p>Número de imagens na coleção:</p>
+<p>21</p>
+<p>Número de imagens na coleção filtrada:</p>
+<p>0</p>
+</blockquote>
+</div>
+</div>
+</div>
+<p>É importante mencionar que os filtros <code>ee.Filter</code> podem ser criados como variáveis isoladas e podem ser reutilizados. Observe o caso a seguir utilizando a função <code>ee.Filter.date</code>:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> landsat <span class="op">=</span> ee<span class="op">.</span><span class="fu">ImageCollection</span>(<span class="st">'LANDSAT/LC08/C02/T1_L2'</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>              <span class="op">.</span><span class="fu">filterBounds</span>(area)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>              <span class="op">.</span><span class="fu">filterDate</span>(<span class="st">"2021-01-01"</span><span class="op">,</span> <span class="st">"2021-12-31"</span>)<span class="op">;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> primeiro_semestre <span class="op">=</span> ee<span class="op">.</span><span class="at">Filter</span><span class="op">.</span><span class="fu">date</span>(<span class="st">'2021-01-01'</span><span class="op">,</span> <span class="st">'2021-06-30'</span>)<span class="op">;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> segundo_semestre <span class="op">=</span> ee<span class="op">.</span><span class="at">Filter</span><span class="op">.</span><span class="fu">date</span>(<span class="st">'2021-07-01'</span><span class="op">,</span> <span class="st">'2021-12-31'</span>)<span class="op">;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> landsat_primeiro_semestre <span class="op">=</span> landsat<span class="op">.</span><span class="fu">filter</span>(primeiro_semestre)<span class="op">;</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> landsat_segundo_semestre <span class="op">=</span> landsat<span class="op">.</span><span class="fu">filter</span>(segundo_semestre)<span class="op">;</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">'Total de imagens no primeiro semestre:'</span><span class="op">,</span> landsat_primeiro_semestre<span class="op">.</span><span class="fu">size</span>())</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">'Total de imagens no segundo semestre:'</span><span class="op">,</span> landsat_segundo_semestre<span class="op">.</span><span class="fu">size</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<blockquote class="blockquote">
+<p>Total de imagens no primeiro semestre:</p>
+<p>9</p>
+<p>Total de imagens no segundo semestre:</p>
+<p>12</p>
+</blockquote>
+<p>Esse conhecimento é útil em casos que você sabe que irá reutilizar o mesmo filtro múltiplas vezes ou se você deseja aplicar mais de um filtro a uma coleção sem ter que modificá-la.</p>
 
 
 

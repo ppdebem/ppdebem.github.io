@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Tutorial GEE LSIE - Criando suas próprias funções</title>
+<title>Tutorial GEE LSIE - Análise de frequência fluvial na Amazônia</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,8 +64,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../basicos/0106map.html" rel="next">
-<link href="../basicos/0104operações.html" rel="prev">
+<link href="../intermediarios/0202mascaras.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -111,7 +110,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../basicos/0101interface.html">Conceitos basicos</a></li><li class="breadcrumb-item"><a href="../basicos/0105funções.html">Criando suas próprias funções</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../topicos_especiais/frequencia_agua.html">Tópicos Especiais</a></li><li class="breadcrumb-item"><a href="../topicos_especiais/frequencia_agua.html">Análise de frequência fluvial na Amazônia</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -180,7 +179,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../basicos/0105funções.html" class="sidebar-item-text sidebar-link active">
+  <a href="../basicos/0105funções.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Criando suas próprias funções</span></a>
   </div>
 </li>
@@ -238,7 +237,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../topicos_especiais/frequencia_agua.html" class="sidebar-item-text sidebar-link">
+  <a href="../topicos_especiais/frequencia_agua.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Análise de frequência fluvial na Amazônia</span></a>
   </div>
 </li>
@@ -250,21 +249,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Nesta página</h2>
-   
-  <ul>
-  <li><a href="#o-problema" id="toc-o-problema" class="nav-link active" data-scroll-target="#o-problema">O problema</a></li>
-  <li><a href="#a-solução" id="toc-a-solução" class="nav-link" data-scroll-target="#a-solução">A solução</a></li>
-  </ul>
-</nav>
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Criando suas próprias funções</h1>
+<h1 class="title">Análise de frequência fluvial na Amazônia</h1>
 </div>
 
 
@@ -279,65 +271,81 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="o-problema" class="level2">
-<h2 class="anchored" data-anchor-id="o-problema">O problema</h2>
-<p>Vimos como calcular o NDVI de uma imagem Landsat 8 na seção anterior:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> red <span class="op">=</span> img<span class="op">.</span><span class="fu">select</span>(<span class="st">'SR_B4'</span>)<span class="op">;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> nir <span class="op">=</span> img<span class="op">.</span><span class="fu">select</span>(<span class="st">'SR_B5'</span>)<span class="op">;</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> ndvi <span class="op">=</span> nir<span class="op">.</span><span class="fu">subtract</span>(red)<span class="op">.</span><span class="fu">divide</span>(nir<span class="op">.</span><span class="fu">add</span>(red))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Porém, se fossemos calcular o NDVI para varias imagens, acumularíamos mais e mais linhas de código similares, possivelmente levando a confusões:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> red <span class="op">=</span> img<span class="op">.</span><span class="fu">select</span>(<span class="st">'SR_B4'</span>)<span class="op">;</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> nir <span class="op">=</span> img<span class="op">.</span><span class="fu">select</span>(<span class="st">'SR_B5'</span>)<span class="op">;</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> ndvi <span class="op">=</span> nir<span class="op">.</span><span class="fu">subtract</span>(red)<span class="op">.</span><span class="fu">divide</span>(nir<span class="op">.</span><span class="fu">add</span>(red))<span class="op">;</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> red2 <span class="op">=</span> img2<span class="op">.</span><span class="fu">select</span>(<span class="st">'SR_B4'</span>)<span class="op">;</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> nir2 <span class="op">=</span> img2<span class="op">.</span><span class="fu">select</span>(<span class="st">'SR_B5'</span>)<span class="op">;</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> ndvi2 <span class="op">=</span> nir2<span class="op">.</span><span class="fu">subtract</span>(red2)<span class="op">.</span><span class="fu">divide</span>(nir2<span class="op">.</span><span class="fu">add</span>(red2))<span class="op">;</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> red3 <span class="op">=</span> img3<span class="op">.</span><span class="fu">select</span>(<span class="st">'SR_B4'</span>)<span class="op">;</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> nir3 <span class="op">=</span> img3<span class="op">.</span><span class="fu">select</span>(<span class="st">'SR_B5'</span>)<span class="op">;</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> ndvi3 <span class="op">=</span> nir3<span class="op">.</span><span class="fu">subtract</span>(red3)<span class="op">.</span><span class="fu">divide</span>(nir3<span class="op">.</span><span class="fu">add</span>(red3))<span class="op">;</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co">//Etc...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="a-solução" class="level2">
-<h2 class="anchored" data-anchor-id="a-solução">A solução</h2>
-<p>Podemos resolver o problema e manter o código mais conciso criando nossa própria função de cálculo do NDVI. Funções são como máquinas que recebem um objeto, realizam um processamento e retornam outro objeto de interesse. Funções são bastante uteis quando se pretende aplicar um mesmo processo a diversas imagens. Traduzindo o processo de cálculo do NDVI para uma função, temos o seguinte:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">calcular_ndvi</span>(imagem){</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> red <span class="op">=</span> imagem<span class="op">.</span><span class="fu">select</span>(<span class="st">'SR_B4'</span>)<span class="op">;</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> nir <span class="op">=</span> imagem<span class="op">.</span><span class="fu">select</span>(<span class="st">'SR_B5'</span>)<span class="op">;</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> ndvi <span class="op">=</span> nir<span class="op">.</span><span class="fu">subtract</span>(red)<span class="op">.</span><span class="fu">divide</span>(nir<span class="op">.</span><span class="fu">add</span>(red))<span class="op">;</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> ndvi<span class="op">;</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Note que neste caso não precisamos usar o comando <code>var</code>. O código acima cria uma função chamada <code>calcular_ndvi</code> que recebe uma imagem, extrai as bandas vermelho e NIR e por fim calcula e retorna a imagem NDVI. Usando ela no bloco de código anterior, teríamos o seguinte:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">calcular_ndvi</span>(imagem){</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> red <span class="op">=</span> imagem<span class="op">.</span><span class="fu">select</span>(<span class="st">'SR_B4'</span>)<span class="op">;</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> nir <span class="op">=</span> imagem<span class="op">.</span><span class="fu">select</span>(<span class="st">'SR_B5'</span>)<span class="op">;</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> ndvi <span class="op">=</span> nir<span class="op">.</span><span class="fu">subtract</span>(red)<span class="op">.</span><span class="fu">divide</span>(nir<span class="op">.</span><span class="fu">add</span>(red))<span class="op">;</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> ndvi<span class="op">;</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> ndvi1 <span class="op">=</span> <span class="fu">calcular_ndvi</span>(img1)<span class="op">;</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> ndvi2 <span class="op">=</span> <span class="fu">calcular_ndvi</span>(img2)<span class="op">;</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> ndvi3 <span class="op">=</span> <span class="fu">calcular_ndvi</span>(img3)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Também podemos criar uma função para corrigir os valores das imagens Landsat para os valores reais como visto anteriormente:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">corrigir_valores</span>(imagem){</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> imagem<span class="op">.</span><span class="fu">multiply</span>(<span class="fl">2.75e-5</span>)<span class="op">.</span><span class="fu">add</span>(<span class="op">-</span><span class="fl">0.2</span>)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> corrigida <span class="op">=</span> <span class="fu">corrigir_valores</span>(img)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Funções são extremamente uteis no contexto da plataforma Earth Engine e podem ser aplicadas a coleções inteiras, como se verá na seção seguinte.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Função para criar as máscaras d'água</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">// Coleção base</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> waterMasks <span class="op">=</span> ee<span class="op">.</span><span class="fu">ImageCollection</span>(<span class="st">'COPERNICUS/S1_GRD'</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">filter</span>(ee<span class="op">.</span><span class="at">Filter</span><span class="op">.</span><span class="fu">listContains</span>(<span class="st">'transmitterReceiverPolarisation'</span><span class="op">,</span> <span class="st">'VH'</span>))</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">filter</span>(ee<span class="op">.</span><span class="at">Filter</span><span class="op">.</span><span class="fu">eq</span>(<span class="st">'instrumentMode'</span><span class="op">,</span> <span class="st">"IW"</span>))</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">filter</span>(ee<span class="op">.</span><span class="at">Filter</span><span class="op">.</span><span class="fu">eq</span>(<span class="st">'orbitProperties_pass'</span><span class="op">,</span> <span class="st">'DESCENDING'</span>))</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">filter</span>(ee<span class="op">.</span><span class="at">Filter</span><span class="op">.</span><span class="fu">eq</span>(<span class="st">'platform_number'</span><span class="op">,</span> <span class="st">'A'</span>))</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">filterBounds</span>(amazonia)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">filterDate</span>(ee<span class="op">.</span><span class="fu">Date</span>(<span class="st">'2017-01-01'</span>)<span class="op">,</span> ee<span class="op">.</span><span class="fu">Date</span>(<span class="st">'2022-12-31'</span>))</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">map</span>(<span class="kw">function</span> (im) {</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> edge <span class="op">=</span> im<span class="op">.</span><span class="fu">lt</span>(<span class="op">-</span><span class="fl">30.0</span>)<span class="op">;</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> maskedImage <span class="op">=</span> im<span class="op">.</span><span class="fu">mask</span>()<span class="op">.</span><span class="fu">and</span>(edge<span class="op">.</span><span class="fu">not</span>())<span class="op">;</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    im <span class="op">=</span> im<span class="op">.</span><span class="fu">updateMask</span>(maskedImage)<span class="op">;</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> vv <span class="op">=</span> im<span class="op">.</span><span class="fu">select</span>(<span class="st">'VV'</span>)<span class="op">;</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> vh <span class="op">=</span> im<span class="op">.</span><span class="fu">select</span>(<span class="st">'VH'</span>)<span class="op">;</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> vh<span class="op">.</span><span class="fu">lt</span>(<span class="op">-</span><span class="dv">20</span>)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>            <span class="op">.</span><span class="fu">and</span>(vv<span class="op">.</span><span class="fu">lt</span>(<span class="op">-</span><span class="dv">14</span>))</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>            <span class="op">.</span><span class="fu">copyProperties</span>(im<span class="op">,</span> [<span class="st">'system:time_start'</span>])<span class="op">;</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> elevation <span class="op">=</span> ee<span class="op">.</span><span class="fu">Image</span>(<span class="st">'NASA/NASADEM_HGT/001'</span>)<span class="op">.</span><span class="fu">select</span>(<span class="st">'elevation'</span>)<span class="op">;</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> elevationVis <span class="op">=</span> {</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>  <span class="dt">min</span><span class="op">:</span> <span class="op">-</span><span class="dv">10</span><span class="op">,</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>  <span class="dt">max</span><span class="op">:</span> <span class="dv">200</span><span class="op">,</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="co">// Divisão em biênios</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> t1 <span class="op">=</span> waterMasks<span class="op">.</span><span class="fu">filterDate</span>(ee<span class="op">.</span><span class="fu">Date</span>(<span class="st">'2017-01-01'</span>)<span class="op">,</span> ee<span class="op">.</span><span class="fu">Date</span>(<span class="st">'2018-12-31'</span>))<span class="op">.</span><span class="fu">mean</span>()<span class="op">.</span><span class="fu">rename</span>(<span class="st">'t1'</span>)<span class="op">;</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> t2 <span class="op">=</span> waterMasks<span class="op">.</span><span class="fu">filterDate</span>(ee<span class="op">.</span><span class="fu">Date</span>(<span class="st">'2019-01-01'</span>)<span class="op">,</span> ee<span class="op">.</span><span class="fu">Date</span>(<span class="st">'2020-12-31'</span>))<span class="op">.</span><span class="fu">mean</span>()<span class="op">.</span><span class="fu">rename</span>(<span class="st">'t2'</span>)<span class="op">;</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> t3 <span class="op">=</span> waterMasks<span class="op">.</span><span class="fu">filterDate</span>(ee<span class="op">.</span><span class="fu">Date</span>(<span class="st">'2021-01-01'</span>)<span class="op">,</span> ee<span class="op">.</span><span class="fu">Date</span>(<span class="st">'2022-12-31'</span>))<span class="op">.</span><span class="fu">mean</span>()<span class="op">.</span><span class="fu">rename</span>(<span class="st">'t3'</span>)<span class="op">;</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="co">// Divisão em triênios</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> t1_b <span class="op">=</span> waterMasks<span class="op">.</span><span class="fu">filterDate</span>(ee<span class="op">.</span><span class="fu">Date</span>(<span class="st">'2017-01-01'</span>)<span class="op">,</span> ee<span class="op">.</span><span class="fu">Date</span>(<span class="st">'2019-12-31'</span>))<span class="op">.</span><span class="fu">mean</span>()<span class="op">;</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> t2_b <span class="op">=</span> waterMasks<span class="op">.</span><span class="fu">filterDate</span>(ee<span class="op">.</span><span class="fu">Date</span>(<span class="st">'2020-01-01'</span>)<span class="op">,</span> ee<span class="op">.</span><span class="fu">Date</span>(<span class="st">'2022-12-31'</span>))<span class="op">.</span><span class="fu">mean</span>()<span class="op">;</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="co">// Frequencia total entre 2016 e 2021</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> freqTotal <span class="op">=</span> waterMasks<span class="op">.</span><span class="fu">mean</span>()<span class="op">.</span><span class="fu">multiply</span>(<span class="dv">100</span>)<span class="op">.</span><span class="fu">byte</span>()<span class="op">;</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="co">// Concatenação dos biênios</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> mudancaBi <span class="op">=</span> t1<span class="op">.</span><span class="fu">addBands</span>(t2)<span class="op">.</span><span class="fu">addBands</span>(t3)<span class="op">;</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="co">// Mudança trienal</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> mudancaTri <span class="op">=</span> t2_b<span class="op">.</span><span class="fu">subtract</span>(t1_b)<span class="op">;</span></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="co">// Máscara de água permanente</span></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> pct <span class="op">=</span> <span class="fl">0.90</span><span class="op">;</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> permMask <span class="op">=</span> t1<span class="op">.</span><span class="fu">gt</span>(pct)<span class="op">.</span><span class="fu">and</span>(t2<span class="op">.</span><span class="fu">gt</span>(pct)<span class="op">.</span><span class="fu">and</span>(t3<span class="op">.</span><span class="fu">gt</span>(pct)))<span class="op">.</span><span class="fu">selfMask</span>()<span class="op">;</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">centerObject</span>(area_teste1<span class="op">,</span> <span class="dv">12</span>)<span class="op">;</span></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> viridisVis <span class="op">=</span> {</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>  <span class="dt">min</span><span class="op">:</span><span class="dv">0</span><span class="op">,</span></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>  <span class="dt">max</span><span class="op">:</span><span class="dv">100</span><span class="op">,</span></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>  <span class="dt">palette</span><span class="op">:</span>[</span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>    <span class="st">"#440154FF"</span><span class="op">,</span></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>    <span class="st">"#482878FF"</span><span class="op">,</span></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>    <span class="st">"#3E4A89FF"</span><span class="op">,</span> </span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>    <span class="st">"#31688EFF"</span><span class="op">,</span></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>    <span class="st">"#26828EFF"</span><span class="op">,</span></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>    <span class="st">"#1F9E89FF"</span><span class="op">,</span></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>    <span class="st">"#35B779FF"</span><span class="op">,</span></span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>    <span class="st">"#6DCD59FF"</span><span class="op">,</span></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>    <span class="st">"#B4DE2CFF"</span><span class="op">,</span></span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>    <span class="st">"#FDE725FF"</span></span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">addLayer</span>(elevation<span class="op">,</span> elevationVis<span class="op">,</span> <span class="st">"Elevação"</span><span class="op">,</span> <span class="kw">false</span>)<span class="op">;</span></span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">addLayer</span>(freqTotal<span class="op">,</span> viridisVis<span class="op">,</span> <span class="st">"Frequencia 2017-2022"</span>)<span class="op">;</span></span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">addLayer</span>(mudancaBi<span class="op">,</span> {<span class="dt">min</span><span class="op">:</span><span class="fl">0.02</span><span class="op">,</span> <span class="dt">max</span><span class="op">:</span><span class="fl">0.98</span><span class="op">,</span> <span class="dt">bands</span><span class="op">:</span>[<span class="st">'t1'</span><span class="op">,</span> <span class="st">'t3'</span><span class="op">,</span> <span class="st">'t2'</span>]}<span class="op">,</span> <span class="st">"Mudança Biênios"</span><span class="op">,</span> <span class="kw">false</span>)<span class="op">;</span></span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">addLayer</span>(mudancaTri<span class="op">,</span> {<span class="dt">min</span><span class="op">:-</span><span class="dv">1</span><span class="op">,</span> <span class="dt">max</span><span class="op">:</span><span class="dv">1</span><span class="op">,</span> <span class="dt">palette</span><span class="op">:</span>[<span class="st">'red'</span><span class="op">,</span> <span class="st">'whitesmoke'</span><span class="op">,</span> <span class="st">'limegreen'</span>]}<span class="op">,</span> <span class="st">"Mudança Triênios"</span><span class="op">,</span> <span class="kw">false</span>)<span class="op">;</span></span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">addLayer</span>(permMask<span class="op">,</span> {<span class="dt">palette</span><span class="op">:</span><span class="st">'blue'</span>}<span class="op">,</span> <span class="st">"Hidrografia Permanente"</span><span class="op">,</span> <span class="kw">false</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -690,14 +698,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../basicos/0104operações.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Operações entre bandas</span>
+      <a href="../intermediarios/0202mascaras.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Máscaras</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../basicos/0106map.html" class="pagination-link">
-        <span class="nav-page-text">A função map</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->
