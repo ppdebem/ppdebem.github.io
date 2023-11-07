@@ -289,7 +289,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>              <span class="op">.</span><span class="fu">filterBounds</span>(area)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>              <span class="op">.</span><span class="fu">filterDate</span>(<span class="st">"2021-07-01"</span><span class="op">,</span> <span class="st">"2021-07-31"</span>)<span class="op">;</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>              </span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> img <span class="op">=</span> landsat<span class="op">.</span><span class="fu">first</span>()<span class="op">;</span> <span class="co">// Escolhendo somente a primeira imagem da coleção</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> img <span class="op">=</span> landsat<span class="op">.</span><span class="fu">first</span>()<span class="op">.</span><span class="fu">multiply</span>(<span class="fl">2.75e-05</span>)<span class="op">.</span><span class="fu">add</span>(<span class="op">-</span><span class="fl">0.2</span>)<span class="op">;</span> <span class="co">// Escolhendo somente a primeira imagem da coleção e corrigindo os valores</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> red <span class="op">=</span> img<span class="op">.</span><span class="fu">select</span>(<span class="st">'SR_B4'</span>)<span class="op">;</span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> nir <span class="op">=</span> img<span class="op">.</span><span class="fu">select</span>(<span class="st">'SR_B5'</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -306,25 +306,16 @@ NDVI = \frac{(NIR - RED)}{(NIR + RED)}
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>              <span class="op">.</span><span class="fu">filterBounds</span>(area)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>              <span class="op">.</span><span class="fu">filterDate</span>(<span class="st">"2021-07-01"</span><span class="op">,</span> <span class="st">"2021-07-31"</span>)<span class="op">;</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>              </span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> img <span class="op">=</span> landsat<span class="op">.</span><span class="fu">first</span>()<span class="op">;</span> <span class="co">// Escolhendo somente a primeira imagem da coleção</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> img <span class="op">=</span> landsat<span class="op">.</span><span class="fu">first</span>()<span class="op">.</span><span class="fu">multiply</span>(<span class="fl">2.75e-05</span>)<span class="op">.</span><span class="fu">add</span>(<span class="op">-</span><span class="fl">0.2</span>)<span class="op">;</span> <span class="co">// Escolhendo somente a primeira imagem da coleção e corrigindo os valores</span></span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> red <span class="op">=</span> img<span class="op">.</span><span class="fu">select</span>(<span class="st">'SR_B4'</span>)<span class="op">;</span></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> nir <span class="op">=</span> img<span class="op">.</span><span class="fu">select</span>(<span class="st">'SR_B5'</span>)<span class="op">;</span></span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> ndvi <span class="op">=</span> nir<span class="op">.</span><span class="fu">subtract</span>(red)<span class="op">.</span><span class="fu">divide</span>(nir<span class="op">.</span><span class="fu">add</span>(red))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Atenção
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Observe que desta vez não convertemos os valores das imagens para seus valores reais pois não há necessidade conforme a fórmula do NDVI. Verifique se a fórmula que se deseja aplicar é sensível ao tipo de valor encontrado nas imagens.</p>
-</div>
-</div>
+<!-- ::: {.callout-warning} -->
+<!-- ### Atenção -->
+<!-- Observe que desta vez não convertemos os valores das imagens para seus valores reais pois não há necessidade conforme a fórmula do NDVI. Verifique se a fórmula que se deseja aplicar é sensível ao tipo de valor encontrado nas imagens. -->
+<!-- ::: -->
 </section>
 <section id="adicionando-a-imagem-ao-mapa" class="level2">
 <h2 class="anchored" data-anchor-id="adicionando-a-imagem-ao-mapa">Adicionando a imagem ao mapa</h2>
@@ -333,7 +324,7 @@ Atenção
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>              <span class="op">.</span><span class="fu">filterBounds</span>(area)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>              <span class="op">.</span><span class="fu">filterDate</span>(<span class="st">"2021-07-01"</span><span class="op">,</span> <span class="st">"2021-07-31"</span>)<span class="op">;</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>              </span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> img <span class="op">=</span> landsat<span class="op">.</span><span class="fu">first</span>()<span class="op">;</span> <span class="co">// Escolhendo somente a primeira imagem da coleção</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> img <span class="op">=</span> landsat<span class="op">.</span><span class="fu">first</span>()<span class="op">.</span><span class="fu">multiply</span>(<span class="fl">2.75e-05</span>)<span class="op">.</span><span class="fu">add</span>(<span class="op">-</span><span class="fl">0.2</span>)<span class="op">;</span> <span class="co">// Escolhendo somente a primeira imagem da coleção</span></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> red <span class="op">=</span> img<span class="op">.</span><span class="fu">select</span>(<span class="st">'SR_B4'</span>)<span class="op">;</span></span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> nir <span class="op">=</span> img<span class="op">.</span><span class="fu">select</span>(<span class="st">'SR_B5'</span>)<span class="op">;</span></span>
@@ -348,12 +339,12 @@ Atenção
 <span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> visNDVI <span class="op">=</span> {</span>
 <span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  <span class="dt">min</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>  <span class="dt">max</span><span class="op">:</span> <span class="fl">0.5</span><span class="op">,</span></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  <span class="dt">palette</span><span class="op">:</span> [<span class="st">'red'</span><span class="op">,</span> <span class="st">'yellow'</span><span class="op">,</span> <span class="st">'green'</span>]</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>  <span class="dt">max</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  <span class="dt">palette</span><span class="op">:</span> [<span class="st">'red'</span><span class="op">,</span> <span class="st">'white'</span><span class="op">,</span> <span class="st">'green'</span>]</span>
 <span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span>
 <span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">centerObject</span>(area)<span class="op">;</span></span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">addLayer</span>(img<span class="op">.</span><span class="fu">multiply</span>(<span class="fl">2.75e-05</span>)<span class="op">.</span><span class="fu">add</span>(<span class="op">-</span><span class="fl">0.2</span>)<span class="op">,</span> visRGB<span class="op">,</span> <span class="st">'Imagem RGB'</span>)<span class="op">;</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">addLayer</span>(img<span class="op">,</span> visRGB<span class="op">,</span> <span class="st">'Imagem RGB'</span>)<span class="op">;</span></span>
 <span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">addLayer</span>(ndvi<span class="op">,</span> visNDVI<span class="op">,</span> <span class="st">'NDVI'</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Podemos escolher quais imagens queremos visualizar usando as opções de <em>Layer</em> no canto superior direito do painel com o mapa.</p>
 <div class="quarto-figure quarto-figure-center">
