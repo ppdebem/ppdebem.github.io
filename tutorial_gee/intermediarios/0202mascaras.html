@@ -255,6 +255,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#criação-de-uma-máscara-através-de-filtros" id="toc-criação-de-uma-máscara-através-de-filtros" class="nav-link active" data-scroll-target="#criação-de-uma-máscara-através-de-filtros">Criação de uma máscara através de filtros</a></li>
+  <li><a href="#combinação-de-máscaras" id="toc-combinação-de-máscaras" class="nav-link" data-scroll-target="#combinação-de-máscaras">Combinação de máscaras</a></li>
   </ul>
 </nav>
     </div>
@@ -332,7 +333,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">centerObject</span>(paranoa<span class="op">,</span> <span class="dv">12</span>)<span class="op">;</span> </span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">addLayer</span>(nir<span class="op">,</span> {<span class="dt">min</span><span class="op">:</span><span class="dv">0</span><span class="op">,</span> <span class="dt">max</span><span class="op">:</span><span class="dv">1</span>}<span class="op">,</span> <span class="st">'Banda NIR'</span>)<span class="op">;</span></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">addLayer</span>(mascaraAgua<span class="op">,</span> {<span class="dt">palette</span><span class="op">:</span>[<span class="st">'blue'</span>]}<span class="op">,</span> <span class="st">'Máscara Água'</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><img src="figs/mask2.jpg" class="img-fluid" data-fig-align="center"> ## Combinação de máscaras</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figs/mask2.jpg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</section>
+<section id="combinação-de-máscaras" class="level2">
+<h2 class="anchored" data-anchor-id="combinação-de-máscaras">Combinação de máscaras</h2>
 <p>Poderíamos ainda refinar essa máscara utilizando um segundo filtro, usando, por exemplo, valores de NDVI. Corpos d’água geralmente apresentam valores negativos de NDVI, e portanto podem ser isolados.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">calcular_ndvi</span>(imagem){</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> red <span class="op">=</span> imagem<span class="op">.</span><span class="fu">select</span>(<span class="st">'SR_B4'</span>)<span class="op">;</span></span>
