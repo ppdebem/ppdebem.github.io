@@ -224,7 +224,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../intermediarios/0202mascaras.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Máscaras</span></a>
+ <span class="menu-text">Filtros de pixels e máscaras</span></a>
   </div>
 </li>
       </ul>
@@ -259,7 +259,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#consultando-o-catálogo-de-imagens" id="toc-consultando-o-catálogo-de-imagens" class="nav-link active" data-scroll-target="#consultando-o-catálogo-de-imagens">Consultando o catálogo de imagens</a></li>
   <li><a href="#definindo-a-coleção-no-código" id="toc-definindo-a-coleção-no-código" class="nav-link" data-scroll-target="#definindo-a-coleção-no-código">Definindo a coleção no código</a></li>
   <li><a href="#filtro-temporal-e-espacial" id="toc-filtro-temporal-e-espacial" class="nav-link" data-scroll-target="#filtro-temporal-e-espacial">Filtro temporal e espacial</a></li>
-  <li><a href="#consultando-detalhes-das-coleções" id="toc-consultando-detalhes-das-coleções" class="nav-link" data-scroll-target="#consultando-detalhes-das-coleções">Consultando detalhes das coleções</a></li>
+  <li><a href="#consultando-metadados-das-coleções" id="toc-consultando-metadados-das-coleções" class="nav-link" data-scroll-target="#consultando-metadados-das-coleções">Consultando metadados das coleções</a></li>
   </ul>
 </nav>
     </div>
@@ -347,28 +347,10 @@ Dica
 </div>
 <p>Agora podemos filtrar a coleção com base na região definida utilizando a função <code>filterBounds</code> que tem como argumento a área limite:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> landsat <span class="op">=</span> ee<span class="op">.</span><span class="fu">ImageCollection</span>(<span class="st">'LANDSAT/LC08/C02/T1_L2'</span>)<span class="op">.</span><span class="fu">filterBounds</span>(area)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Aplicando funções a objetos
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>Note que funções são aplicadas de maneira subsequente utilizando o ponto (<code>.</code>), que é o modo como as funções são concatenadas uma atrás da outra (se o objeto gerado permitir a aplicação da função). Por exemplo, o código:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>ee<span class="op">.</span><span class="fu">ImageCollection</span>(<span class="st">'LANDSAT/LC08/C02/T1_L2'</span>)<span class="op">.</span><span class="fu">filterBounds</span>(area)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>pode ser lido como “acesse o objeto <code>ee</code> (a base Earth Engine), aplique a função <code>ImageCollection</code> com o argumento <code>'LANDSAT/LC08/C02/T1_L2'</code> e em seguida aplique a função <code>FilterBounds</code> com o argumento <code>area</code>”.</p>
-</div>
-</div>
-</div>
 <p>Em seguida, podemos filtrar a coleção por faixa temporal usando a função <code>filterDate</code> que tem como argumentos a data inicial e a data final. Como exemplo, vamos escolher imagens apenas no mês de julho de 2023.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> landsat <span class="op">=</span> ee<span class="op">.</span><span class="fu">ImageCollection</span>(<span class="st">'LANDSAT/LC08/C02/T1_L2'</span>)<span class="op">.</span><span class="fu">filterBounds</span>(area)<span class="op">.</span><span class="fu">filterDate</span>(<span class="st">"2021-07-01"</span><span class="op">,</span> <span class="st">"2021-07-31"</span>)<span class="op">;</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(landsat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Se você precionar o botão <em>Run</em> utilizando o código anterior, você poderá ver os detalhes da coleção no console. Observe que a coleção agora contem somente 2 imagens:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> landsat <span class="op">=</span> ee<span class="op">.</span><span class="fu">ImageCollection</span>(<span class="st">'LANDSAT/LC08/C02/T1_L2'</span>)<span class="op">.</span><span class="fu">filterBounds</span>(area)<span class="op">.</span><span class="fu">filterDate</span>(<span class="st">"2021-07-01"</span><span class="op">,</span> <span class="st">"2021-07-31"</span>)<span class="op">;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(landsat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Ao pressionar o botão <em>Run</em> utilizando o código anterior, você poderá ver os detalhes da coleção no console. Observe que a coleção agora contem somente 2 imagens:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="figs/console.jpg" class="img-fluid figure-img"></p>
@@ -384,18 +366,36 @@ Observação
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Muitas vezes você verá o código distribuído verticalmente:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> landsat <span class="op">=</span> ee<span class="op">.</span><span class="fu">ImageCollection</span>(<span class="st">'LANDSAT/LC08/C02/T1_L2'</span>)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>              <span class="op">.</span><span class="fu">filterBounds</span>(area)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>              <span class="op">.</span><span class="fu">filterDate</span>(<span class="st">"2021-07-01"</span><span class="op">,</span> <span class="st">"2021-07-31"</span>)<span class="op">;</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(landsat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Na maioria das vezes você verá o código distribuído verticalmente:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> landsat <span class="op">=</span> ee<span class="op">.</span><span class="fu">ImageCollection</span>(<span class="st">'LANDSAT/LC08/C02/T1_L2'</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>              <span class="op">.</span><span class="fu">filterBounds</span>(area)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>              <span class="op">.</span><span class="fu">filterDate</span>(<span class="st">"2021-07-01"</span><span class="op">,</span> <span class="st">"2021-07-31"</span>)<span class="op">;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(landsat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>O código é essencialmente o mesmo, porém muitos optam pela distribuição vertical por questão de legibilidade.</p>
 </div>
 </div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Aplicando funções a objetos
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Note que funções são aplicadas de maneira subsequente utilizando o ponto (<code>.</code>), que é o modo como as funções são concatenadas uma atrás da outra (se o objeto gerado permitir a aplicação da função). Por exemplo, o código:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>ee<span class="op">.</span><span class="fu">ImageCollection</span>(<span class="st">'LANDSAT/LC08/C02/T1_L2'</span>)<span class="op">.</span><span class="fu">filterBounds</span>(area)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>pode ser lido como “acesse o objeto <code>ee</code> (a base Earth Engine), aplique a função <code>ImageCollection</code> com o argumento <code>'LANDSAT/LC08/C02/T1_L2'</code> e em seguida aplique a função <code>FilterBounds</code> com o argumento <code>area</code>”.</p>
+</div>
+</div>
+</div>
 </section>
-<section id="consultando-detalhes-das-coleções" class="level2">
-<h2 class="anchored" data-anchor-id="consultando-detalhes-das-coleções">Consultando detalhes das coleções</h2>
+<section id="consultando-metadados-das-coleções" class="level2">
+<h2 class="anchored" data-anchor-id="consultando-metadados-das-coleções">Consultando metadados das coleções</h2>
 <p>Antes de continuar, é importante demonstrar como lidar com os detalhes específicos das coleções disponíveis na plataforma. Continuando com imagens Landsat 8 como exemplo, acesse o <a href="https://developers.google.com/earth-engine/datasets/catalog/LANDSAT_LC08_C02_T1_L2">link da coleção</a> e observe o painel logo abaixo do cabeçalho. Este painel contém informações importantes sobre a aquisição, pré-processamento e detalhes sobre o formato das imagens. A aba <strong>Description</strong>, por exemplo, contém as informações gerais sobre a coleção.</p>
 <p>A aba <strong>Bands</strong> descreve as bandas em detalhes, incluindo seus nomes (importante para selecionar bandas específicas). Esta aba é extremamente importante para a visualização e o processamento das imagens. Para economizar espaço de armazenamento, as imagens na plataforma geralmente são salvas em formatos contendo somente números inteiros (Int) e portanto passam por um pré-processamento para ajustar os valores. As bandas 1 a 7 das imagens Landsat 8, por exemplo, tem seus valores entre 1 e 65455 (Int16).</p>
 <div class="quarto-figure quarto-figure-center">
