@@ -250,7 +250,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Nesta página</h2>
+   
+  <ul>
+  <li><a href="#definindo-a-coleção" id="toc-definindo-a-coleção" class="nav-link active" data-scroll-target="#definindo-a-coleção">Definindo a coleção</a></li>
+  <li><a href="#pré-processamento" id="toc-pré-processamento" class="nav-link" data-scroll-target="#pré-processamento">Pré processamento</a></li>
+  <li><a href="#primeiro-caso-frequência-média-de-água" id="toc-primeiro-caso-frequência-média-de-água" class="nav-link" data-scroll-target="#primeiro-caso-frequência-média-de-água">Primeiro caso: frequência média de água</a></li>
+  <li><a href="#detalhando-a-frequência-média" id="toc-detalhando-a-frequência-média" class="nav-link" data-scroll-target="#detalhando-a-frequência-média">Detalhando a frequência média</a>
+  <ul class="collapse">
+  <li><a href="#frequência-trienal" id="toc-frequência-trienal" class="nav-link" data-scroll-target="#frequência-trienal">Frequência trienal</a></li>
+  <li><a href="#frequência-bienal" id="toc-frequência-bienal" class="nav-link" data-scroll-target="#frequência-bienal">Frequência bienal</a></li>
+  </ul></li>
+  <li><a href="#conclusão" id="toc-conclusão" class="nav-link" data-scroll-target="#conclusão">Conclusão</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -272,97 +286,135 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<div class="callout callout-style-default callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Em construção
-</div>
-</div>
-<div class="callout-body-container callout-body">
-
-</div>
-</div>
-<div class="sourceCode" id="cb1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Ponto para teste da metodologia</span></span>
+<section id="definindo-a-coleção" class="level2">
+<h2 class="anchored" data-anchor-id="definindo-a-coleção">Definindo a coleção</h2>
+<p>Utilizando todos os conhecimentos acumulados até agora, podemos dar prosseguimento para um estudo específico da frequência fluvial na região amazônica. Para isso, utilizaremos imagens de radar da coleção Sentinel 1 presente na plataforma Earth Engine. Essa coleção é definida pelo código <code>COPERNICUS/S1_GRD</code>. Por questão de consistencia de dados, também precisaremos aplicar alguns filtros de parâmetros específicos como será visto no código a seguir:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Ponto para delimitação da área de trabalho</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> area_teste <span class="op">=</span> ee<span class="op">.</span><span class="at">Geometry</span><span class="op">.</span><span class="fu">Point</span>([<span class="op">-</span><span class="fl">57.1892</span><span class="op">,</span> <span class="op">-</span><span class="fl">2.5647</span>])<span class="op">;</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">// Função para corrigir valores baixos e criar as máscaras d'água</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">extrairMascara</span>(im) {</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> edge <span class="op">=</span> im<span class="op">.</span><span class="fu">lt</span>(<span class="op">-</span><span class="fl">30.0</span>)<span class="op">;</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> mascara <span class="op">=</span> im<span class="op">.</span><span class="fu">mask</span>()<span class="op">.</span><span class="fu">and</span>(edge<span class="op">.</span><span class="fu">not</span>())<span class="op">;</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    im <span class="op">=</span> im<span class="op">.</span><span class="fu">updateMask</span>(mascara)<span class="op">;</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> vv <span class="op">=</span> im<span class="op">.</span><span class="fu">select</span>(<span class="st">'VV'</span>)<span class="op">;</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> vh <span class="op">=</span> im<span class="op">.</span><span class="fu">select</span>(<span class="st">'VH'</span>)<span class="op">;</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> vh<span class="op">.</span><span class="fu">lt</span>(<span class="op">-</span><span class="dv">20</span>)<span class="op">.</span><span class="fu">and</span>(vv<span class="op">.</span><span class="fu">lt</span>(<span class="op">-</span><span class="dv">14</span>))<span class="op">.</span><span class="fu">copyProperties</span>(im<span class="op">,</span> [<span class="st">'system:time_start'</span>])<span class="op">;</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">// Coleção base</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> mascarasAgua <span class="op">=</span> ee<span class="op">.</span><span class="fu">ImageCollection</span>(<span class="st">'COPERNICUS/S1_GRD'</span>)</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">filter</span>(ee<span class="op">.</span><span class="at">Filter</span><span class="op">.</span><span class="fu">listContains</span>(<span class="st">'transmitterReceiverPolarisation'</span><span class="op">,</span> <span class="st">'VH'</span>))</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">filter</span>(ee<span class="op">.</span><span class="at">Filter</span><span class="op">.</span><span class="fu">listContains</span>(<span class="st">'transmitterReceiverPolarisation'</span><span class="op">,</span> <span class="st">'VV'</span>))</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">filter</span>(ee<span class="op">.</span><span class="at">Filter</span><span class="op">.</span><span class="fu">eq</span>(<span class="st">'instrumentMode'</span><span class="op">,</span> <span class="st">"IW"</span>))</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">filter</span>(ee<span class="op">.</span><span class="at">Filter</span><span class="op">.</span><span class="fu">eq</span>(<span class="st">'orbitProperties_pass'</span><span class="op">,</span> <span class="st">'DESCENDING'</span>))</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">filter</span>(ee<span class="op">.</span><span class="at">Filter</span><span class="op">.</span><span class="fu">eq</span>(<span class="st">'platform_number'</span><span class="op">,</span> <span class="st">'A'</span>))</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">filterBounds</span>(area_teste)</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">filterDate</span>(<span class="st">'2017-01-01'</span><span class="op">,</span> <span class="st">'2022-12-31'</span>)</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">map</span>(extrairMascara)<span class="op">;</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> elevation <span class="op">=</span> ee<span class="op">.</span><span class="fu">Image</span>(<span class="st">'NASA/NASADEM_HGT/001'</span>)<span class="op">.</span><span class="fu">select</span>(<span class="st">'elevation'</span>)<span class="op">;</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> elevationVis <span class="op">=</span> {</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>  <span class="dt">min</span><span class="op">:</span> <span class="op">-</span><span class="dv">10</span><span class="op">,</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>  <span class="dt">max</span><span class="op">:</span> <span class="dv">200</span><span class="op">,</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="co">// Divisão em biênios</span></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> t1 <span class="op">=</span> mascarasAgua<span class="op">.</span><span class="fu">filterDate</span>(<span class="st">'2017-01-01'</span><span class="op">,</span> <span class="st">'2018-12-31'</span>)<span class="op">.</span><span class="fu">mean</span>()<span class="op">.</span><span class="fu">rename</span>(<span class="st">'t1'</span>)<span class="op">;</span></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> t2 <span class="op">=</span> mascarasAgua<span class="op">.</span><span class="fu">filterDate</span>(<span class="st">'2019-01-01'</span><span class="op">,</span> <span class="st">'2020-12-31'</span>)<span class="op">.</span><span class="fu">mean</span>()<span class="op">.</span><span class="fu">rename</span>(<span class="st">'t2'</span>)<span class="op">;</span></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> t3 <span class="op">=</span> mascarasAgua<span class="op">.</span><span class="fu">filterDate</span>(<span class="st">'2021-01-01'</span><span class="op">,</span> <span class="st">'2022-12-31'</span>)<span class="op">.</span><span class="fu">mean</span>()<span class="op">.</span><span class="fu">rename</span>(<span class="st">'t3'</span>)<span class="op">;</span></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="co">// Divisão em triênios</span></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> t1_b <span class="op">=</span> mascarasAgua<span class="op">.</span><span class="fu">filterDate</span>(<span class="st">'2017-01-01'</span><span class="op">,</span> <span class="st">'2019-12-31'</span>)<span class="op">.</span><span class="fu">mean</span>()<span class="op">;</span></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> t2_b <span class="op">=</span> mascarasAgua<span class="op">.</span><span class="fu">filterDate</span>(<span class="st">'2020-01-01'</span><span class="op">,</span> <span class="st">'2022-12-31'</span>)<span class="op">.</span><span class="fu">mean</span>()<span class="op">;</span></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="co">// Frequencia total entre 2016 e 2021</span></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> freqTotal <span class="op">=</span> mascarasAgua<span class="op">.</span><span class="fu">mean</span>()<span class="op">.</span><span class="fu">multiply</span>(<span class="dv">100</span>)<span class="op">.</span><span class="fu">byte</span>()<span class="op">;</span></span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="co">// Concatenação dos biênios</span></span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> mudancaBi <span class="op">=</span> t1<span class="op">.</span><span class="fu">addBands</span>(t2)<span class="op">.</span><span class="fu">addBands</span>(t3)<span class="op">;</span></span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="co">// Mudança trienal</span></span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> mudancaTri <span class="op">=</span> t2_b<span class="op">.</span><span class="fu">subtract</span>(t1_b)<span class="op">;</span></span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="co">// Máscara de água permanente</span></span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> pct <span class="op">=</span> <span class="fl">0.90</span><span class="op">;</span></span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> permMask <span class="op">=</span> t1<span class="op">.</span><span class="fu">gt</span>(pct)<span class="op">.</span><span class="fu">and</span>(t2<span class="op">.</span><span class="fu">gt</span>(pct)<span class="op">.</span><span class="fu">and</span>(t3<span class="op">.</span><span class="fu">gt</span>(pct)))<span class="op">.</span><span class="fu">selfMask</span>()<span class="op">;</span></span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">centerObject</span>(area_teste<span class="op">,</span> <span class="dv">11</span>)<span class="op">;</span></span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> viridisVis <span class="op">=</span> {</span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>  <span class="dt">min</span><span class="op">:</span><span class="dv">0</span><span class="op">,</span></span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>  <span class="dt">max</span><span class="op">:</span><span class="dv">100</span><span class="op">,</span></span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>  <span class="dt">palette</span><span class="op">:</span>[</span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>    <span class="st">"#440154FF"</span><span class="op">,</span></span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>    <span class="st">"#482878FF"</span><span class="op">,</span></span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>    <span class="st">"#3E4A89FF"</span><span class="op">,</span> </span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>    <span class="st">"#31688EFF"</span><span class="op">,</span></span>
-<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>    <span class="st">"#26828EFF"</span><span class="op">,</span></span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>    <span class="st">"#1F9E89FF"</span><span class="op">,</span></span>
-<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>    <span class="st">"#35B779FF"</span><span class="op">,</span></span>
-<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>    <span class="st">"#6DCD59FF"</span><span class="op">,</span></span>
-<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>    <span class="st">"#B4DE2CFF"</span><span class="op">,</span></span>
-<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>    <span class="st">"#FDE725FF"</span></span>
-<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>    ]</span>
-<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span>
-<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">addLayer</span>(elevation<span class="op">,</span> elevationVis<span class="op">,</span> <span class="st">"Elevação"</span><span class="op">,</span> <span class="kw">false</span>)<span class="op">;</span></span>
-<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">addLayer</span>(freqTotal<span class="op">,</span> viridisVis<span class="op">,</span> <span class="st">"Frequencia 2017-2022"</span>)<span class="op">;</span></span>
-<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">addLayer</span>(mudancaBi<span class="op">,</span> {<span class="dt">min</span><span class="op">:</span><span class="fl">0.02</span><span class="op">,</span> <span class="dt">max</span><span class="op">:</span><span class="fl">0.98</span><span class="op">,</span> <span class="dt">bands</span><span class="op">:</span>[<span class="st">'t1'</span><span class="op">,</span> <span class="st">'t3'</span><span class="op">,</span> <span class="st">'t2'</span>]}<span class="op">,</span> <span class="st">"Mudança Biênios"</span><span class="op">,</span> <span class="kw">false</span>)<span class="op">;</span></span>
-<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">addLayer</span>(mudancaTri<span class="op">,</span> {<span class="dt">min</span><span class="op">:-</span><span class="dv">1</span><span class="op">,</span> <span class="dt">max</span><span class="op">:</span><span class="dv">1</span><span class="op">,</span> <span class="dt">palette</span><span class="op">:</span>[<span class="st">'red'</span><span class="op">,</span> <span class="st">'whitesmoke'</span><span class="op">,</span> <span class="st">'limegreen'</span>]}<span class="op">,</span> <span class="st">"Mudança Triênios"</span><span class="op">,</span> <span class="kw">false</span>)<span class="op">;</span></span>
-<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">addLayer</span>(permMask<span class="op">,</span> {<span class="dt">palette</span><span class="op">:</span><span class="st">'blue'</span>}<span class="op">,</span> <span class="st">"Hidrografia Permanente"</span><span class="op">,</span> <span class="kw">false</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">// Definição da coleção</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> sentinel <span class="op">=</span> ee<span class="op">.</span><span class="fu">ImageCollection</span>(<span class="st">'COPERNICUS/S1_GRD'</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">filter</span>(ee<span class="op">.</span><span class="at">Filter</span><span class="op">.</span><span class="fu">listContains</span>(<span class="st">'transmitterReceiverPolarisation'</span><span class="op">,</span> <span class="st">'VH'</span>))</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">filter</span>(ee<span class="op">.</span><span class="at">Filter</span><span class="op">.</span><span class="fu">listContains</span>(<span class="st">'transmitterReceiverPolarisation'</span><span class="op">,</span> <span class="st">'VV'</span>))</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">filter</span>(ee<span class="op">.</span><span class="at">Filter</span><span class="op">.</span><span class="fu">eq</span>(<span class="st">'instrumentMode'</span><span class="op">,</span> <span class="st">"IW"</span>))</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">filter</span>(ee<span class="op">.</span><span class="at">Filter</span><span class="op">.</span><span class="fu">eq</span>(<span class="st">'orbitProperties_pass'</span><span class="op">,</span> <span class="st">'DESCENDING'</span>))</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">filter</span>(ee<span class="op">.</span><span class="at">Filter</span><span class="op">.</span><span class="fu">eq</span>(<span class="st">'platform_number'</span><span class="op">,</span> <span class="st">'A'</span>))</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">filterDate</span>(<span class="st">'2017-01-01'</span><span class="op">,</span> <span class="st">'2022-12-31'</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">filterBounds</span>(area_teste)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Os primeiros dois filtros aplicados (<code>ee.Filter.listContains</code>) garantem que todas as imagens da coleção tenham tanto as bandas das polarizações VH e VV. Os três filtros seguintes (<code>ee.Filter.eq</code>) delimitam características específicas desejadas, sendo elas o modo interferométrico do sensor (IW), de órbita descendente (DESCENDING), da plataforma Sentinel 1A. Por fim, limitamos as imagens para datas entre 2017 e 2022, num ponto específico da região.</p>
+</section>
+<section id="pré-processamento" class="level2">
+<h2 class="anchored" data-anchor-id="pré-processamento">Pré processamento</h2>
+<p>Em seguida, precisamos realizar dois processos que podem ser inseridos na mesma função:</p>
+<ol type="1">
+<li>Filtrar valores extremamente baixos não representativos característicos do sensor SAR Sentinel 1 que aparecem nas bordas das imagens;</li>
+<li>Extrair as máscaras d’água com base nos valores das bandas VV e VH. Superfícies d’água são de fácil identificação usando essas bandas pois geralmente apresentam valores muito baixos, abaixo de -14 e -20 para as bandas VV e VH respectivamente.</li>
+</ol>
+<p>A função, portanto, é a seguinte:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Função para corrigir as imagens e extrair máscaras</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">extrairMascara</span>(im) {</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Remover valores muito baixos</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> edge <span class="op">=</span> im<span class="op">.</span><span class="fu">lt</span>(<span class="op">-</span><span class="fl">30.0</span>)<span class="op">;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> mascara <span class="op">=</span> im<span class="op">.</span><span class="fu">mask</span>()<span class="op">.</span><span class="fu">and</span>(edge<span class="op">.</span><span class="fu">not</span>())<span class="op">;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    im <span class="op">=</span> im<span class="op">.</span><span class="fu">updateMask</span>(mascara)<span class="op">;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Extrair máscara d'água</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> vv <span class="op">=</span> im<span class="op">.</span><span class="fu">select</span>(<span class="st">'VV'</span>)<span class="op">;</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> vh <span class="op">=</span> im<span class="op">.</span><span class="fu">select</span>(<span class="st">'VH'</span>)<span class="op">;</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> mascaraDagua <span class="op">=</span> vh<span class="op">.</span><span class="fu">lt</span>(<span class="op">-</span><span class="dv">20</span>)<span class="op">.</span><span class="fu">and</span>(vv<span class="op">.</span><span class="fu">lt</span>(<span class="op">-</span><span class="dv">14</span>))<span class="op">.</span><span class="fu">copyProperties</span>(im<span class="op">,</span> [<span class="st">'system:time_start'</span>])<span class="op">;</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> mascaraDagua<span class="op">;</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> mascaras <span class="op">=</span> sentinel<span class="op">.</span><span class="fu">map</span>(extrairMascara)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="primeiro-caso-frequência-média-de-água" class="level2">
+<h2 class="anchored" data-anchor-id="primeiro-caso-frequência-média-de-água">Primeiro caso: frequência média de água</h2>
+<p>De posse das máscaras d’água de toda nossa coleção, calcular a frequência média da ocorrência dos corpos d’água é simples. Basta utilizar a função de redução <code>mean</code>. Para melhorar a visualização, estaremos também utilizando uma paleta de cores customizada.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Frequência média entre 2017 e 2022</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> freqMedia <span class="op">=</span> mascaras<span class="op">.</span><span class="fu">mean</span>()<span class="op">;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> visMedia <span class="op">=</span> {</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">min</span><span class="op">:</span><span class="dv">0</span><span class="op">,</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">max</span><span class="op">:</span><span class="dv">1</span><span class="op">,</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">palette</span><span class="op">:</span>[<span class="st">'white'</span><span class="op">,</span> <span class="st">'skyblue'</span><span class="op">,</span> <span class="st">'slateblue'</span>]</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">centerObject</span>(area_teste<span class="op">,</span> <span class="dv">11</span>)<span class="op">;</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">addLayer</span>(freqMedia<span class="op">,</span> visMedia<span class="op">,</span> <span class="st">"Frequencia Média 2017-2022"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Os valores neste objeto vão de 0 a 1, representando a frequência média em que um pixel d’água foi detectado. Visualmente, quanto mais azulado o ponto, maior a frequência de água.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figs/freqmed.jpg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+<p>Usando esse mesmo produto, podemos extrair uma máscara de corpos d’água em função da frequência de sua ocorrência. Por exemplo, para extrairmos uma máscara onde a água esteve presente em 90% das imagens, podemos usar o seguinte código:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Máscara de 90% de frequência d'água</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> freq90 <span class="op">=</span> freqMedia<span class="op">.</span><span class="fu">gt</span>(<span class="fl">0.9</span>)<span class="op">.</span><span class="fu">selfMask</span>()<span class="op">;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">addLayer</span>(freq90<span class="op">,</span> {<span class="dt">palette</span><span class="op">:</span>[<span class="st">'blue'</span>]}<span class="op">,</span> <span class="st">"90% de frequência"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figs/freq90.jpg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</section>
+<section id="detalhando-a-frequência-média" class="level2">
+<h2 class="anchored" data-anchor-id="detalhando-a-frequência-média">Detalhando a frequência média</h2>
+<p>Apesar de muito úteis, o problema dos dois produtos anteriores é que somente com eles é impossível determinar a dinâmica de variação de frequência ao longo do tempo. Para fazer essa análise, podemos dividir nossa coleção em períodos distintos para observar a mudança nas frequências médias.</p>
+<section id="frequência-trienal" class="level3">
+<h3 class="anchored" data-anchor-id="frequência-trienal">Frequência trienal</h3>
+<p>Em um primeiro exemplo, podemos dividir a coleção de máscaras pela metade em dois períodos:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Divisão em triênios</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> t1 <span class="op">=</span> mascaras<span class="op">.</span><span class="fu">filterDate</span>(<span class="st">'2017-01-01'</span><span class="op">,</span> <span class="st">'2019-12-31'</span>)<span class="op">.</span><span class="fu">mean</span>()<span class="op">;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> t2 <span class="op">=</span> mascaras<span class="op">.</span><span class="fu">filterDate</span>(<span class="st">'2020-01-01'</span><span class="op">,</span> <span class="st">'2022-12-31'</span>)<span class="op">.</span><span class="fu">mean</span>()<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Agora que temos as frequências médias nestes dois períodos, a análise mais simples que podemos fazer é a de diferença das médias:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> difTrienal <span class="op">=</span> t2<span class="op">.</span><span class="fu">subtract</span>(t1)<span class="op">;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> visTrienal <span class="op">=</span> {</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">min</span><span class="op">:-</span><span class="dv">1</span><span class="op">,</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">max</span><span class="op">:</span><span class="dv">1</span><span class="op">,</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">palette</span><span class="op">:</span>[<span class="st">'red'</span><span class="op">,</span> <span class="st">'whitesmoke'</span><span class="op">,</span> <span class="st">'limegreen'</span>]</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">addLayer</span>(difTrienal<span class="op">,</span> visTrienal<span class="op">,</span> <span class="st">"Diferença entre triênios"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Note que agora temos mais detalhes da dinâmica de frequência. Valores avermelhados indicam que a presença de água foi mais frequente no primeiro período (corpos mais velhos que desapareceram), enquanto valores verdes indicam maior frequência no segundo período (corpos mais novos que surgiram). Valores brancos indicam pouca ou nenhuma mudança entre os dois períodos.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figs/freqtri.jpg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</section>
+<section id="frequência-bienal" class="level3">
+<h3 class="anchored" data-anchor-id="frequência-bienal">Frequência bienal</h3>
+<p>Podemos detalhar essa dinâmica um pouco mais dividindo nossa coleção em biênios:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Divisão em biênios</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> b1 <span class="op">=</span> mascaras<span class="op">.</span><span class="fu">filterDate</span>(<span class="st">'2017-01-01'</span><span class="op">,</span> <span class="st">'2018-12-31'</span>)<span class="op">.</span><span class="fu">mean</span>()<span class="op">.</span><span class="fu">rename</span>(<span class="st">'b1'</span>)<span class="op">;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> b2 <span class="op">=</span> mascaras<span class="op">.</span><span class="fu">filterDate</span>(<span class="st">'2019-01-01'</span><span class="op">,</span> <span class="st">'2020-12-31'</span>)<span class="op">.</span><span class="fu">mean</span>()<span class="op">.</span><span class="fu">rename</span>(<span class="st">'b2'</span>)<span class="op">;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> b3 <span class="op">=</span> mascaras<span class="op">.</span><span class="fu">filterDate</span>(<span class="st">'2021-01-01'</span><span class="op">,</span> <span class="st">'2022-12-31'</span>)<span class="op">.</span><span class="fu">mean</span>()<span class="op">.</span><span class="fu">rename</span>(<span class="st">'b3'</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Para integrar esses biênios, podemos empilhá-los em uma única imagem como se cada um fosse uma banda diferente:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> difBienal <span class="op">=</span> b1<span class="op">.</span><span class="fu">addBands</span>(b2)<span class="op">.</span><span class="fu">addBands</span>(b3)<span class="op">;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> visBienal <span class="op">=</span> {</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">min</span><span class="op">:</span><span class="fl">0.02</span><span class="op">,</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">max</span><span class="op">:</span><span class="fl">0.98</span><span class="op">,</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">bands</span><span class="op">:</span>[<span class="st">'b1'</span><span class="op">,</span> <span class="st">'b3'</span><span class="op">,</span> <span class="st">'b2'</span>]</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">addLayer</span>(difBienal<span class="op">,</span> visBienal<span class="op">,</span> <span class="st">"Mudança bienal de frequências"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Observe que agora há uma distinção maior na dinâmica de frequência. Além das cores vermelha e verde que representam maiores frequências velhas e novas respectivamente, temos também as cores magenta e ciano que representam a frequência nos períodos de transição entre o primeiro e segundo biênio; e o segundo e terceiro biênio respectivamente.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figs/freqbi.jpg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</section>
+</section>
+<section id="conclusão" class="level2">
+<h2 class="anchored" data-anchor-id="conclusão">Conclusão</h2>
+<p>Esta análise é simples e de grande utilidade por permitir observar o comportamento dos corpos d’água na Amazônia em diferentes níveis temporais. Sua rápida aplicação é possível graças à plataforma Earth Engine que permite que uma quantidade grande de imagens sejam processadas simultaneamente e de maneira quase imediata. O código completo construído nesse guia pode ser encontrado <a href="https://code.earthengine.google.com/45e999c3ee33636824d705ef6ff50c3c">neste link</a>.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
