@@ -410,7 +410,7 @@ Dicionários
 </div>
 <div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Em javascript listas são denotadas por pares <code>variável: valor</code> separados por vírgula e inseridos entre chaves (<code>{ }</code>), como observado na variável <code>visualizacao</code> no bloco anterior.</p>
+<p>Em javascript dicionários são denotados por pares <code>variável: valor</code> separados por vírgula e inseridos entre chaves (<code>{ }</code>), como observado na variável <code>visualizacao</code> no bloco anterior.</p>
 <p>Dicionários podem ser utilizados para definição de parâmetros dentro de funções.</p>
 </div>
 </div>
@@ -418,7 +418,7 @@ Dicionários
 </section>
 <section id="funções-de-plotagem" class="level2">
 <h2 class="anchored" data-anchor-id="funções-de-plotagem">Funções de plotagem</h2>
-<p>Finalmente, podemos centralizar o mapa na região de interesse usando a função <code>Map.centerObject</code> e adicionar a imagem usando a função <code>Map.Addlayer</code> que tem como parâmetros a imagem a ser exibida, os parâmetros de visualização e um nome para exibição na legenda. Juntando tudo até agora, temos o código a seguir:</p>
+<p>Finalmente, podemos centralizar o mapa na região de interesse usando a função <code>Map.centerObject</code> e adicionar a imagem usando a função <code>Map.addLayer</code> que tem como parâmetros a imagem a ser exibida, os parâmetros de visualização e um nome para exibição na legenda. Juntando tudo até agora, temos o código a seguir:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> landsat <span class="op">=</span> ee<span class="op">.</span><span class="fu">ImageCollection</span>(<span class="st">'LANDSAT/LC08/C02/T1_L2'</span>)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>              <span class="op">.</span><span class="fu">filterBounds</span>(area)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>              <span class="op">.</span><span class="fu">filterDate</span>(<span class="st">"2021-07-01"</span><span class="op">,</span> <span class="st">"2021-07-31"</span>)<span class="op">;</span></span>
