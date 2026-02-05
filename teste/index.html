@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Simulador de Quadrículas - ArcGIS JS API</title>
+  
+  <link rel="stylesheet" href="https://js.arcgis.com/4.28/esri/themes/light/main.css">
+  <script src="https://js.arcgis.com/4.28/"></script>
+  
+  <style>
+    html,
+    body,
+    #viewDiv {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+    
+    #sidebar {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      width: 350px;
+      max-height: calc(100% - 30px);
+      background-color: white;
+      padding: 20px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+      overflow-y: auto;
+      z-index: 99;
+    }
+    
+    h1 {
+      background-color: #004C78;
+      color: white;
+      padding: 8px;
+      margin: -20px -20px 15px -20px;
+      font-size: 20px;
+    }
+    
+    h3 {
+      margin-top: 20px;
+      margin-bottom: 10px;
+      color: #004C78;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 5px;
+    }
+    
+    .input-group {
+      margin-bottom: 15px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    
+    input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    
+    button {
+      padding: 10px 20px;
+      margin-right: 10px;
+      margin-bottom: 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    
+    .btn-primary {
+      background-color: #007bff;
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background-color: #0056b3;
+    }
+    
+    .btn-warning {
+      background-color: #ffc107;
+      color: black;
+    }
+    
+    .btn-warning:hover {
+      background-color: #e0a800;
+    }
+    
+    #stats {
+      background-color: #f8f9fa;
+      padding: 10px;
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 12px;
+      white-space: pre-wrap;
+    }
+    
+    .instructions {
+      padding-left: 20px;
+    }
+    
+    .definitions {
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    
+    .definitions li {
+      margin-bottom: 8px;
+    }
+  </style>
+  
+  <script>
+    require([
+      "esri/Map",
+      "esri/views/MapView",
+      "esri/layers/FeatureLayer",
+      "esri/layers/GraphicsLayer",
+      "esri/Graphic",
+      "esri/geometry/Polygon",
+      "esri/geometry/geometryEngine",
+      "esri/widgets/Sketch",
+      "esri/widgets/Legend",
+      "esri/widgets/LayerList"
+    ], function(
+      Map, MapView, FeatureLayer, GraphicsLayer, Graphic, 
+      Polygon, geometryEngine, Sketch, Legend, LayerList
+    ) {
+      
+      // Create graphics layers
+      const sketchLayer = new GraphicsLayer({
+        title: "Polígono desenhado",
+        listMode: "hide"
+      });
+      
+      const gridLayer = new GraphicsLayer({
+        title: "Grid",
+        visible: true
+      });
+      
+      const gridExternoLayer = new GraphicsLayer({
+        title: "Grid externo",
+        visible: false
+      });
+      
+      const gridInternoLayer = new GraphicsLayer({
+        title: "Grid interno",
+        visible: false
+      });
+      
+      const poligonoExternoLayer = new GraphicsLayer({
+        title: "Polígono externo",
+        visible: true
+      });
+      
+      const poligonoInternoLayer = new GraphicsLayer({
+        title: "Polígono interno",
+        visible: false
+      });
+      
+      const restricoesLayer = new GraphicsLayer({
+        title: "Restrições",
+        visible: true
+      });
+      
+      // Create feature layers (replace URLs with your Portal/Enterprise URLs)
+      const parnaLayer = new FeatureLayer({
+        url: "https://appgeo-dev.anm.gov.br/server/rest/services/Hosted/Teste_App_Pablo/FeatureServer/1",
+        // Alternative: use GeoJSON directly
+        // source: [], // Load from GeoJSON
+        title: "Unidade de proteção integral",
+        renderer: {
+          type: "simple",
+          symbol: {
+            type: "simple-fill",
+            color: [0, 128, 0, 0.4],
+            outline: {
+              color: [0, 100, 0],
+              width: 3
+            }
+          }
+        },
+        popupTemplate: {
+          title: "Unidade de proteção integral"
+        }
+      });
+      
+      const rebioLayer = new FeatureLayer({
+        url: "https://appgeo-dev.anm.gov.br/server/rest/services/Hosted/Teste_App_Pablo/FeatureServer/0",
+        title: "Unidade de uso sustentável",
+        renderer: {
+          type: "simple",
+          symbol: {
+            type: "simple-fill",
+            color: [144, 238, 144, 0.4],
+            outline: {
+              color: [0, 100, 0],
+              width: 3
+            }
+          }
+        },
+        popupTemplate: {
+          title: "Unidade de uso sustentável"
+        }
+      });
+      
+      const concLavraLayer = new FeatureLayer({
+        url: "https://appgeo-dev.anm.gov.br/server/rest/services/Hosted/Teste_App_Pablo/FeatureServer/2",
+        title: "Concessão de lavra",
+        renderer: {
+          type: "simple",
+          symbol: {
+            type: "simple-fill",
+            color: [255, 0, 0, 0.4],
+            outline: {
+              color: [139, 0, 0],
+              width: 3
+            }
+          }
+        },
+        popupTemplate: {
+          title: "Concessão de lavra"
+        }
+      });
+      
+      // Create map
+      const map = new Map({
+        basemap: "satellite",
+        layers: [
+          parnaLayer,
+          rebioLayer,
+          concLavraLayer,
+          gridLayer,
+          gridExternoLayer,
+          gridInternoLayer,
+          restricoesLayer,
+          poligonoExternoLayer,
+          poligonoInternoLayer,
+          sketchLayer
+        ]
+      });
+      
+      // Create view
+      const view = new MapView({
+        container: "viewDiv",
+        map: map,
+        center: [-47.88809687398768, -15.585406649040735],
+        zoom: 16
+      });
+      
+      // Add sketch widget
+      const sketch = new Sketch({
+        layer: sketchLayer,
+        view: view,
+        creationMode: "single",
+        availableCreateTools: ["polygon", "rectangle"]
+      });
+      
+      view.ui.add(sketch, "top-right");
+      
+      // Add legend
+      const legend = new Legend({
+        view: view
+      });
+      
+      view.ui.add(legend, "bottom-left");
+      
+      // Add layer list
+      const layerList = new LayerList({
+        view: view
+      });
+      
+      view.ui.add(layerList, "top-right");
+      
+      // Store drawn polygon
+      let drawnPolygon = null;
+      let gridResult = null;
+      
+      // Listen to sketch create event
+      sketch.on("create", function(event) {
+        if (event.state === "complete") {
+          drawnPolygon = event.graphic.geometry;
+          document.getElementById("message").textContent = "Polígono pronto, clique em 'Converter'.";
+        }
+      });
+      
+      // Function to check restrictions
+      async function checkRestriction(gridCells) {
+        const parnaGeometries = [];
+        const rebioGeometries = [];
+        const concGeometries = [];
+        
+        // Query feature layers
+        try {
+          const parnaQuery = parnaLayer.createQuery();
+          parnaQuery.returnGeometry = true;
+          parnaQuery.outFields = ["*"];
+          const parnaResults = await parnaLayer.queryFeatures(parnaQuery);
+          parnaResults.features.forEach(f => parnaGeometries.push(f.geometry));
+          
+          const rebioQuery = rebioLayer.createQuery();
+          rebioQuery.returnGeometry = true;
+          rebioQuery.outFields = ["*"];
+          const rebioResults = await rebioLayer.queryFeatures(rebioQuery);
+          rebioResults.features.forEach(f => rebioGeometries.push(f.geometry));
+          
+          const concQuery = concLavraLayer.createQuery();
+          concQuery.returnGeometry = true;
+          concQuery.outFields = ["*"];
+          const concResults = await concLavraLayer.queryFeatures(concQuery);
+          concResults.features.forEach(f => concGeometries.push(f.geometry));
+        } catch (error) {
+          console.error("Error querying feature layers:", error);
+        }
+        
+        const restricaoTotal = [];
+        const restricaoParcial = [];
+        const semRestricao = [];
+        
+        gridCells.forEach(cell => {
+          let intersectsParna = false;
+          let intersectsRebio = false;
+          let intersectsConc = false;
+          
+          parnaGeometries.forEach(geom => {
+            if (geometryEngine.intersects(cell, geom)) {
+              intersectsParna = true;
+            }
+          });
+          
+          rebioGeometries.forEach(geom => {
+            if (geometryEngine.intersects(cell, geom)) {
+              intersectsRebio = true;
+            }
+          });
+          
+          concGeometries.forEach(geom => {
+            if (geometryEngine.intersects(cell, geom)) {
+              intersectsConc = true;
+            }
+          });
+          
+          if (intersectsParna || intersectsConc) {
+            restricaoTotal.push(cell);
+          } else if (intersectsRebio) {
+            restricaoParcial.push(cell);
+          } else {
+            semRestricao.push(cell);
+          }
+        });
+        
+        return {
+          restricaoTotal: restricaoTotal,
+          restricaoParcial: restricaoParcial,
+          semRestricao: semRestricao
+        };
+      }
+      
+      // Function to snap polygon to grid
+      async function snapPolygonToGrid(polygon, cellSize) {
+        const extent = polygon.extent;
+        
+        // Calculate grid-aligned boundaries
+        const xmin = Math.floor(extent.xmin / cellSize) * cellSize;
+        const ymin = Math.floor(extent.ymin / cellSize) * cellSize;
+        const xmax = Math.ceil(extent.xmax / cellSize) * cellSize;
+        const ymax = Math.ceil(extent.ymax / cellSize) * cellSize;
+        
+        // Create grid cells
+        const gridCells = [];
+        const intersectingCells = [];
+        const withinCells = [];
+        
+        for (let x = xmin; x < xmax; x += cellSize) {
+          for (let y = ymin; y < ymax; y += cellSize) {
+            const cellRings = [[
+              [x, y],
+              [x + cellSize, y],
+              [x + cellSize, y + cellSize],
+              [x, y + cellSize],
+              [x, y]
+            ]];
+            
+            const cellPolygon = new Polygon({
+              rings: cellRings,
+              spatialReference: polygon.spatialReference
+            });
+            
+            gridCells.push(cellPolygon);
+            
+            if (geometryEngine.intersects(cellPolygon, polygon)) {
+              intersectingCells.push(cellPolygon);
+            }
+            
+            if (geometryEngine.within(cellPolygon, polygon)) {
+              withinCells.push(cellPolygon);
+            }
+          }
+        }
+        
+        // Check restrictions
+        const intersectingRest = await checkRestriction(intersectingCells);
+        const withinRest = await checkRestriction(withinCells);
+        
+        // Dissolve polygons
+        let dissolved = null;
+        let dissolvedWithin = null;
+        
+        if (intersectingRest.semRestricao.length > 0) {
+          dissolved = geometryEngine.union(intersectingRest.semRestricao);
+          dissolved = geometryEngine.simplify(dissolved);
+        }
+        
+        if (withinRest.semRestricao.length > 0) {
+          dissolvedWithin = geometryEngine.union(withinRest.semRestricao);
+          dissolvedWithin = geometryEngine.simplify(dissolvedWithin);
+        }
+        
+        return {
+          grid: gridCells,
+          intersecting: intersectingRest.semRestricao,
+          within: withinRest.semRestricao,
+          dissolved: dissolved,
+          dissolvedWithin: dissolvedWithin,
+          restricaoTotal: intersectingRest.restricaoTotal,
+          restricaoParcial: intersectingRest.restricaoParcial
+        };
+      }
+      
+      // Function to update map layers
+      function updateMapLayers(result) {
+        // Clear layers
+        gridLayer.removeAll();
+        gridExternoLayer.removeAll();
+        gridInternoLayer.removeAll();
+        poligonoExternoLayer.removeAll();
+        poligonoInternoLayer.removeAll();
+        restricoesLayer.removeAll();
+        
+        // Add grid
+        result.grid.forEach(cell => {
+          const graphic = new Graphic({
+            geometry: cell,
+            symbol: {
+              type: "simple-fill",
+              color: [128, 128, 128, 0.1],
+              outline: {
+                color: [128, 128, 128],
+                width: 1
+              }
+            }
+          });
+          gridLayer.add(graphic);
+        });
+        
+        // Add grid externo
+        result.intersecting.forEach(cell => {
+          const graphic = new Graphic({
+            geometry: cell,
+            symbol: {
+              type: "simple-fill",
+              color: [0, 0, 255, 0],
+              outline: {
+                color: [0, 255, 255],
+                width: 1
+              }
+            }
+          });
+          gridExternoLayer.add(graphic);
+        });
+        
+        // Add grid interno
+        result.within.forEach(cell => {
+          const graphic = new Graphic({
+            geometry: cell,
+            symbol: {
+              type: "simple-fill",
+              color: [0, 0, 255, 0],
+              outline: {
+                color: [255, 0, 255],
+                width: 1
+              }
+            }
+          });
+          gridInternoLayer.add(graphic);
+        });
+        
+        // Add restricoes
+        result.restricaoTotal.forEach(cell => {
+          const graphic = new Graphic({
+            geometry: cell,
+            symbol: {
+              type: "simple-fill",
+              color: [0, 0, 0, 0.5],
+              outline: {
+                color: [0, 0, 0, 0.2],
+                width: 1
+              }
+            }
+          });
+          restricoesLayer.add(graphic);
+        });
+        
+        result.restricaoParcial.forEach(cell => {
+          const graphic = new Graphic({
+            geometry: cell,
+            symbol: {
+              type: "simple-fill",
+              color: [255, 255, 0, 0.5],
+              outline: {
+                width: 0
+              }
+            }
+          });
+          restricoesLayer.add(graphic);
+        });
+        
+        // Add poligono externo
+        if (result.dissolved) {
+          const graphic = new Graphic({
+            geometry: result.dissolved,
+            symbol: {
+              type: "simple-fill",
+              color: [0, 0, 255, 0.1],
+              outline: {
+                color: [0, 255, 255],
+                width: 3
+              }
+            }
+          });
+          poligonoExternoLayer.add(graphic);
+        }
+        
+        // Add poligono interno
+        if (result.dissolvedWithin) {
+          const graphic = new Graphic({
+            geometry: result.dissolvedWithin,
+            symbol: {
+              type: "simple-fill",
+              color: [0, 0, 255, 0],
+              outline: {
+                color: [255, 0, 255],
+                width: 3
+              }
+            }
+          });
+          poligonoInternoLayer.add(graphic);
+        }
+      }
+      
+      // Function to calculate statistics
+      function calculateStats(result, polygon) {
+        let stats = "Sem polígono por enquanto.";
+        
+        if (result) {
+          const areaSqm = geometryEngine.planarArea(result.dissolved, "square-meters");
+          const areaHa = areaSqm / 1e4;
+          
+          const areaOrigSqm = geometryEngine.planarArea(polygon, "square-meters");
+          const areaOrigHa = areaOrigSqm / 1e4;
+          
+          const areaInternoSqm = result.dissolvedWithin ? 
+            geometryEngine.planarArea(result.dissolvedWithin, "square-meters") : 0;
+          const areaInternoHa = areaInternoSqm / 1e4;
+          
+          const nVertices = result.dissolved.rings[0].length - 1;
+          const nVerticesOrig = polygon.rings[0].length - 1;
+          const nVerticesInterno = result.dissolvedWithin ? 
+            result.dissolvedWithin.rings[0].length - 1 : 0;
+          
+          const nIntersecting = result.intersecting.length;
+          const nWithin = result.within.length;
+          
+          const areaQuadricula = areaSqm / nIntersecting;
+          const cellSize = document.getElementById("cellSize").value;
+          
+          stats = `Polígono original:
+  Vértices: ${nVerticesOrig}
+  Área: ${areaOrigHa.toFixed(2)} hectares
+
+Polígono externo:
+  Vértices: ${nVertices}
+  Área: ${areaHa.toFixed(2)} hectares
+  Número de quadrículas: ${nIntersecting}
+
+Polígono interno:
+  Vértices: ${nVerticesInterno}
+  Área: ${areaInternoHa.toFixed(2)} hectares
+  Número de quadrículas: ${nWithin}
+
+Tamanho da quadrícula: ${cellSize} segundo de arco
+Área média da quadrícula: ${areaQuadricula.toFixed(2)} m²`;
+        }
+        
+        document.getElementById("stats").textContent = stats;
+      }
+      
+      // Convert button click handler
+      document.getElementById("snapBtn").addEventListener("click", async function() {
+        if (!drawnPolygon) {
+          alert("Desenhe um polígono primeiro!");
+          return;
+        }
+        
+        document.getElementById("message").textContent = "Convertendo...";
+        
+        const cellSize = parseFloat(document.getElementById("cellSize").value);
+        const cellSizeDegrees = cellSize / 3600;
+        
+        try {
+          gridResult = await snapPolygonToGrid(drawnPolygon, cellSizeDegrees);
+          updateMapLayers(gridResult);
+          calculateStats(gridResult, drawnPolygon);
+          document.getElementById("message").textContent = "Polígono convertido!";
+        } catch (error) {
+          console.error("Error:", error);
+          document.getElementById("message").textContent = "Erro ao converter!";
+        }
+      });
+      
+      // Clear button click handler
+      document.getElementById("clearBtn").addEventListener("click", function() {
+        drawnPolygon = null;
+        gridResult = null;
+        
+        sketchLayer.removeAll();
+        gridLayer.removeAll();
+        gridExternoLayer.removeAll();
+        gridInternoLayer.removeAll();
+        poligonoExternoLayer.removeAll();
+        poligonoInternoLayer.removeAll();
+        restricoesLayer.removeAll();
+        
+        document.getElementById("stats").textContent = "Sem polígono por enquanto.";
+        document.getElementById("message").textContent = "Mapa limpo!";
+      });
+      
+    });
+  </script>
+</head>
+<body>
+  <div id="viewDiv"></div>
+  
+  <div id="sidebar">
+    <h1>Simulador de quadrículas</h1>
+    
+    <div class="input-group">
+      <label for="cellSize">Tamanho da quadrícula (segundos de arco):</label>
+      <input type="number" id="cellSize" min="1" max="3600" value="1" step="1">
+    </div>
+    
+    <button id="snapBtn" class="btn-primary">Converter</button>
+    <button id="clearBtn" class="btn-warning">Limpar Mapa</button>
+    
+    <div id="message" style="margin-top: 10px; color: #666; font-style: italic;"></div>
+    
+    <h3>Instruções:</h3>
+    <ol class="instructions">
+      <li>Use as ferramentas de desenho no mapa para desenhar um polígono</li>
+      <li>Ajuste o tamanho da quadrícula se necessário</li>
+      <li>Clique em 'Converter' para simular os polígonos no sistema de quadrículas</li>
+    </ol>
+    
+    <h3>Estatísticas:</h3>
+    <div id="stats">Sem polígono por enquanto.</div>
+    
+    <h3>Definições:</h3>
+    <ul class="definitions">
+      <li><strong>Polígono externo:</strong> menor conjunto de quadrículas que cobre toda a área desejada</li>
+      <li><strong>Polígono interno:</strong> conjunto de quadrículas que cobre a maior área dentro da área desejada</li>
+      <li><strong>Grid:</strong> malha de quadrículas, usando o tamanho de quadrícula definido</li>
+    </ul>
+  </div>
+</body>
+</html>
