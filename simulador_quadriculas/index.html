@@ -48,8 +48,6 @@
     </style>
     <link rel="stylesheet" href="https://js.arcgis.com/4.34/esri/themes/light/main.css" />
     <script src="https://js.arcgis.com/4.34/"></script>
-  </head>
-  <body>
     <script>
       require([
         "esri/Map",
@@ -376,7 +374,14 @@
                 }
 
                 // Count vertices in union polygon
-                const unionVertexCount = unionedGrid.rings.reduce((sum, ring) => sum + ring.length - 1, 0);
+                const dissolvedGrid = geometryEngine.generalize(unionedGrid, 0.00001, true);
+                const unionVertexCount = dissolvedGrid.rings.reduce((sum, ring) => sum + ring.length - 1, 0);
+                // let unionVertexCount = 0;
+
+                // unionedGrid.rings.forEach(ring => {
+                //   unionVertexCount += ring.length - 1;
+                // });
+
                 const unionArea = geometryEngine.geodesicArea(unionedGrid, "hectares").toFixed(2);
 
                 document.getElementById("unionVertices").textContent = unionVertexCount;
@@ -406,6 +411,8 @@
         }
       });
     </script>
+  </head>
+  <body>
     <div id="viewDiv"></div>
     <div id="controls">
       <div id="stats">
@@ -413,7 +420,7 @@
         <p>Vértices do polígono desenhado: <span id="drawnVertices">0</span></p>
         <p>Vértices do polígono de quadrículas: <span id="unionVertices">0</span></p>
         <p>Quadrículas intersectadas: <span id="totalCells">0</span></p>
-        <p>Quadrículas sem restrição total: <span id="allowedCells">0</span></p>
+        <p>Quadrículas sem restrição: <span id="allowedCells">0</span></p>
         <p>Area do polígono desenhado: <span id="drawnArea">0</span></p>
         <p>Area do polígono de quadrículas: <span id="unionArea">0</span></p>
       </div>
@@ -422,6 +429,3 @@
     </div>
   </body>
 </html>
-
-
-
