@@ -385,11 +385,6 @@
                 // Count vertices in union polygon
                 const dissolvedGrid = geometryEngine.generalize(unionedGrid, 0.00001, true);
                 const unionVertexCount = dissolvedGrid.rings.reduce((sum, ring) => sum + ring.length - 1, 0);
-                // let unionVertexCount = 0;
-
-                // unionedGrid.rings.forEach(ring => {
-                //   unionVertexCount += ring.length - 1;
-                // });
 
                 const unionArea = geometryEngine.geodesicArea(unionedGrid, "hectares").toFixed(2);
 
@@ -440,3 +435,4 @@
     </div>
   </body>
 </html>
+
