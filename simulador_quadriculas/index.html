@@ -128,6 +128,14 @@
                   outline: { color: [255, 0, 0], width: 2 },
                 },
               },
+              {
+                value: "Área de Bloqueio",
+                symbol: {
+                  type: "simple-fill",
+                  color: [255, 0, 255, 0.5],
+                  outline: { color: [255, 0, 255], width: 2 },
+                },
+              },
             ],
           },
         });
@@ -424,10 +432,11 @@
         <p>Quadrículas sem restrição total: <span id="allowedCells">0</span></p>
         <p>Area do polígono desenhado: <span id="drawnArea">0</span></p>
         <p>Area do polígono de quadrículas: <span id="unionArea">0</span></p>
+        <br />
+        <p>Obs: as áreas exemplo nesse mapa não necessariamente condizem com a realidade</p>
       </div>
       <hr />
       <button id="clearBtn">Limpar tudo</button>
     </div>
   </body>
 </html>
-
