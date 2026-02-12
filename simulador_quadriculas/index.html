@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>Simulador de Quadrículas</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text x=%2250%25%22 text-anchor=%22middle%22 y=%22.9em%22 font-size=%2290%22>🌐</text></svg>">
     <style>
       html,
       body,
@@ -76,7 +77,7 @@
         projection,
         SpatialReference,
         Legend,
-        LayerList, // Add this
+        LayerList,
       ) => {
         const unionLayer = new FeatureLayer({
           title: "Polígono sugerido",
@@ -89,11 +90,7 @@
           ],
           renderer: {
             type: "simple",
-            symbol: {
-              type: "simple-fill",
-              color: [0, 255, 255, 0],
-              outline: { color: [0, 255, 255], width: 2 },
-            },
+            symbol: { type: "simple-fill", color: [0, 255, 255, 0], outline: { color: [0, 255, 255], width: 2 } },
           },
         });
 
@@ -106,43 +103,25 @@
             uniqueValueInfos: [
               {
                 value: "UC Integral",
-                symbol: {
-                  type: "simple-fill",
-                  color: [0, 100, 13, 0.5],
-                  outline: { color: [0, 100, 13], width: 2 },
-                },
+                symbol: { type: "simple-fill", color: [0, 100, 13, 0.5], outline: { color: [0, 100, 13], width: 2 } },
               },
               {
                 value: "UC Sustentável",
-                symbol: {
-                  type: "simple-fill",
-                  color: [0, 216, 29, 0.5],
-                  outline: { color: [0, 216, 29], width: 2 },
-                },
+                symbol: { type: "simple-fill", color: [0, 216, 29, 0.5], outline: { color: [0, 216, 29], width: 2 } },
               },
               {
                 value: "Concessão de Lavra",
-                symbol: {
-                  type: "simple-fill",
-                  color: [255, 0, 0, 0.5],
-                  outline: { color: [255, 0, 0], width: 2 },
-                },
+                symbol: { type: "simple-fill", color: [255, 0, 0, 0.5], outline: { color: [255, 0, 0], width: 2 } },
               },
               {
                 value: "Área de Bloqueio",
-                symbol: {
-                  type: "simple-fill",
-                  color: [255, 0, 255, 0.5],
-                  outline: { color: [255, 0, 255], width: 2 },
-                },
+                symbol: { type: "simple-fill", color: [255, 0, 255, 0.5], outline: { color: [255, 0, 255], width: 2 } },
               },
             ],
           },
         });
 
-        const sketchLayer = new GraphicsLayer({
-          title: "Polígono desenhado",
-        });
+        const sketchLayer = new GraphicsLayer({ title: "Polígono desenhado" });
 
         const gridCellsLayer = new FeatureLayer({
           title: "Restrições",
@@ -152,30 +131,22 @@
           fields: [
             { name: "ObjectID", type: "oid" },
             { name: "cellId", type: "string" },
-            { name: "restricao", type: "string" }, // Add this field
+            { name: "restricao", type: "string" },
           ],
           renderer: {
-            type: "unique-value", // Change to unique-value
+            type: "unique-value",
             field: "restricao",
             defaultLabel: "Sem restrição",
             uniqueValueInfos: [
               {
                 value: "total",
                 label: "Total",
-                symbol: {
-                  type: "simple-fill",
-                  color: [0, 0, 0, 0.4],
-                  outline: { color: [0, 0, 0], width: 1 },
-                },
+                symbol: { type: "simple-fill", color: [0, 0, 0, 0.4], outline: { color: [0, 0, 0], width: 1 } },
               },
               {
                 value: "parcial",
                 label: "Parcial",
-                symbol: {
-                  type: "simple-fill",
-                  color: [255, 165, 0, 0.4],
-                  outline: { color: [255, 165, 0], width: 1 },
-                },
+                symbol: { type: "simple-fill", color: [255, 165, 0, 0.4], outline: { color: [255, 165, 0], width: 1 } },
               },
             ],
             defaultSymbol: {
@@ -196,32 +167,20 @@
           },
         );
 
-        const map = new Map({
-          basemap: "hybrid",
-          layers: [geojsonLayer, gridCellsLayer, unionLayer, sketchLayer],
-        });
+        const map = new Map({ basemap: "hybrid", layers: [geojsonLayer, gridCellsLayer, unionLayer, sketchLayer] });
 
-        const view = new MapView({
-          container: "viewDiv",
-          map: map,
-          center: [-47.9151, -15.6094],
-          zoom: 14,
-        });
+        const view = new MapView({ container: "viewDiv", map: map, center: [-47.9151, -15.6094], zoom: 14 });
 
-        const legend = new Legend({
-          view: view,
-        });
+        const legend = new Legend({ view: view });
 
-        const layerList = new LayerList({
-          view: view,
-          visibilityAppearance: "checkbox",
-        });
+        const layerList = new LayerList({ view: view, visibilityAppearance: "checkbox" });
 
         const sketch = new Sketch({
           layer: sketchLayer,
           view: view,
           creationMode: "single",
           availableCreateTools: ["polygon", "rectangle", "circle"],
+          visibleElements: { selectionTools: { "rectangle-selection": false, "lasso-selection": false } },
         });
 
         view.ui.add(sketch, "bottom-left");
@@ -229,7 +188,7 @@
         view.ui.add(layerList, "top-right");
         view.ui.remove("zoom");
 
-        // Controls
+        // Clear button
         document.getElementById("clearBtn").onclick = () => {
           sketchLayer.removeAll();
           gridCellsLayer.queryFeatures().then((result) => {
@@ -266,7 +225,7 @@
           }
 
           // Count vertices in drawn polygon
-          const drawnVertexCount = polygon.rings.reduce((sum, ring) => sum + ring.length - 1, 0); // -1 because first and last are same
+          const drawnVertexCount = polygon.rings.reduce((sum, ring) => sum + ring.length - 1, 0);
           document.getElementById("drawnVertices").textContent = drawnVertexCount;
 
           const drawnArea = geometryEngine.geodesicArea(polygon, "hectares").toFixed(2);
@@ -347,11 +306,7 @@
 
                   cellFeatures.push({
                     geometry: displayCell,
-                    attributes: {
-                      ObjectID: objectIdCounter++,
-                      cellId: `cell_${i}_${j}`,
-                      restricao: restricao,
-                    },
+                    attributes: { ObjectID: objectIdCounter++, cellId: `cell_${i}_${j}`, restricao: restricao },
                   });
                 }
               }
@@ -395,10 +350,7 @@
                   addFeatures: [
                     {
                       geometry: unionedGrid,
-                      attributes: {
-                        ObjectID: objectIdCounter++,
-                        cellCount: allowedCells.length,
-                      },
+                      attributes: { ObjectID: objectIdCounter++, cellCount: allowedCells.length },
                     },
                   ],
                 });
@@ -435,4 +387,3 @@
     </div>
   </body>
 </html>
-
